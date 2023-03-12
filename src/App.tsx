@@ -1,42 +1,25 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
-import logoIcon from './assets/icons/logo-icon.png';
+// import Header from './components/Header';
 
-function App() {
-  return (
-    <header className="header">
-      <div className="logo">
-        <img className="logo__img" alt="Logo" src={logoIcon} />
-        <h1 className="logo__title">
-          Beautiful
-          <br />
-          places
-        </h1>
-      </div>
-      <div className="search-bar">
-        <div className="search-bar__wrapper">
-          <input type="text" className="search-bar__input" placeholder="Search anything..." />
-          <button className="search-bar__submit">
-            <i className="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-      <nav className="nav">
-        <ul className="nav__list">
-          <li className="nav__item">
-            <a href="#" className="nav__link">
-              Home
-            </a>
-          </li>
-          <li className="nav__item">
-            <a href="#" className="nav__link">
-              About Us
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
+import MainLayout from './layouts/MainLayout';
+import HomePage from './pages/HomePage';
+import ErrorPage from './pages/ErrorPage';
+import AboutPage from './pages/AboutPage';
+
+class App extends React.Component {
+  render() {
+    return (
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route path="" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
+    );
+  }
 }
 
 export default App;
