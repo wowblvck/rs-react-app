@@ -1,0 +1,36 @@
+@use '../../scss/mixins' as mix;
+@import '../../scss/variables';
+
+.description {
+  box-sizing: border-box;
+  padding: 25px;
+  grid-area: description;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../assets/img/bg-description.jpg') no-repeat center center;
+  background-size: cover;
+  height: $description-size;
+}
+
+.descriptionContent {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+
+  &__title {
+    margin: 0;
+    color: #ffffff;
+    @include mix.font('Rubik', 48px, 500);
+  }
+
+  &__subtitle {
+    margin: 15px 0 0;
+    color: #ffffff;
+    @include mix.font('Rubik', 24px, 400);
+  }
+
+  &__searchBar {
+    margin-top: 30px;
+  }
+}
