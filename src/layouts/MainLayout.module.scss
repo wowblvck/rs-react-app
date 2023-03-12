@@ -1,0 +1,18 @@
+.layout {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'header'
+    'main';
+  //'main'
+  //'footer';
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: 'description';
+}
