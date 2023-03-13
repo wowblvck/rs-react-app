@@ -54,7 +54,7 @@
     border: 0;
     flex-grow: 1;
     outline: 0;
-    padding-left: 10px;
+    padding-left: 15px;
     background: transparent;
     width: 100%;
 
@@ -76,6 +76,7 @@
   &__submit {
     font-size: 20px;
     margin-left: auto;
+    margin-right: 10px;
     background: 0;
     border: 0;
     border-radius: 50%;
@@ -90,6 +91,7 @@
     }
 
     &_minimize {
+      margin-right: 0;
       cursor: pointer;
       transition: background 200ms ease-out;
       color: rgba(0, 0, 0, 0.65);
