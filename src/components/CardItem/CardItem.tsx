@@ -1,29 +1,52 @@
 import React from 'react';
 import styles from './CardItem.module.scss';
-import istanbul from '../../assets/img/istambul.jpg';
-import profilePhoto from '../../assets/img/photo_profile.jpg';
+import { PlacesInfo } from '../../interfaces/Places.interface';
 
-class CardItem extends React.Component {
+interface CardItemProps {
+  obj: PlacesInfo;
+}
+
+class CardItem extends React.Component<CardItemProps> {
+  getDayBetweenDates = (date: string) => {
+    const postDate = new Date(date);
+    const currentDate = new Date();
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    const dayBetween = Math.round(
+      Math.abs((currentDate.getTime() - postDate.getTime()) / millisecondsPerDay)
+    );
+    return dayBetween === 0
+      ? `today`
+      : dayBetween === 1
+      ? `1 day ago`
+      : dayBetween < 6
+      ? `${dayBetween} days ago`
+      : date;
+  };
+
   render() {
+    const { country, location, image, description, author, date } = this.props.obj;
+
     return (
       <li className={styles.cardItem}>
         <div className={styles.cardItem__imageContainer}>
-          <img className={styles.cardItem__image} src={istanbul} alt="Card Image - Istanbul" />
+          <img className={styles.cardItem__image} src={image} alt="Card Image - Istanbul" />
         </div>
         <div className={styles.cardItem__content}>
           <div className={styles.cardItem__header}>
-            <p className={styles.cardItem__country}>TURKEY</p>
-            <p className={styles.cardItem__date}>3 days ago</p>
+            <p className={styles.cardItem__country}>{country}</p>
+            <p className={styles.cardItem__date}>{this.getDayBetweenDates(date)}</p>
           </div>
-          <p className={styles.cardItem__location}>Istanbul</p>
-          <p className={styles.cardItem__description}>
-            Doodle characters doing some online shopping! An illustration system based on all things
-            eCommerce.
-          </p>
+          <p className={styles.cardItem__location}>{location}</p>
+          <p className={styles.cardItem__description}>{description}</p>
           <div className={styles.cardItem__userInfo}>
             <div className={styles.cardItem__userProfile}>
-              <img className={styles.cardItem__userImage} src={profilePhoto} alt="Profile Photo" />
-              <p className={styles.cardItem__userName}>Susana Salas</p>
+              <img className={styles.cardItem__userImage} src={author.avatar} alt="Profile Photo" />
+              <p className={styles.cardItem__userName}>
+                {author.first_name}
+                <br />
+                {author.last_name}
+              </p>
             </div>
             <div className={styles.cardItem__options}>
               <svg
