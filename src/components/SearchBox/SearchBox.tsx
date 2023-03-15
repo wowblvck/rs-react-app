@@ -8,7 +8,37 @@ type SearchBoxProps = {
   className?: string;
 };
 
-class SearchBox extends React.Component<SearchBoxProps> {
+type SearchBoxState = {
+  searchValue: string;
+};
+
+class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
+  state = {
+    searchValue: '',
+  };
+  componentDidMount() {
+    const storedValue = localStorage.getItem('searchValue');
+    if (storedValue) {
+      this.setState({ searchValue: storedValue });
+    }
+  }
+  componentWillUnmount() {
+    if (this.state.searchValue) {
+      localStorage.setItem('searchValue', this.state.searchValue);
+    }
+  }
+
+  onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (!value.length) {
+      const storedValue = localStorage.getItem('searchValue');
+      if (storedValue) {
+        localStorage.removeItem('searchValue');
+      }
+    }
+    this.setState({ searchValue: value });
+  };
+
   render() {
     const { white, minimize, className } = this.props;
     return (
@@ -25,6 +55,8 @@ class SearchBox extends React.Component<SearchBoxProps> {
         >
           <input
             type="text"
+            value={this.state.searchValue}
+            onChange={this.onChangeValue}
             className={classNames(styles.searchBar__input, {
               [styles.searchBar__input_white]: white,
               [styles.searchBar__input_minimize]: minimize,
