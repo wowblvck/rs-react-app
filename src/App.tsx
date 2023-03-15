@@ -1,44 +1,41 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './scss/app.scss';
 
 import HomePage from './pages/HomePage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import AboutPage from './pages/AboutPage';
-import Header from './components/Header/Header';
+import RootLayout from './layouts/RootLayout';
 
-export const routes = {
-  home: {
+export const routesArray = [
+  {
     path: '/',
-    name: 'Home',
-    element: <HomePage />,
+    element: <RootLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+        name: 'Home',
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
+        name: 'About',
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
+        name: '404',
+      },
+    ],
   },
-  about: {
-    path: '/about',
-    name: 'About',
-    element: <AboutPage />,
-  },
-  error: {
-    path: '*',
-    name: '404',
-    element: <ErrorPage />,
-  },
-};
+];
+
+export const router = createBrowserRouter(routesArray);
 
 class App extends React.Component {
   render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <main>
-          <Routes>
-            <Route path={routes.home.path} element={routes.home.element} />
-            <Route path={routes.about.path} element={routes.about.element} />
-            <Route path={routes.error.path} element={routes.error.element} />
-          </Routes>
-        </main>
-      </React.Fragment>
-    );
+    return <RouterProvider router={router} />;
   }
 }
 
