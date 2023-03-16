@@ -2,6 +2,7 @@ import React from 'react';
 import logoIcon from '../../assets/icons/logo-icon.png';
 
 import styles from './Header.module.scss';
+import effects from '../../scss/common/Effects.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import SearchBox from '../SearchBox/SearchBox';
 import { routesArray } from '../../App';
@@ -51,7 +52,9 @@ class Header extends React.Component<WithRouterProps> {
                 to="/"
                 end
                 className={({ isActive }) =>
-                  isActive ? `${styles.nav__link} ${styles.nav__link_active}` : styles.nav__link
+                  isActive
+                    ? `${styles.nav__link} ${effects.linkHover} ${effects.linkHover_active}`
+                    : `${styles.nav__link} ${effects.linkHover}`
                 }
               >
                 Home
@@ -62,7 +65,9 @@ class Header extends React.Component<WithRouterProps> {
                 to="/about"
                 end
                 className={({ isActive }) =>
-                  isActive ? `${styles.nav__link} ${styles.nav__link_active}` : styles.nav__link
+                  isActive
+                    ? `${styles.nav__link} ${effects.linkHover} ${effects.linkHover_active}`
+                    : `${styles.nav__link} ${effects.linkHover}`
                 }
               >
                 About Us
