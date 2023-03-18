@@ -1,41 +1,25 @@
 import React from 'react';
 import styles from './CardItem.module.scss';
 import { PlacesInfo } from '../../interfaces/Places.interface';
+import { getDayBetweenDates } from '../../utils/functions';
 
 type CardItemProps = {
   obj: PlacesInfo;
 };
 
 class CardItem extends React.Component<CardItemProps> {
-  getDayBetweenDates = (date: string) => {
-    const postDate = new Date(date);
-    const currentDate = new Date();
-
-    const millisecondsPerDay = 24 * 60 * 60 * 1000;
-    const dayBetween = Math.round(
-      Math.abs((currentDate.getTime() - postDate.getTime()) / millisecondsPerDay)
-    );
-    return dayBetween === 0
-      ? `today`
-      : dayBetween === 1
-      ? `1 day ago`
-      : dayBetween < 6
-      ? `${dayBetween} days ago`
-      : date;
-  };
-
   render() {
     const { country, location, image, description, author, date } = this.props.obj;
 
     return (
-      <li className={styles.cardItem}>
+      <li className={styles.cardItem} data-testid="card-item">
         <div className={styles.cardItem__imageContainer}>
           <img className={styles.cardItem__image} src={image} alt="Card Image - Istanbul" />
         </div>
         <div className={styles.cardItem__content}>
           <div className={styles.cardItem__header}>
             <p className={styles.cardItem__country}>{country}</p>
-            <p className={styles.cardItem__date}>{this.getDayBetweenDates(date)}</p>
+            <p className={styles.cardItem__date}>{getDayBetweenDates(date)}</p>
           </div>
           <p className={styles.cardItem__location}>{location}</p>
           <p className={styles.cardItem__description}>{description}</p>
