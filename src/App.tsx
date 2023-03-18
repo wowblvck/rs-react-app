@@ -38,7 +38,9 @@ export const routesArray = [
   },
 ];
 
-export const router = createBrowserRouter(routesArray);
+export const router = createBrowserRouter(routesArray, {
+  basename: '/',
+});
 
 class App extends React.Component {
   render() {
