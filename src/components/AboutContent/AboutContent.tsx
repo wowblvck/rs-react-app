@@ -10,7 +10,7 @@ class AboutContent extends React.Component {
   render() {
     return (
       <section className={styles.aboutContent} data-testid="about-content">
-        <div className={classNames(styles.container, styles.aboutContent__container)}>
+        <div className={styles.container}>
           <div className={styles.aboutContent__imageWrapper}>
             <img className={styles.aboutContent__image} src={randomBg()} alt="About image" />
           </div>
