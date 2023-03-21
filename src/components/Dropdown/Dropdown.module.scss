@@ -1,0 +1,33 @@
+@use '../../scss/mixins' as mix;
+
+.dropdownSelect {
+  position: relative;
+  max-width: 200px;
+  margin-top: 10px;
+
+  &__list {
+    appearance: none;
+    width: 100%;
+    text-overflow: ellipsis;
+    height: 35px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+    outline: none;
+    @include mix.font('Rubik', 18px, 300);
+    padding: 6px 30px 6px 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  &__option {
+    @include mix.font('Rubik', 18px, 300);
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    right: 10px;
+    pointer-events: none;
+  }
+}
