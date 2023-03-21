@@ -1,34 +1,20 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import CardItem from './CardItem';
-import { PlacesInfo } from '../../interfaces/Places.interface';
+import { mockData } from '../../tests/mockData';
 
 describe('CardItem component', () => {
-  const mockData: PlacesInfo = {
-    id: 1,
-    country: 'Turkey',
-    location: 'Istanbul',
-    image: 'https://example.com/image.jpg',
-    description: 'Lorem ipsum dolor sit amet',
-    author: {
-      id: 321,
-      first_name: 'John',
-      last_name: 'Doe',
-      avatar: 'https://example.com/avatar.jpg',
-    },
-    date: '2022-03-17T13:00:00.000Z',
-  };
   it('renders correctly with provided data', () => {
-    const { getByText, getByAltText } = render(<CardItem obj={mockData} />);
+    const { getByText, getByAltText } = render(<CardItem obj={mockData[0]} />);
 
     expect(getByAltText(/^Card Image/)).toBeInTheDocument();
     expect(getByAltText('Profile Photo')).toBeInTheDocument();
-    expect(getByText(mockData.country)).toBeInTheDocument();
-    expect(getByText(mockData.location)).toBeInTheDocument();
-    expect(getByText(mockData.description)).toBeInTheDocument();
+    expect(getByText(mockData[0].country)).toBeInTheDocument();
+    expect(getByText(mockData[0].location)).toBeInTheDocument();
+    expect(getByText(mockData[0].description)).toBeInTheDocument();
     expect(
-      getByText(new RegExp(`${mockData.author.first_name}.*${mockData.author.last_name}`))
+      getByText(new RegExp(`${mockData[0].author.first_name}.*${mockData[0].author.last_name}`))
     ).toBeInTheDocument();
-    expect(getByText(mockData.date)).toBeInTheDocument();
+    expect(getByText(mockData[0].date)).toBeInTheDocument();
   });
 });
