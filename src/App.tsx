@@ -33,7 +33,7 @@ export const routesArray = [
       {
         path: 'post',
         element: <PostPage />,
-        name: 'Create Post',
+        name: 'Post',
       },
       {
         path: '*',

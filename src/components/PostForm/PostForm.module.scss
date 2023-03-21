@@ -1,0 +1,69 @@
+@use '../../scss/mixins' as mix;
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 40px;
+  border: 1px solid #e6e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(9, 0, 65, 0.05);
+}
+
+.postForm {
+  padding: 0 20px;
+  margin-top: 75px;
+
+  &__title {
+    margin: 0;
+    @include mix.font('Rubik', 32px, 600);
+  }
+}
+
+.formContent {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  &__element {
+    p {
+      margin: 0 0 5px;
+      @include mix.font('Rubik', 18px, 300);
+    }
+  }
+}
+
+.textInput {
+  box-sizing: border-box;
+  width: 100%;
+  height: 32px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+  outline: none;
+  @include mix.font('Rubik', 14px, 400);
+  padding: 6px 8px;
+  transition: 0.3s all;
+
+  &:focus {
+    border-bottom: 1px solid rgba(0, 255, 42, 0.8);
+  }
+
+  &_area {
+    resize: none;
+
+    &:focus {
+      height: 60px;
+      border-right: 1px solid rgba(0, 255, 42, 0.8);
+    }
+  }
+}
