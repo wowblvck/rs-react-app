@@ -7,7 +7,7 @@ interface HomeContentState {
   items: PlacesInfo[];
 }
 
-const fetchPlaces = async (): Promise<PlacesInfo[]> => {
+export const fetchPlaces = async (): Promise<PlacesInfo[]> => {
   try {
     const response = await fetch('/db.json');
     return await response.json();
