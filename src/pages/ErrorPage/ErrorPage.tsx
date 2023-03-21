@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './ErrorPage.module.scss';
+import effects from '../../scss/common/Effects.module.scss';
 import errorImage from '../../assets/img/error-page-image.svg';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 class ErrorPage extends React.Component {
   render() {
@@ -12,7 +14,9 @@ class ErrorPage extends React.Component {
           <p className={styles.errorPage__title}>Whoops!</p>
           <p className={styles.errorPage__subtitle}>We can’t seem the page you are looking for</p>
           <Link to="/">
-            <button className={styles.errorPage__button}>Return Home</button>
+            <button className={classNames(styles.errorPage__button, effects.buttonShadow)}>
+              Return Home
+            </button>
           </Link>
         </div>
       </section>

@@ -35,3 +35,20 @@
     }
   }
 }
+
+.boxShadow {
+  background: #ffffff;
+  border: 1px solid #e6e7eb;
+  box-shadow: 0 10px 20px rgba(9, 0, 65, 0.05);
+}
+
+.buttonShadow {
+  background: white;
+  border-radius: 12px;
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+  transition: background 0.3s;
+
+  &:hover {
+    background: rgba(129, 129, 129, 0.0901960784);
+  }
+}

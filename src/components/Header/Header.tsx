@@ -9,6 +9,7 @@ import { routesArray } from '../../App';
 
 import { withRouter, WithRouterProps } from '../../utils/withRouter';
 import { LinkData } from 'interfaces/Links.interface';
+import classNames from 'classnames';
 
 const links: LinkData[] = [
   {
@@ -57,7 +58,7 @@ class Header extends React.Component<WithRouterProps> {
           </div>
         </Link>
         <SearchBox minimize />
-        <h2 className={styles.pageName}>{currentPageName}</h2>
+        <h2 className={classNames(styles.pageName, effects.boxShadow)}>{currentPageName}</h2>
         <nav className={styles.nav}>
           <ul className={styles.nav__list}>
             {links.map((link, index) => (
@@ -77,7 +78,7 @@ class Header extends React.Component<WithRouterProps> {
             ))}
           </ul>
         </nav>
-        <button className={styles.postButton}>
+        <button className={classNames(styles.postButton, effects.buttonShadow)}>
           <Link className={styles.postLink} to="/post">
             Create Post
           </Link>

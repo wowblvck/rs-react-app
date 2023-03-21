@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './CardItem.module.scss';
+import effects from '../../scss/common/Effects.module.scss';
 import { PlacesInfo } from '../../interfaces/Places.interface';
 import { getDayBetweenDates } from '../../utils/functions';
+import classNames from 'classnames';
 
 type CardItemProps = {
   obj: PlacesInfo;
@@ -12,7 +14,7 @@ class CardItem extends React.Component<CardItemProps> {
     const { country, location, image, description, author, date } = this.props.obj;
 
     return (
-      <li className={styles.cardItem} data-testid="card-item">
+      <li className={classNames(styles.cardItem, effects.boxShadow)} data-testid="card-item">
         <div className={styles.cardItem__imageContainer}>
           <img className={styles.cardItem__image} src={image} alt="Card Image - Istanbul" />
         </div>

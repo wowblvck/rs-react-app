@@ -35,16 +35,8 @@
     margin: 60px 0 0;
     outline: none;
     border: none;
-    background: white;
-    border-radius: 12px;
-    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
     @include mix.font('Rubik', 18px, 300);
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.3s;
-
-    &:hover {
-      background: rgba(129, 129, 129, 0.0901960784);
-    }
   }
 }
