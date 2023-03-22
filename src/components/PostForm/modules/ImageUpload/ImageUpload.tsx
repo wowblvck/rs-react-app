@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './ImageUpload.module.scss';
 import classNames from 'classnames';
-import effects from '../../scss/common/Effects.module.scss';
+import effects from '../../../../scss/common/Effects.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 
 type ImageUploadProps = {
-  // handleImageUpload: (loaded: boolean, src: string) => void;
   imageFileRef: React.RefObject<HTMLInputElement>;
 };
 
@@ -43,7 +44,7 @@ export default class ImageUpload extends React.Component<ImageUploadProps, Image
           )}
         </div>
         <label className={classNames(styles.imageUploader__input, effects.buttonShadow)}>
-          <i className="fa fa-cloud-upload"></i>
+          <FontAwesomeIcon icon={faCloudUpload} />
           Choose image
           <input
             type="file"

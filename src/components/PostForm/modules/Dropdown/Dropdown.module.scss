@@ -1,9 +1,7 @@
-@use '../../scss/mixins' as mix;
+@use '../../../../scss/mixins' as mix;
 
 .dropdownSelect {
   position: relative;
-  max-width: 200px;
-  margin-top: 10px;
 
   &__list {
     appearance: none;

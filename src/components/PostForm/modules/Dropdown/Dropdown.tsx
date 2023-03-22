@@ -1,7 +1,8 @@
-import { CountriesInfo } from '../../interfaces/Countries.interface';
+import { CountriesInfo } from '../../../../interfaces/Countries.interface';
 import React from 'react';
 import styles from './Dropdown.module.scss';
-import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 type DropdownProps = {
   items: CountriesInfo[];
@@ -10,12 +11,12 @@ type DropdownProps = {
 
 export default class Dropdown extends React.Component<DropdownProps> {
   render() {
-    const { items } = this.props;
+    const { items, dropdownRef } = this.props;
 
     return (
-      <div className={styles.dropdownSelect}>
-        <i className={classNames('fa-solid fa-caret-down', styles.dropdownSelect__arrow)}></i>
-        <select className={styles.dropdownSelect__list} ref={this.props.dropdownRef}>
+      <label className={styles.dropdownSelect}>
+        <FontAwesomeIcon icon={faCaretDown} className={styles.dropdownSelect__arrow} />
+        <select className={styles.dropdownSelect__list} ref={dropdownRef}>
           {items &&
             items.map((country: CountriesInfo, index: number) => (
               <option
@@ -27,7 +28,7 @@ export default class Dropdown extends React.Component<DropdownProps> {
               </option>
             ))}
         </select>
-      </div>
+      </label>
     );
   }
 }
