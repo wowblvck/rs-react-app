@@ -1,0 +1,49 @@
+@use '../../../../scss/mixins' as mix;
+
+$primary-color: #00005c;
+
+.formList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.1607843137);
+  border-radius: 6px;
+  margin: 0;
+  padding: 8px 14px;
+  box-sizing: border-box;
+
+  &__item {
+    list-style: none;
+  }
+
+  &__label {
+    display: flex;
+    @include mix.font('Rubik', 16px, 300);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      left: -9999px;
+
+      &:checked {
+        background-color: mix(#fff, $primary-color, 84%);
+      }
+    }
+
+    span {
+      display: block;
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      padding: 8px 15px;
+      transition: 0.25s ease;
+      &:hover {
+        background-color: mix(#fff, $primary-color, 84%);
+      }
+    }
+  }
+}

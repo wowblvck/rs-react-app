@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './PostForm.module.scss';
-import classNames from 'classnames';
 import { CountriesInfo } from 'interfaces/Countries.interface';
-import Dropdown from '../Dropdown/Dropdown';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import { Dropdown, ImageUpload, DatePicker, FormText } from './modules';
+import { RadioForm } from './modules/FormRadio/FormRadio';
 
 type PostFormState = {
   image: string;
   countries: CountriesInfo[];
 };
+
+const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 
 const fetchCountries = async (): Promise<CountriesInfo[]> => {
   try {
@@ -27,6 +28,14 @@ export default class PostForm extends React.Component<object, PostFormState> {
 
   private dropdownList: React.RefObject<HTMLSelectElement> = React.createRef();
   private uploadImage: React.RefObject<HTMLInputElement> = React.createRef();
+  private datePicker: React.RefObject<HTMLInputElement> = React.createRef();
+  private place: React.RefObject<HTMLInputElement> = React.createRef();
+  private description: React.RefObject<HTMLTextAreaElement> = React.createRef();
+  private inputRefs: HTMLInputElement[] = [];
+
+  setRef = (ref: never) => {
+    this.inputRefs.push(ref);
+  };
 
   handleForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,6 +45,9 @@ export default class PostForm extends React.Component<object, PostFormState> {
       const image = URL.createObjectURL(file);
       this.setState({ image });
     }
+
+    const item = this.inputRefs.find((item: HTMLInputElement) => item.checked === true);
+    console.log(item?.value);
   };
 
   componentDidMount = async () => {
@@ -51,19 +63,15 @@ export default class PostForm extends React.Component<object, PostFormState> {
           <form className={styles.formContent} onSubmit={this.handleForm}>
             <ImageUpload imageFileRef={this.uploadImage} />
             <div className={styles.formWrapper}>
-              <div className={styles.formWrapper__element}>
-                <p>Name of place</p>
-                <input type="text" className={styles.textInput} />
-              </div>
-              <div className={styles.formWrapper__element}>
-                <p>Description</p>
-                <textarea className={classNames(styles.textInput, styles.textInput_area)} />
-              </div>
-              <div className={styles.formWrapper__element}>
-                <Dropdown items={this.state.countries} dropdownRef={this.dropdownList} />
-              </div>
+              <FormText textInputRef={this.place}>Name of place</FormText>
+              <FormText textInputRef={this.description} area>
+                Description
+              </FormText>
+              <Dropdown items={this.state.countries} dropdownRef={this.dropdownList} />
+              <DatePicker datePickerRef={this.datePicker}>Date</DatePicker>
+              <RadioForm items={categories} ref={this.setRef} />
             </div>
-            {/*<input type="submit" />*/}
+            <input type="submit" />
           </form>
         </div>
       </section>
