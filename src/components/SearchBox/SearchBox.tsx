@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import styles from './SearchBox.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 type SearchBoxProps = {
   white?: boolean;
@@ -70,7 +72,7 @@ class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
               [styles.searchBar__submit_minimize]: minimize,
             })}
           >
-            <i className="fas fa-search"></i>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </div>
       </div>
