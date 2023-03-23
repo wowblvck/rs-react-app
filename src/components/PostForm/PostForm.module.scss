@@ -1,7 +1,8 @@
 @use '../../scss/mixins' as mix;
 
 .container {
-  max-width: 900px;
+  box-sizing: border-box;
+  max-width: 1141px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -14,9 +15,7 @@
 }
 
 .postForm {
-  padding: 0 20px;
-  margin-top: 75px;
-  margin-bottom: 75px;
+  padding: 75px 20px 20px;
 
   &__title {
     margin: 0;
@@ -43,4 +42,15 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 60px;
+}
+
+.formButton {
+  align-self: center;
+  width: 200px;
+  padding: 10px 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 45px;
+  @include mix.font('Rubik', 20px, 400);
 }
