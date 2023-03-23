@@ -6,7 +6,7 @@ type FormRadioProps = {
   name: string;
 };
 
-export const RadioForm = React.forwardRef(
+const RadioForm = React.forwardRef(
   (props: FormRadioProps, ref: LegacyRef<HTMLInputElement> | undefined) => (
     <ul className={styles.formList}>
       {props.items.map((item, index) => (
@@ -26,3 +26,5 @@ export const RadioForm = React.forwardRef(
     </ul>
   )
 );
+
+export default RadioForm;

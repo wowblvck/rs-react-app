@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './PostForm.module.scss';
 import { CountriesInfo } from 'interfaces/Countries.interface';
-import { Dropdown, ImageUpload, DatePicker, FormText } from './modules';
-import { RadioForm } from './modules/FormRadio/FormRadio';
-import ProfilePicture from './modules/ProfilePicture/ProfilePicture';
+import {
+  Dropdown,
+  ImageUpload,
+  DatePicker,
+  FormText,
+  RadioForm,
+  CheckboxForm,
+  ProfilePicture,
+} from './modules';
 
 type PostFormState = {
   image: string;
@@ -11,6 +17,10 @@ type PostFormState = {
 };
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
+const rules = [
+  'I accept the terms of posting',
+  'I consent to the publication of my name and surname',
+];
 
 const fetchCountries = async (): Promise<CountriesInfo[]> => {
   try {
@@ -36,34 +46,41 @@ export default class PostForm extends React.Component<object, PostFormState> {
   private profilePicture: React.RefObject<HTMLInputElement> = React.createRef();
   private firstName: React.RefObject<HTMLInputElement> = React.createRef();
   private lastName: React.RefObject<HTMLInputElement> = React.createRef();
+  private rulesRefs: HTMLInputElement[] = [];
 
-  setRef = (ref: HTMLInputElement) => {
+  setRadioRef = (ref: HTMLInputElement) => {
     this.categoryRefs.push(ref);
+  };
+
+  setCheckboxRef = (ref: HTMLInputElement) => {
+    this.rulesRefs.push(ref);
   };
 
   handleForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const file = this.uploadImage.current?.files?.[0];
-    if (file) {
-      const image = URL.createObjectURL(file);
-      this.setState({ image });
-    }
+    // const file = this.uploadImage.current?.files?.[0];
+    // if (file) {
+    //   const image = URL.createObjectURL(file);
+    //   // this.setState({ image });
+    // }
+    //
+    // const profileFile = this.profilePicture.current?.files?.[0];
+    // if (profileFile) {
+    //   const image = URL.createObjectURL(profileFile);
+    // }
 
-    const profileFile = this.profilePicture.current?.files?.[0];
-    if (profileFile) {
-      const image = URL.createObjectURL(profileFile);
-      console.log(image);
-    }
+    // const item = this.categoryRefs.find((item: HTMLInputElement) => item.checked);
+    // console.log(item?.value);
 
-    const item = this.categoryRefs.find((item: HTMLInputElement) => item.checked);
-    console.log(item?.value);
+    // console.log(this.place.current?.value);
+    // console.log(this.description.current?.value);
+    //
+    // console.log(this.firstName.current?.value);
+    // console.log(this.lastName.current?.value);
 
-    console.log(this.place.current?.value);
-    console.log(this.description.current?.value);
-
-    console.log(this.firstName.current?.value);
-    console.log(this.lastName.current?.value);
+    // const rule = this.rulesRefs.filter((item: HTMLInputElement) => item.checked);
+    // console.log(rule.map((rule) => rule.value));
   };
 
   componentDidMount = async () => {
@@ -86,10 +103,11 @@ export default class PostForm extends React.Component<object, PostFormState> {
                 </FormText>
                 <Dropdown items={this.state.countries} dropdownRef={this.dropdownList} />
                 <DatePicker datePickerRef={this.datePicker}>Date</DatePicker>
-                <RadioForm name="category" items={categories} ref={this.setRef} />
+                <RadioForm name="category" items={categories} ref={this.setRadioRef} />
                 <ProfilePicture onRef={this.profilePicture} />
                 <FormText textInputRef={this.firstName}>Your name</FormText>
                 <FormText textInputRef={this.lastName}>Your surname</FormText>
+                <CheckboxForm name="rules" items={rules} ref={this.setCheckboxRef} />
               </div>
             </div>
             <input type="submit" style={{ marginTop: '20px' }} />
