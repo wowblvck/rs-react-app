@@ -1,7 +1,8 @@
 @use '../../scss/mixins' as mix;
 
 .container {
-  max-width: 900px;
+  box-sizing: border-box;
+  max-width: 1141px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
