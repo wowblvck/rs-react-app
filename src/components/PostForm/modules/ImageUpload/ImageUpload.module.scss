@@ -3,6 +3,7 @@
 .imageUploader {
   display: flex;
   flex-direction: column;
+  flex-basis: 261px;
   gap: 20px;
 
   &__title {
@@ -23,7 +24,7 @@
 
   &__imageWrapper {
     box-sizing: border-box;
-    width: 261px;
+    max-width: 261px;
     height: 164px;
     overflow: hidden;
     display: flex;
@@ -35,8 +36,10 @@
   }
 
   &__input {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
+    text-align: center;
     gap: 5px;
     align-items: center;
     @include mix.font('Rubik', 18px, 300);

@@ -8,7 +8,7 @@ type FormTextProps = {
   placeholder?: string;
   children?: ReactNode;
   value?: string;
-  textInputRef?: React.RefObject<HTMLInputElement> | React.RefObject<HTMLTextAreaElement>;
+  textInputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 export default class FormText extends React.Component<FormTextProps> {
@@ -28,7 +28,7 @@ export default class FormText extends React.Component<FormTextProps> {
           disabled={disabled}
           placeholder={placeholder}
           value={value}
-          ref={textInputRef}
+          ref={textInputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>}
         />
       </label>
     );

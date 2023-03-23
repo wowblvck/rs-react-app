@@ -8,10 +8,10 @@ $primary-color: #00005c;
   flex-wrap: wrap;
   gap: 10px;
   width: 100%;
-  background: rgba(128, 128, 128, 0.1607843137);
+  border: 1px solid black;
   border-radius: 6px;
   margin: 0;
-  padding: 8px 14px;
+  padding: 8px 4px;
   box-sizing: border-box;
 
   &__item {
@@ -29,7 +29,7 @@ $primary-color: #00005c;
       position: absolute;
       left: -9999px;
 
-      &:checked {
+      &:checked + span {
         background-color: mix(#fff, $primary-color, 84%);
       }
     }
