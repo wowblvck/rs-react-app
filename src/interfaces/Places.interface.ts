@@ -1,6 +1,6 @@
 import { UserInfo } from './User.interface';
 
-export interface PlacesInfo {
+export default interface PlacesInfo {
   id: number;
   country: string;
   location: string;

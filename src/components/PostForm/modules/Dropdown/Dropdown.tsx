@@ -1,4 +1,4 @@
-import { CountriesInfo } from '../../../../interfaces/Countries.interface';
+import { CountriesInfo } from '../../../../interfaces/index';
 import React from 'react';
 import styles from './Dropdown.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

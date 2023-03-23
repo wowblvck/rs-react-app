@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './HomeContent.module.scss';
 import CardItem from '../CardItem/CardItem';
-import { PlacesInfo } from '../../interfaces/Places.interface';
+import { PlacesInfo } from '../../interfaces/index';
 
 interface HomeContentState {
   items: PlacesInfo[];

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CardItem.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
-import { PlacesInfo } from '../../interfaces/Places.interface';
+import { PlacesInfo } from '../../interfaces/index';
 import { getDayBetweenDates } from '../../utils/functions';
 import classNames from 'classnames';
 

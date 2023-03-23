@@ -1,4 +1,4 @@
-export interface CountriesInfo {
+export default interface CountriesInfo {
   name: string;
   code: string;
   emoji: string;

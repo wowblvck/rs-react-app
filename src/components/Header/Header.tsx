@@ -8,7 +8,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import { routesArray } from '../../App';
 
 import { withRouter, WithRouterProps } from '../../utils/withRouter';
-import { LinkData } from 'interfaces/Links.interface';
+import { LinkData } from '../../interfaces/index';
 import classNames from 'classnames';
 
 const links: LinkData[] = [

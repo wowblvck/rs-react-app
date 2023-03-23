@@ -51,7 +51,7 @@ describe('App', () => {
         <PostPage />
       </MemoryRouter>
     );
-    const title = await screen.findByRole('heading', { name: /post/i });
+    const title = await screen.findByRole('heading', { name: /Create a post/i });
 
     expect(title).toBeInTheDocument();
   });

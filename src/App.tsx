@@ -2,11 +2,9 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './scss/app.scss';
 
-import HomePage from './pages/HomePage';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import AboutPage from './pages/AboutPage';
 import RootLayout from './layouts/RootLayout';
-import PostPage from './pages/PostPage';
+
+import { HomePage, ErrorPage, AboutPage, PostPage } from './pages/index';
 
 export const bgGallery = Object.values(
   import.meta.glob('./assets/img/backgrounds/*.{png,jpg,jpeg,PNG,JPEG}', {
