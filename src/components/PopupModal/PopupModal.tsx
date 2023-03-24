@@ -12,6 +12,7 @@ type PopupModalProps = {
 
 class PopupModal extends React.Component<PopupModalProps> {
   private modal: React.RefObject<HTMLDivElement> = React.createRef();
+  private timerId: ReturnType<typeof setTimeout> | null = null;
 
   componentDidMount() {
     window.addEventListener('mousedown', this.handleWindowClick);
@@ -24,7 +25,10 @@ class PopupModal extends React.Component<PopupModalProps> {
   componentDidUpdate(prevProps: Readonly<PopupModalProps>) {
     if (prevProps.isVisible !== this.props.isVisible) {
       if (this.props.isVisible) {
-        setTimeout(this.props.togglePopup, 3000);
+        this.timerId = setTimeout(this.props.togglePopup, 3000);
+      } else if (this.timerId) {
+        clearTimeout(this.timerId);
+        this.timerId = null;
       }
     }
   }
@@ -33,18 +37,6 @@ class PopupModal extends React.Component<PopupModalProps> {
     const { isVisible, togglePopup } = this.props;
 
     if (isVisible && !this.modal.current?.contains(event.target as Node)) {
-      togglePopup();
-    }
-  };
-
-  togglePopup = () => {
-    const { isVisible, togglePopup } = this.props;
-
-    if (isVisible) {
-      setTimeout(() => {
-        togglePopup();
-      }, 3000);
-    } else {
       togglePopup();
     }
   };
