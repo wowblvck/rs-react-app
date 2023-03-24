@@ -47,12 +47,18 @@
     @include mix.font('Overpass', 14px, 500);
     color: #818181;
     text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   &__date {
     margin: 0;
     @include mix.font('Overpass', 14px, 300);
     color: #818181;
+    white-space: nowrap;
   }
 
   &__location {

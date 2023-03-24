@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import HomeContent, { fetchPlaces } from './HomeContent';
+import HomeContent from './HomeContent';
+import { fetchPlaces } from '../../thunks';
 import { mockData } from '../../tests/mockData';
 
 describe('HomeContent', () => {

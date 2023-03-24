@@ -1,8 +1,9 @@
-import { UserInfo } from './User.interface';
+import { UserInfo } from './index';
 
 export default interface PlacesInfo {
   id: number;
   country: string;
+  category: string;
   location: string;
   image: string;
   description: string;

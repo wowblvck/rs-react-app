@@ -3,6 +3,7 @@ import styles from './ProfilePicture.module.scss';
 
 type ProfilePictureProps = {
   onRef: React.RefObject<HTMLInputElement>;
+  error?: string[];
 };
 
 type ProfilePictureState = {
@@ -35,7 +36,15 @@ class ProfilePicture extends React.Component<ProfilePictureProps, ProfilePicture
                 alt="Preview image"
               />
             ) : (
-              <p className={styles.profilePicture__title}>No image</p>
+              <p className={styles.profilePicture__title}>
+                {this.props.error?.length ? (
+                  <>
+                    <span className={styles.profilePicture__title_error}>Upload an image</span>
+                  </>
+                ) : (
+                  <>No image</>
+                )}
+              </p>
             )}
           </div>
         </label>

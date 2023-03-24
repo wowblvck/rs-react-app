@@ -2,19 +2,11 @@ import React from 'react';
 import styles from './HomeContent.module.scss';
 import CardItem from '../CardItem/CardItem';
 import { PlacesInfo } from '../../interfaces/index';
+import { fetchPlaces } from '../../thunks';
 
 interface HomeContentState {
   items: PlacesInfo[];
 }
-
-export const fetchPlaces = async (): Promise<PlacesInfo[]> => {
-  try {
-    const response = await fetch('/db.json');
-    return await response.json();
-  } catch (e) {
-    throw new Error(`Error while loading database: ${e}`);
-  }
-};
 
 class HomeContent extends React.Component<object, HomeContentState> {
   state = {

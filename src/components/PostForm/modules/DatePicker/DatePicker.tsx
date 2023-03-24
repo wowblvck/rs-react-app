@@ -4,10 +4,12 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import FormText from '../FormText/FormText';
 import styles from './DatePicker.module.scss';
 import moment from 'moment';
+import FormError from '../../FormError/FormError';
 
 type DatePickerProps = {
   children?: ReactNode;
   datePickerRef: React.RefObject<HTMLInputElement>;
+  error?: string[];
 };
 
 type DatePickerState = {
@@ -15,15 +17,10 @@ type DatePickerState = {
 };
 
 const dateFormat = 'DD/MM/YYYY';
-const defaultDateFormat = moment().format(dateFormat);
 
 class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
   state = {
     value: '',
-  };
-
-  componentDidMount = () => {
-    this.setState({ value: defaultDateFormat });
   };
 
   handleDate = (event: React.ChangeEvent<HTMLDataElement>) => {
@@ -32,7 +29,7 @@ class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
   };
 
   render() {
-    const { children, datePickerRef } = this.props;
+    const { children, datePickerRef, error } = this.props;
 
     return (
       <label>
@@ -49,11 +46,11 @@ class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
               type="date"
               className={styles.datePicker__input}
               onChange={this.handleDate}
-              defaultValue={moment().format('YYYY-MM-DD')}
               ref={datePickerRef}
             />
           </div>
         </div>
+        {error !== undefined && <FormError error={error} />}
       </label>
     );
   }

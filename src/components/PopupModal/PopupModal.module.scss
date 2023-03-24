@@ -1,0 +1,56 @@
+@use '../../scss/mixins' as mix;
+
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 350px;
+  background-color: rgb(0 0 0 / 75%);
+  border-radius: 10px;
+  padding: 10px 40px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  &_active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+
+  &__title {
+    margin: 0;
+    @include mix.font('Rubik', 18px, 400);
+    color: white;
+    text-align: center;
+  }
+}
+
+.xmark {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+  background-color: grey;
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+  }
+}

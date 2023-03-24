@@ -1,7 +1,9 @@
 @use '../../../../scss/mixins' as mix;
 
 .dropdownSelect {
-  position: relative;
+  &__wrapper {
+    position: relative;
+  }
 
   &__list {
     appearance: none;

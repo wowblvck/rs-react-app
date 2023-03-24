@@ -7,6 +7,7 @@ import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 
 type ImageUploadProps = {
   imageFileRef: React.RefObject<HTMLInputElement>;
+  error?: string[];
 };
 
 type ImageUploadState = {
@@ -28,6 +29,8 @@ export default class ImageUpload extends React.Component<ImageUploadProps, Image
   };
 
   render() {
+    const { error } = this.props;
+
     return (
       <div className={styles.imageUploader}>
         <div className={classNames(styles.imageUploader__imageWrapper, effects.boxShadow)}>
@@ -39,7 +42,15 @@ export default class ImageUpload extends React.Component<ImageUploadProps, Image
             />
           ) : (
             <p className={styles.imageUploader__title}>
-              Preview<span>261 x 164</span>
+              {error?.length ? (
+                <>
+                  <span className={styles.imageUploader__title_error}>Upload an image</span>
+                </>
+              ) : (
+                <>
+                  Preview<span>261 x 164</span>
+                </>
+              )}
             </p>
           )}
         </div>
