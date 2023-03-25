@@ -4,6 +4,7 @@ import styles from './ProfilePicture.module.scss';
 type ProfilePictureProps = {
   onRef: React.RefObject<HTMLInputElement>;
   error?: string[];
+  reset: boolean;
 };
 
 type ProfilePictureState = {
@@ -23,6 +24,12 @@ class ProfilePicture extends React.Component<ProfilePictureProps, ProfilePicture
       this.setState({ image });
     }
   };
+
+  componentDidUpdate(prevProps: ProfilePictureProps) {
+    if (prevProps.reset !== this.props.reset && this.props.reset) {
+      this.setState({ image: '' });
+    }
+  }
 
   render() {
     return (

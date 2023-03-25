@@ -8,6 +8,7 @@ import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 type ImageUploadProps = {
   imageFileRef: React.RefObject<HTMLInputElement>;
   error?: string[];
+  reset: boolean;
 };
 
 type ImageUploadState = {
@@ -27,6 +28,12 @@ export default class ImageUpload extends React.Component<ImageUploadProps, Image
       this.setState({ image });
     }
   };
+
+  componentDidUpdate(prevProps: ImageUploadProps) {
+    if (prevProps.reset !== this.props.reset && this.props.reset) {
+      this.setState({ image: '' });
+    }
+  }
 
   render() {
     const { error } = this.props;

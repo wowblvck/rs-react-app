@@ -13,8 +13,9 @@ import {
 import classNames from 'classnames';
 import { PlacesInfo, CountriesInfo, FormRefs, FormErrors } from '../../interfaces/index';
 import { fetchCountries } from '../../thunks';
-import moment from 'moment';
 import PopupModal from '../PopupModal/PopupModal';
+import { FormData } from '../../types/FormData.types';
+import ValidateForm from './validators/ValidateForm';
 
 type PostFormProps = {
   onSubmit: (formData: PlacesInfo | null) => void;
@@ -25,15 +26,8 @@ type PostFormState = {
   formData: PlacesInfo | null;
   errors: FormErrors;
   isPopupVisible: boolean;
+  reset: boolean;
 };
-
-type ChangeFields<T, R> = Omit<T, keyof R> & R;
-type FormData = ChangeFields<
-  Omit<PlacesInfo, 'id'>,
-  {
-    author: Omit<PlacesInfo['author'], 'id'>;
-  }
->;
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 const rules = [
@@ -58,6 +52,7 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
       country: [],
     },
     isPopupVisible: false,
+    reset: false,
   };
 
   private formRefs: FormRefs = {
@@ -87,113 +82,6 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
     }));
   };
 
-  validateForm = (formData: FormData, rules: HTMLInputElement[]): FormErrors => {
-    const errors: FormErrors = {
-      location: [],
-      description: [],
-      date: [],
-      category: [],
-      firstName: [],
-      lastName: [],
-      rules: [],
-      image: [],
-      authorImage: [],
-      country: [],
-    };
-
-    const { country, location, image, description, author, date, category } = formData;
-
-    if (country.includes('none')) {
-      errors.country.push('Select a value from the list');
-    }
-
-    if (!location) {
-      errors.location.push('You must enter the name of the location');
-    } else {
-      if (location.length < 5 || location.length > 20) {
-        errors.location.push('The length must be at least 5 and no more than 20 letters');
-      }
-      if (location.charAt(0) !== location.charAt(0).toUpperCase()) {
-        errors.location.push('The name must start with a capital letter');
-      }
-    }
-
-    if (!description) {
-      errors.description.push('Description must be filled');
-    } else {
-      if (description.length < 5 || description.length > 300) {
-        errors.description.push('The length must be at least 5 and no more than 30 letters');
-      }
-      if (description.charAt(0) !== description.charAt(0).toUpperCase()) {
-        errors.description.push('The name must start with a capital letter');
-      }
-    }
-
-    if (!date) {
-      errors.date.push('Select post date');
-    } else {
-      const currentDate = moment();
-      const specifiedDate = moment(date);
-      if (specifiedDate.isAfter(currentDate)) {
-        errors.date.push('Specified date is greater than the current date');
-      }
-    }
-
-    if (!category) {
-      errors.category.push('Select a category');
-    }
-
-    if (!author.first_name) {
-      errors.firstName.push('You must enter the your name');
-    } else {
-      const words = author.first_name.split(' ');
-      const hasMultipleWordsPerLine = words.length > 1;
-
-      if (author.first_name.length < 2 || author.first_name.length > 25) {
-        errors.firstName.push('The length must be at least 2 and no more than 25 letters');
-      }
-      if (author.first_name.charAt(0) !== author.first_name.charAt(0).toUpperCase()) {
-        errors.firstName.push('The name must start with a capital letter');
-      }
-      if (hasMultipleWordsPerLine) {
-        errors.firstName.push('There is only one word per line.');
-      }
-    }
-
-    if (!author.last_name) {
-      errors.lastName.push('You must enter the your surname');
-    } else {
-      const words = author.last_name.split(' ');
-      const hasMultipleWordsPerLine = words.length > 1;
-
-      if (author.last_name.length < 2 || author.last_name.length > 25) {
-        errors.lastName.push('The length must be at least 2 and no more than 25 letters');
-      }
-      if (author.last_name.charAt(0) !== author.last_name.charAt(0).toUpperCase()) {
-        errors.lastName.push('The surname must start with a capital letter');
-      }
-      if (hasMultipleWordsPerLine) {
-        errors.lastName.push('There is only one word per line.');
-      }
-    }
-
-    rules.forEach((rule) => {
-      if (!rule.checked) {
-        errors.rules.push(`You have not accepted the agreement: "${rule.value}"`);
-      }
-    });
-
-    if (!image) {
-      errors.image.push('Image not loaded');
-    }
-
-    if (!author.avatar.length) {
-      errors.authorImage.push('Profile picture not loaded');
-    }
-
-    return errors;
-  };
-
   handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -221,7 +109,8 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
       },
     };
 
-    const errors = this.validateForm(formData, rules);
+    const errors = ValidateForm.validateForm(formData, rules);
+
     this.setState({ errors });
 
     const emptyErrors = Object.values(errors).every((arr) => Array.isArray(arr) && !arr.length);
@@ -237,6 +126,10 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
       } as PlacesInfo;
       this.props.onSubmit(place);
       this.setState({ isPopupVisible: true });
+      event.currentTarget.reset();
+      this.setState({ reset: true });
+    } else {
+      this.setState({ reset: false });
     }
   };
 
@@ -246,7 +139,7 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
   };
 
   render() {
-    const { errors, countries, isPopupVisible } = this.state;
+    const { errors, countries, isPopupVisible, reset } = this.state;
 
     const {
       uploadImage,
@@ -265,7 +158,7 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
           <h2 className={styles.postForm__title}>Create a post ✏️</h2>
           <form className={styles.formContent} onSubmit={this.handleForm}>
             <div className={styles.formContainer}>
-              <ImageUpload imageFileRef={uploadImage} error={errors.image} />
+              <ImageUpload imageFileRef={uploadImage} error={errors.image} reset={reset} />
               <div className={styles.formWrapper}>
                 <FormText
                   textInputRef={location}
@@ -292,7 +185,7 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
                   ref={this.setCategoriesRef}
                   error={errors.category}
                 />
-                <ProfilePicture onRef={profilePicture} error={errors.authorImage} />
+                <ProfilePicture onRef={profilePicture} error={errors.authorImage} reset={reset} />
                 <FormText
                   textInputRef={firstName}
                   error={errors.firstName}
