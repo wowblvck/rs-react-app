@@ -10,6 +10,7 @@ type DatePickerProps = {
   children?: ReactNode;
   datePickerRef: React.RefObject<HTMLInputElement>;
   error?: string[];
+  reset: boolean;
 };
 
 type DatePickerState = {
@@ -27,6 +28,12 @@ class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
     const { value } = event.target;
     this.setState({ value: moment(value).format(dateFormat) });
   };
+
+  componentDidUpdate(prevProps: DatePickerProps) {
+    if (prevProps.reset !== this.props.reset && this.props.reset) {
+      this.setState({ value: '' });
+    }
+  }
 
   render() {
     const { children, datePickerRef, error } = this.props;

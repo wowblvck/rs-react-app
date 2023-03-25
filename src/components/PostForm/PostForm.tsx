@@ -176,7 +176,7 @@ export default class PostForm extends React.Component<PostFormProps, PostFormSta
                   Description
                 </FormText>
                 <Dropdown items={countries} dropdownRef={dropdownList} error={errors.country} />
-                <DatePicker datePickerRef={datePicker} error={errors.date}>
+                <DatePicker datePickerRef={datePicker} error={errors.date} reset={reset}>
                   Date
                 </DatePicker>
                 <RadioForm
