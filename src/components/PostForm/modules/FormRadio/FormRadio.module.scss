@@ -1,17 +1,17 @@
 @use '../../../../scss/mixins' as mix;
 
-$primary-color: #00005c;
-
 .formList {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   width: 100%;
-  border: 1px solid black;
-  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #e6e7eb;
+  box-shadow: 0 10px 20px rgba(9, 0, 65, 0.05);
+  border-radius: 12px;
   margin: 0;
-  padding: 8px 4px;
+  padding: 6px 6px;
   box-sizing: border-box;
 
   &__item {
@@ -20,7 +20,7 @@ $primary-color: #00005c;
 
   &__label {
     display: flex;
-    @include mix.font('Rubik', 16px, 300);
+    @include mix.font('Rubik', 18px, 300);
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -30,19 +30,20 @@ $primary-color: #00005c;
       left: -9999px;
 
       &:checked + span {
-        background-color: mix(#fff, $primary-color, 84%);
+        background-color: #2196f3;
+        color: white;
       }
     }
 
     span {
       display: block;
-      border-radius: 8px;
+      border-radius: 6px;
       width: 100%;
       height: 100%;
-      padding: 8px 15px;
+      padding: 10px 25px;
       transition: 0.25s ease;
       &:hover {
-        background-color: mix(#fff, $primary-color, 84%);
+        background-color: #ccc;
       }
     }
   }

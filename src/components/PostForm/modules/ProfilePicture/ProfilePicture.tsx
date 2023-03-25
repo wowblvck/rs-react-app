@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ProfilePicture.module.scss';
+import effects from '../../../../scss/common/Effects.module.scss';
+import classNames from 'classnames';
 
 type ProfilePictureProps = {
   onRef: React.RefObject<HTMLInputElement>;
@@ -35,7 +37,7 @@ class ProfilePicture extends React.Component<ProfilePictureProps, ProfilePicture
     return (
       <div className={styles.profilePicture}>
         <label htmlFor="profilePicture-upload" className={styles.profilePicture__label}>
-          <div className={styles.profilePicture__preview}>
+          <div className={classNames(styles.profilePicture__preview, effects.boxShadow)}>
             {this.state.image ? (
               <img
                 className={styles.profilePicture__image}
