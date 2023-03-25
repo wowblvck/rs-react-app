@@ -4,6 +4,8 @@ import effects from '../../scss/common/Effects.module.scss';
 import { PlacesInfo } from '../../interfaces/index';
 import { getDayBetweenDates } from '../../utils/functions';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 type CardItemProps = {
   obj: PlacesInfo;
@@ -11,11 +13,15 @@ type CardItemProps = {
 
 class CardItem extends React.Component<CardItemProps> {
   render() {
-    const { country, location, image, description, author, date } = this.props.obj;
+    const { country, location, image, description, author, date, category } = this.props.obj;
 
     return (
       <li className={classNames(styles.cardItem, effects.boxShadow)} data-testid="card-item">
         <div className={styles.cardItem__imageContainer}>
+          <div className={styles.cardItem__tag}>
+            <FontAwesomeIcon icon={faTag} style={{ color: 'white' }} />
+            <span>{category}</span>
+          </div>
           <img className={styles.cardItem__image} src={image} alt="Card Image - Istanbul" />
         </div>
         <div className={styles.cardItem__content}>

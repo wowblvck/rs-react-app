@@ -16,6 +16,27 @@
     height: 164px;
     overflow: hidden;
     flex: 0 0 164px;
+    position: relative;
+  }
+
+  &__tag {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(3px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 10px;
+
+    span {
+      @include mix.font('Rubik', 14px, 400);
+      color: white;
+    }
   }
 
   &__image {
