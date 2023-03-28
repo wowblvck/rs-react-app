@@ -46,10 +46,8 @@ export const router = createBrowserRouter(routesArray, {
   basename: '/',
 });
 
-class App extends React.Component {
-  render() {
-    return <RouterProvider router={router} />;
-  }
-}
+const App: React.FC = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;

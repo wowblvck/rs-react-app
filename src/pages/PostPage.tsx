@@ -1,29 +1,25 @@
 import PostForm from '../components/PostForm/PostForm';
 import PostContent from '../components/PostContent/PostContent';
-import React from 'react';
+import React, { useState } from 'react';
 import { PlacesInfo } from '../interfaces/index';
 
-type PostPageState = {
-  items: PlacesInfo[] | null;
-};
+type PlacesState = PlacesInfo[] | [];
 
-export default class PostPage extends React.Component<object, PostPageState> {
-  state = {
-    items: [],
-  };
-  getItem = (item: PlacesInfo | null) => {
-    if (item !== null) {
-      const newItems = [...this.state.items, item];
-      this.setState({ items: newItems });
+const PostPage: React.FC = () => {
+  const [items, setItems] = useState<PlacesState>([]);
+
+  const handleItemSubmit = (formData: PlacesInfo | null) => {
+    if (formData !== null) {
+      setItems((prevState) => [...(prevState || []), formData]);
     }
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        <PostForm onSubmit={this.getItem} />
-        <PostContent items={this.state.items} />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <>
+      <PostForm onSubmit={handleItemSubmit} />
+      <PostContent items={items} />
+    </>
+  );
+};
+
+export default PostPage;

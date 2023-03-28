@@ -1,10 +1,8 @@
 import React from 'react';
 import AboutContent from '../components/AboutContent/AboutContent';
 
-class AboutPage extends React.Component {
-  render() {
-    return <AboutContent />;
-  }
-}
+const AboutPage: React.FC = () => {
+  return <AboutContent />;
+};
 
 export default AboutPage;
