@@ -4,10 +4,10 @@ import HomeContent from '../components/HomeContent/HomeContent';
 
 const HomePage: React.FC = () => {
   return (
-    <React.Fragment>
+    <>
       <Description />
       <HomeContent />
-    </React.Fragment>
+    </>
   );
 };
 

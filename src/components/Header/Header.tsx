@@ -1,91 +1,63 @@
 import React from 'react';
-import logoIcon from '../../assets/icons/logo-icon.png';
-
-import styles from './Header.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
-import { Link, NavLink } from 'react-router-dom';
-import SearchBox from '../SearchBox/SearchBox';
-import { routesArray } from '../../App';
-
-import { withRouter, WithRouterProps } from '../../utils/withRouter';
-import { LinkData } from '../../interfaces/index';
+import { Link, NavLink, useLocation, matchPath } from 'react-router-dom';
 import classNames from 'classnames';
 
-const links: LinkData[] = [
-  {
-    path: '/',
-    name: 'Home',
-  },
-  {
-    path: '/about',
-    name: 'About Us',
-  },
-];
+import logoIcon from '../../assets/icons/logo-icon.png';
+import styles from './Header.module.scss';
+import effects from '../../scss/common/Effects.module.scss';
+import SearchBox from '../SearchBox/SearchBox';
 
-class Header extends React.Component<WithRouterProps> {
-  getPageName = () => {
-    const { pathname } = this.props.location;
+import { routes } from '../../App';
 
-    const matchingRoute = routesArray
-      .flatMap((route) => route.children)
-      .find((childRoute) => {
-        if (childRoute.path === pathname.substring(1)) {
-          return true;
-        } else if (!childRoute.hasOwnProperty('path') && pathname === '/') {
-          return true;
-        } else if (childRoute.path === '*') {
-          return true;
-        }
-        return false;
-      });
+const Header: React.FC = () => {
+  const location = useLocation();
 
-    return matchingRoute?.name;
-  };
+  const currentRoute = routes.find((route) => matchPath(location.pathname, route.path));
 
-  render() {
-    const currentPageName = this.getPageName();
+  const links = Object.values(routes).filter((route) => route.inNav);
 
-    return (
-      <header className={styles.header} data-testid="header">
-        <Link to="/">
-          <div className={styles.logo}>
-            <img className={styles.logo__img} alt="Logo" src={logoIcon} />
-            <h1 className={styles.logo__title}>
-              Beautiful
-              <br />
-              places
-            </h1>
-          </div>
+  return (
+    <header className={styles.header} data-testid="header">
+      <Link to="/">
+        <div className={styles.logo}>
+          <img className={styles.logo__img} alt="Logo" src={logoIcon} />
+          <h1 className={styles.logo__title}>
+            Beautiful
+            <br />
+            places
+          </h1>
+        </div>
+      </Link>
+      <SearchBox minimize />
+      <h2 className={classNames(styles.pageName, effects.boxShadow)}>
+        {currentRoute ? currentRoute.title : '404'}
+      </h2>
+      <nav className={styles.nav}>
+        <ul className={styles.nav__list}>
+          {links.map((link, index) => (
+            <li key={`${link.key}-${index}`}>
+              <NavLink
+                to={link.path}
+                end
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.nav__link} ${effects.linkHover} ${effects.linkHover_active}`
+                    : `${styles.nav__link} ${effects.linkHover}`
+                }
+              >
+                {link.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <button className={classNames(styles.postButton, effects.buttonShadow)}>
+        <Link className={styles.postLink} to="/post">
+          Create Post
         </Link>
-        <SearchBox minimize />
-        <h2 className={classNames(styles.pageName, effects.boxShadow)}>{currentPageName}</h2>
-        <nav className={styles.nav}>
-          <ul className={styles.nav__list}>
-            {links.map((link, index) => (
-              <li key={`${link.name}-${index}`}>
-                <NavLink
-                  to={link.path}
-                  end
-                  className={({ isActive }) =>
-                    isActive
-                      ? `${styles.nav__link} ${effects.linkHover} ${effects.linkHover_active}`
-                      : `${styles.nav__link} ${effects.linkHover}`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <button className={classNames(styles.postButton, effects.buttonShadow)}>
-          <Link className={styles.postLink} to="/post">
-            Create Post
-          </Link>
-        </button>
-      </header>
-    );
-  }
-}
+      </button>
+    </header>
+  );
+};
 
-export default withRouter(Header);
+export default Header;
