@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import styles from './PostForm.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
 import {
@@ -11,208 +15,240 @@ import {
   ProfilePicture,
 } from './modules';
 import classNames from 'classnames';
-import { PlacesInfo, CountriesInfo, FormRefs, FormErrors } from '../../interfaces/index';
+import { PlacesInfo, CountriesInfo } from '../../interfaces';
 import { fetchCountries } from '../../thunks';
 import PopupModal from '../PopupModal/PopupModal';
-import { FormData } from '../../types/FormData.types';
-import ValidateForm from './validators/ValidateForm';
+import moment from 'moment';
 
 type PostFormProps = {
-  onSubmit: (formData: PlacesInfo | null) => void;
+  handleForm: (formData: PlacesInfo | null) => void;
 };
 
-type PostFormState = {
-  countries: CountriesInfo[];
-  formData: PlacesInfo | null;
-  errors: FormErrors;
-  isPopupVisible: boolean;
-  reset: boolean;
+export type FormValues = {
+  location: string;
+  description: string;
+  category: string;
+  country: string;
+  date: string;
+  author: {
+    avatar: File;
+    firstName: string;
+    lastName: string;
+  };
+  image: File;
+  terms: boolean;
+  consent: boolean;
 };
+
+const schema = yup.object().shape({
+  location: yup
+    .string()
+    .min(5, 'Length must be at least 5')
+    .max(20, 'The length must be no more than 20')
+    .matches(/^[A-Z]/, 'First character must be uppercase')
+    .required('Field is required'),
+  description: yup
+    .string()
+    .min(20, 'Length must be at least 5')
+    .max(300, 'The length must be no more than 20')
+    .matches(/^[A-Z]/, 'First character must be uppercase')
+    .required(),
+  category: yup.string().required('Select category'),
+  country: yup.string().required('Select country'),
+  author: yup.object().shape({
+    avatar: yup
+      .mixed()
+      .test('file', 'Upload an image', (value) => {
+        const file = value as File;
+        return !!file.size;
+      })
+      .test('type', 'Only JPEG, PNG, GIF', (value) => {
+        const file = value as File;
+        return !(file.type !== ('image/jpeg' || 'image/png' || 'image/gif'));
+      }),
+    firstName: yup
+      .string()
+      .min(2, 'Length must be at least 2')
+      .max(32, 'The length must be no more than 32')
+      .matches(/^[A-Z]/, 'First character must be uppercase')
+      .required('Field is required'),
+    lastName: yup
+      .string()
+      .min(2, 'Length must be at least 2')
+      .max(32, 'The length must be no more than 32')
+      .matches(/^[A-Z]/, 'First character must be uppercase')
+      .required('Field is required'),
+  }),
+  image: yup
+    .mixed()
+    .test('file', 'Upload an image', (value) => {
+      const file = value as File;
+      return !!file.size;
+    })
+    .test('type', 'Only JPEG, PNG, GIF', (value) => {
+      const file = value as File;
+      return !(file.type !== ('image/jpeg' || 'image/png' || 'image/gif'));
+    }),
+  date: yup
+    .string()
+    .required('Date is required')
+    .test('beforeToday', 'Specified date is greater than the current date', (value) =>
+      moment(value).isSameOrBefore(moment(), 'day')
+    ),
+  terms: yup.boolean().oneOf([true], 'You must accept the terms of the user agreement'),
+  consent: yup.boolean().oneOf([true], 'Consent is required'),
+});
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
-const rules = [
-  'I accept the terms of posting',
-  'I consent to the publication of my name and surname',
-];
 
-export default class PostForm extends React.Component<PostFormProps, PostFormState> {
-  state: PostFormState = {
-    countries: [],
-    formData: null,
-    errors: {
-      location: [],
-      description: [],
-      date: [],
-      category: [],
-      firstName: [],
-      lastName: [],
-      rules: [],
-      image: [],
-      authorImage: [],
-      country: [],
-    },
-    isPopupVisible: false,
-    reset: false,
-  };
+const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
+  const [countries, setCountries] = useState<Array<CountriesInfo>>([]);
+  const [resetWrapper, clearWrapper] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm<FormValues>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
-  private formRefs: FormRefs = {
-    dropdownList: React.createRef(),
-    uploadImage: React.createRef(),
-    datePicker: React.createRef(),
-    location: React.createRef(),
-    description: React.createRef(),
-    profilePicture: React.createRef(),
-    firstName: React.createRef(),
-    lastName: React.createRef(),
-    categories: [],
-    rules: [],
-  };
-
-  setCategoriesRef = (ref: HTMLInputElement) => {
-    this.formRefs.categories.push(ref);
-  };
-
-  setRulesRef = (ref: HTMLInputElement) => {
-    this.formRefs.rules.push(ref);
-  };
-
-  togglePopup = () => {
-    this.setState((prevState) => ({
-      isPopupVisible: !prevState.isPopupVisible,
-    }));
-  };
-
-  handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const uploadImage = this.formRefs.uploadImage.current?.files?.[0];
-    const uploadImageURL = uploadImage ? URL.createObjectURL(uploadImage) : '';
-
-    const profileImage = this.formRefs.profilePicture.current?.files?.[0];
-    const profileImageURL = profileImage ? URL.createObjectURL(profileImage) : '';
-
-    const category = this.formRefs.categories.find((category) => category.checked)?.value;
-
-    const rules = this.formRefs.rules.map((rule) => rule);
-
-    const formData: FormData = {
-      country: this.formRefs.dropdownList.current?.value || '',
-      location: this.formRefs.location.current?.value || '',
-      image: uploadImageURL,
-      category: category || '',
-      description: this.formRefs.description.current?.value || '',
-      date: this.formRefs.datePicker.current?.value || '',
-      author: {
-        avatar: profileImageURL,
-        first_name: this.formRefs.firstName.current?.value.trim() || '',
-        last_name: this.formRefs.lastName.current?.value.trim() || '',
-      },
+  useEffect(() => {
+    const fetchData = async () => {
+      const countries = await fetchCountries();
+      if (countries.length) {
+        setCountries(countries);
+      }
     };
 
-    const errors = ValidateForm.validateForm(formData, rules);
+    fetchData();
+  }, []);
 
-    this.setState({ errors });
-
-    const emptyErrors = Object.values(errors).every((arr) => Array.isArray(arr) && !arr.length);
-
-    if (emptyErrors) {
-      const place = {
-        ...formData,
-        id: Math.floor(Math.random() * 100000),
-        author: {
-          ...formData.author,
-          id: Math.floor(Math.random() * 100000),
-        },
-      } as PlacesInfo;
-      this.props.onSubmit(place);
-      this.setState({ isPopupVisible: true });
-      event.currentTarget.reset();
-      this.setState({ reset: true });
-    } else {
-      this.setState({ reset: false });
-    }
+  const handleShowModal = () => {
+    setShowModal(!showModal);
   };
 
-  componentDidMount = async () => {
-    const countries = await fetchCountries();
-    this.setState({ countries });
-  };
-
-  render() {
-    const { errors, countries, isPopupVisible, reset } = this.state;
-
-    const {
-      uploadImage,
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const { location, description, category, image, date, author, country } = data;
+    const formData: PlacesInfo = {
+      id: Math.floor(Math.random() * 100000),
       location,
       description,
-      dropdownList,
-      datePicker,
-      profilePicture,
-      firstName,
-      lastName,
-    } = this.formRefs;
+      country,
+      category,
+      image: URL.createObjectURL(image),
+      date,
+      author: {
+        id: Math.floor(Math.random() * 10000),
+        avatar: URL.createObjectURL(author.avatar),
+        first_name: author.firstName,
+        last_name: author.lastName,
+      },
+    };
+    handleForm(formData);
+    reset();
+    clearWrapper(true);
+    setShowModal(true);
+  };
 
-    return (
-      <section className={styles.postForm}>
-        <div className={styles.container}>
-          <h2 className={styles.postForm__title}>Create a post ✏️</h2>
-          <form className={styles.formContent} onSubmit={this.handleForm}>
-            <div className={styles.formContainer}>
-              <ImageUpload imageFileRef={uploadImage} error={errors.image} reset={reset} />
-              <div className={styles.formWrapper}>
-                <FormText
-                  textInputRef={location}
-                  error={errors.location}
-                  placeholder={'Ex: Central Garden'}
-                >
-                  Name of location
-                </FormText>
-                <FormText
-                  textInputRef={description}
-                  error={errors.description}
-                  placeholder={'Ex: Urban oasis with ballfields & a zoo'}
-                  area
-                >
-                  Description
-                </FormText>
-                <Dropdown items={countries} dropdownRef={dropdownList} error={errors.country} />
-                <DatePicker datePickerRef={datePicker} error={errors.date} reset={reset}>
-                  Date
-                </DatePicker>
-                <RadioForm
-                  name="category"
-                  items={categories}
-                  ref={this.setCategoriesRef}
-                  error={errors.category}
-                />
-                <ProfilePicture onRef={profilePicture} error={errors.authorImage} reset={reset} />
-                <FormText
-                  textInputRef={firstName}
-                  error={errors.firstName}
-                  placeholder={'Ex: John'}
-                >
-                  Your name
-                </FormText>
-                <FormText textInputRef={lastName} error={errors.lastName} placeholder={'Ex: Doe'}>
-                  Your surname
-                </FormText>
-                <CheckboxForm
-                  name="rules"
-                  items={rules}
-                  ref={this.setRulesRef}
-                  error={errors.rules}
-                />
-              </div>
+  return (
+    <section className={styles.postForm}>
+      <div className={styles.container}>
+        <h2 className={styles.postForm__title}>Create a post ✏️</h2>
+        <form className={styles.formContent} onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.formContainer}>
+            <ImageUpload
+              register={register}
+              name="image"
+              error={errors.image}
+              setValue={setValue}
+              reset={resetWrapper}
+            />
+            <div className={styles.formWrapper}>
+              <FormText
+                register={register}
+                name="location"
+                placeholder={'Ex: Central Garden'}
+                error={errors.location}
+              >
+                Name of location
+              </FormText>
+
+              <FormText
+                register={register}
+                name="description"
+                placeholder={'Ex: Urban oasis with ballfields & a zoo'}
+                area
+                error={errors.description}
+              >
+                Description
+              </FormText>
+
+              <Dropdown
+                register={register}
+                name="country"
+                items={countries}
+                error={errors.country}
+              />
+              <DatePicker
+                register={register}
+                name="date"
+                error={errors.date}
+                setValue={setValue}
+                reset={resetWrapper}
+              >
+                Date
+              </DatePicker>
+              <RadioForm
+                register={register}
+                name="category"
+                items={categories}
+                error={errors.category}
+              />
+              <ProfilePicture
+                register={register}
+                name="author.avatar"
+                error={errors.author?.avatar}
+                setValue={setValue}
+                reset={resetWrapper}
+              />
+              <FormText
+                register={register}
+                name="author.firstName"
+                placeholder={'Ex: John'}
+                error={errors.author?.firstName}
+              >
+                Your name
+              </FormText>
+              <FormText
+                register={register}
+                name="author.lastName"
+                placeholder={'Ex: Doe'}
+                error={errors.author?.lastName}
+              >
+                Your surname
+              </FormText>
+              <CheckboxForm register={register} name="terms" error={errors.terms}>
+                I accept the terms of posting
+              </CheckboxForm>
+              <CheckboxForm register={register} name="consent" error={errors.consent}>
+                I consent to the publication of my name and surname
+              </CheckboxForm>
             </div>
-            <button type="submit" className={classNames(styles.formButton, effects.buttonShadow)}>
-              Add Post
-            </button>
-          </form>
-        </div>
-        <PopupModal isVisible={isPopupVisible} togglePopup={this.togglePopup}>
-          Post has successfully created
-        </PopupModal>
-      </section>
-    );
-  }
-}
+          </div>
+          <button type="submit" className={classNames(styles.formButton, effects.buttonShadow)}>
+            Add Post
+          </button>
+        </form>
+      </div>
+      <PopupModal isVisible={showModal} onClose={handleShowModal}>
+        Post has successfully created
+      </PopupModal>
+    </section>
+  );
+};
+
+export default PostForm;

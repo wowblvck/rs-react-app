@@ -1,30 +1,25 @@
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import styles from './Checkbox.module.scss';
 import FormError from '../../FormError/FormError';
+import { FieldError, UseFormRegister, Path } from 'react-hook-form';
+import { FormValues } from '../../PostForm';
 
 type CheckboxProps = {
-  name: string;
-  items: Array<string>;
-  error?: string[];
+  name: Path<FormValues>;
+  error: FieldError | undefined;
+  register: UseFormRegister<FormValues>;
+  children: string;
 };
 
-const CheckboxForm = React.forwardRef(
-  (props: CheckboxProps, ref: LegacyRef<HTMLInputElement> | undefined) => (
-    <div>
-      <ul className={styles.checkBox__list}>
-        {props.items.map((item, index) => (
-          <li key={`${item}-${index}`} className={styles.checkBox__item}>
-            <label className={styles.checkBox__label}>
-              {item}
-              <input type="checkbox" name={props.name} value={item} ref={ref} />
-              <span className={styles.checkBox__checkmark}></span>
-            </label>
-          </li>
-        ))}
-      </ul>
-      {props.error !== undefined && <FormError error={props.error} />}
-    </div>
-  )
-);
+const CheckboxForm = ({ name, error, register, children }: CheckboxProps) => {
+  return (
+    <label className={styles.checkBox__label}>
+      {children}
+      <input {...register(name)} type="checkbox" />
+      <span className={styles.checkBox__checkmark}></span>
+      {error && <FormError>{error.message}</FormError>}
+    </label>
+  );
+};
 
 export default CheckboxForm;

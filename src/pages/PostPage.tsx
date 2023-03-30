@@ -16,7 +16,7 @@ const PostPage: React.FC = () => {
 
   return (
     <>
-      <PostForm onSubmit={handleItemSubmit} />
+      <PostForm handleForm={handleItemSubmit} />
       <PostContent items={items} />
     </>
   );

@@ -1,29 +1,32 @@
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import styles from './FormRadio.module.scss';
 import FormError from '../../FormError/FormError';
+import { FieldError, UseFormRegister, Path } from 'react-hook-form';
+import { FormValues } from '../../PostForm';
 
 type FormRadioProps = {
   items: Array<string>;
-  name: string;
-  error: string[];
+  name: Path<FormValues>;
+  error: FieldError | undefined;
+  register: UseFormRegister<FormValues>;
 };
 
-const RadioForm = React.forwardRef(
-  (props: FormRadioProps, ref: LegacyRef<HTMLInputElement> | undefined) => (
+const RadioForm = ({ items, name, error, register }: FormRadioProps) => {
+  return (
     <div>
       <ul className={styles.formList}>
-        {props.items.map((item, index) => (
+        {items.map((item, index) => (
           <li key={`${item}-${index}`} className={styles.formList__item}>
             <label className={styles.formList__label}>
-              <input type="radio" name={props.name} value={item} ref={ref} />
+              <input {...register(name)} type="radio" value={item} />
               <span>{item}</span>
             </label>
           </li>
         ))}
       </ul>
-      {props.error !== undefined && <FormError error={props.error} />}
+      {error && <FormError>{error.message}</FormError>}
     </div>
-  )
-);
+  );
+};
 
 export default RadioForm;

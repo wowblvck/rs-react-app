@@ -1,15 +1,9 @@
 @use '../../../scss/mixins' as mix;
 
-.errorList {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.error {
   margin: 10px 0 0;
-  padding: 0 0 0 25px;
-
-  &__item {
-    @include mix.font('Rubik', 16px, 300);
-    color: red;
-    line-height: 150%;
-  }
+  list-style: circle;
+  @include mix.font('Rubik', 16px, 300);
+  color: red;
+  line-height: 150%;
 }

@@ -1,9 +1,10 @@
-import { PlacesInfo } from 'interfaces/Places.interface';
+import { PlacesInfo } from '../interfaces';
 
 export const mockData: PlacesInfo[] = [
   {
     id: 1,
     country: 'Turkey',
+    category: 'Architecture',
     location: 'Hagia Sophia',
     image:
       'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSEGsnBieihtSMKyNpTeFErn1ubvvK75frVo_j0kWmttwu5JBAR6bwd3LyLukPdnVqxaGuhPRSaS1iIo5vgYWhgPA',
@@ -19,6 +20,7 @@ export const mockData: PlacesInfo[] = [
   {
     id: 2,
     country: 'Turkey',
+    category: 'Architecture',
     location: 'The Blue Mosque',
     image:
       'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRIc_Uh1zFVagmGzvJ5ayZHmMjZejF9dowRQdJSk8-Ov7dZrS6YgQFXQCh74sy8xed_pXZSsNGS1tXM4zAoNOKawA',
@@ -34,6 +36,7 @@ export const mockData: PlacesInfo[] = [
   {
     id: 3,
     country: 'Russia',
+    category: 'Architecture',
     location: 'State Hermitage Museum',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe8X7cXH21WYx5xI8FD_7P2ZJKMH4IPe3_pVpu8yn6VPlyTSS6jKV6o7q4-W73Wd7_sOTgRTaB4EsE6svglsRZDQ',

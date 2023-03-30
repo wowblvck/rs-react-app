@@ -2,27 +2,11 @@ import React from 'react';
 import styles from './FormError.module.scss';
 
 type FormErrorProps = {
-  error: string[];
+  children: React.ReactNode;
 };
 
-class FormError extends React.Component<FormErrorProps> {
-  render() {
-    const { error } = this.props;
-
-    return (
-      <React.Fragment>
-        {error.length > 0 && (
-          <ul className={styles.errorList}>
-            {error.map((error) => (
-              <li key={error} className={styles.errorList__item}>
-                {error}
-              </li>
-            ))}
-          </ul>
-        )}
-      </React.Fragment>
-    );
-  }
-}
+const FormError: React.FC<FormErrorProps> = ({ children }) => {
+  return <p className={styles.error}>{children}</p>;
+};
 
 export default FormError;

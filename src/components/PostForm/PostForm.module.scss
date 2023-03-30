@@ -53,5 +53,6 @@
   border: none;
   cursor: pointer;
   margin-top: 45px;
+  text-transform: uppercase;
   @include mix.font('Rubik', 20px, 400);
 }

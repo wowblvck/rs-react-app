@@ -1,49 +1,51 @@
 import React, { ReactNode } from 'react';
 import styles from './FormText.module.scss';
 import classNames from 'classnames';
+import { FieldError, UseFormRegister, Path } from 'react-hook-form';
 import FormError from '../../FormError/FormError';
+import { FormValues } from '../../PostForm';
 
 type FormTextProps = {
+  name: Path<FormValues>;
   area?: boolean;
   disabled?: boolean;
   placeholder?: string;
+  value?: string | undefined;
   children?: ReactNode;
-  value?: string;
-  textInputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
-  error?: string[];
+  error?: FieldError | undefined;
+  register: UseFormRegister<FormValues>;
 };
 
-export default class FormText extends React.Component<FormTextProps> {
-  render() {
-    const {
-      area,
-      disabled = false,
-      placeholder,
-      children,
-      value,
-      textInputRef,
-      error,
-    } = this.props;
+const FormText = ({
+  name,
+  area = false,
+  disabled = false,
+  placeholder,
+  children,
+  value,
+  error,
+  register,
+}: FormTextProps) => {
+  const InputElement = area ? 'textarea' : 'input';
 
-    const InputElement = area ? 'textarea' : 'input';
+  return (
+    <>
+      <label>
+        <span className={styles.textInput__title}>{children}</span>
+        <InputElement
+          type={!area ? 'text' : undefined}
+          {...register(name)}
+          className={classNames(styles.textInput, {
+            [styles.textInput_area]: area,
+          })}
+          disabled={disabled}
+          placeholder={placeholder}
+          value={value}
+        />
+        {error && <FormError>{error.message}</FormError>}
+      </label>
+    </>
+  );
+};
 
-    return (
-      <React.Fragment>
-        <label>
-          <span className={styles.textInput__title}>{children}</span>
-          <InputElement
-            type={!area ? 'text' : undefined}
-            className={classNames(styles.textInput, {
-              [styles.textInput_area]: area,
-            })}
-            disabled={disabled}
-            placeholder={placeholder}
-            value={value}
-            ref={textInputRef as React.RefObject<HTMLInputElement & HTMLTextAreaElement>}
-          />
-          {error !== undefined && <FormError error={error} />}
-        </label>
-      </React.Fragment>
-    );
-  }
-}
+export default FormText;

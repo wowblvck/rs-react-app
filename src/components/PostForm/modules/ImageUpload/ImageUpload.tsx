@@ -1,78 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ImageUpload.module.scss';
 import classNames from 'classnames';
 import effects from '../../../../scss/common/Effects.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
+import { UseFormRegister, Path, FieldError, UseFormSetValue } from 'react-hook-form';
+import { FormValues } from '../../PostForm';
 
 type ImageUploadProps = {
-  imageFileRef: React.RefObject<HTMLInputElement>;
-  error?: string[];
+  register: UseFormRegister<FormValues>;
+  name: Path<FormValues>;
+  error?: FieldError | undefined;
+  setValue: UseFormSetValue<FormValues>;
   reset: boolean;
 };
 
-type ImageUploadState = {
-  image: string;
-};
+const ImageUpload = ({ register, name, error, setValue, reset }: ImageUploadProps) => {
+  const [image, setImage] = useState('');
 
-export default class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
-  state = {
-    image: '',
-  };
+  useEffect(() => {
+    if (reset) {
+      setImage('');
+    }
+  }, [reset]);
 
-  imageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const imageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files?.[0];
     if (file) {
       const image = URL.createObjectURL(file);
-      this.setState({ image });
+      setImage(image);
+      setValue(name, file, { shouldValidate: true });
     }
   };
 
-  componentDidUpdate(prevProps: ImageUploadProps) {
-    if (prevProps.reset !== this.props.reset && this.props.reset) {
-      this.setState({ image: '' });
-    }
-  }
-
-  render() {
-    const { error } = this.props;
-
-    return (
-      <div className={styles.imageUploader}>
-        <div className={classNames(styles.imageUploader__imageWrapper, effects.boxShadow)}>
-          {this.state.image ? (
-            <img
-              className={styles.imageUploader__image}
-              src={this.state.image}
-              alt="Preview image"
-            />
-          ) : (
-            <p className={styles.imageUploader__title}>
-              {error?.length ? (
-                <>
-                  <span className={styles.imageUploader__title_error}>Upload an image</span>
-                </>
-              ) : (
-                <>
-                  Preview<span>261 x 164</span>
-                </>
-              )}
-            </p>
-          )}
-        </div>
-        <label className={classNames(styles.imageUploader__input, effects.buttonShadow)}>
-          <FontAwesomeIcon icon={faCloudUpload} />
-          Choose image
-          <input
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            onChange={this.imageUpload}
-            ref={this.props.imageFileRef}
-            hidden
-          />
-        </label>
+  return (
+    <div className={styles.imageUploader}>
+      <div className={classNames(styles.imageUploader__imageWrapper, effects.boxShadow)}>
+        {image && !error ? (
+          <img className={styles.imageUploader__image} src={image} alt="Preview image" />
+        ) : (
+          <p className={styles.imageUploader__title}>
+            {error ? (
+              <>
+                <span className={styles.imageUploader__title_error}>{error.message}</span>
+              </>
+            ) : (
+              <>
+                Preview<span>261 x 164</span>
+              </>
+            )}
+          </p>
+        )}
       </div>
-    );
-  }
-}
+      <label className={classNames(styles.imageUploader__input, effects.buttonShadow)}>
+        <FontAwesomeIcon icon={faCloudUpload} />
+        Choose image
+        <input
+          type="file"
+          {...register(name)}
+          accept="image/png, image/gif, image/jpeg"
+          onChange={imageUpload}
+          hidden
+        />
+      </label>
+    </div>
+  );
+};
+
+export default ImageUpload;
