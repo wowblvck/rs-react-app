@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
-  "browserslist": [ "last 2 versions", "not dead" ],
+  "browserslist": [
+    "last 2 versions",
+    "not dead"
+  ],
   "scripts": {
     "prepare": "husky install",
     "dev": "vite",
@@ -62,9 +65,12 @@
     "postcss": "^8.4.21",
     "prettier": "2.8.4",
     "sass": "^1.58.3",
+    "sharp": "^0.32.0",
+    "svgo": "^3.0.2",
     "typescript": "^4.9.5",
     "vite": "^4.1.0",
     "vite-plugin-gh-pages": "^0.4.1",
+    "vite-plugin-image-optimizer": "^1.1.2",
     "vitest": "^0.29.3"
   }
 }
