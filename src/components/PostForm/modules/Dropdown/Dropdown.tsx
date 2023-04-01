@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import FormError from '../../FormError/FormError';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type DropdownProps = {
   name: Path<FormValues>;
@@ -19,7 +19,12 @@ const Dropdown = ({ items, error, name, register }: DropdownProps) => {
     <label className={styles.dropdownSelect}>
       <div className={styles.dropdownSelect__wrapper}>
         <FontAwesomeIcon icon={faCaretDown} className={styles.dropdownSelect__arrow} />
-        <select {...register(name)} className={styles.dropdownSelect__list} defaultValue={''}>
+        <select
+          aria-label={name}
+          {...register(name)}
+          className={styles.dropdownSelect__list}
+          defaultValue={''}
+        >
           <option className={styles.dropdownSelect__option} value="" disabled>
             Choose country:
           </option>

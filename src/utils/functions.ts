@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const getDayBetweenDates = (date: string) => {
+const getDayBetweenDates = (date: string) => {
   const postDate = moment(date);
   const currentDate = moment();
 
@@ -16,3 +16,5 @@ export const getDayBetweenDates = (date: string) => {
     return date;
   }
 };
+
+export { getDayBetweenDates };

@@ -10,7 +10,6 @@ import './scss/app.scss';
 import RootLayout from './layouts/RootLayout';
 
 import { HomePage, ErrorPage, AboutPage, PostPage } from './pages';
-import { RoutesProp } from './types/Routes.types';
 
 export const bgGallery = Object.values(
   import.meta.glob('./assets/img/backgrounds/*.{png,jpg,jpeg,PNG,JPEG}', {
@@ -18,31 +17,6 @@ export const bgGallery = Object.values(
     as: 'url',
   })
 );
-
-export const routes: RoutesProp[] = [
-  {
-    key: 'home',
-    path: '/',
-    title: 'Home',
-    inNav: true,
-  },
-  {
-    key: 'about',
-    path: '/about',
-    title: 'About Us',
-    inNav: true,
-  },
-  {
-    key: 'post',
-    path: '/post',
-    title: 'Post',
-  },
-  {
-    key: '404',
-    path: '*',
-    title: '404',
-  },
-];
 
 const router = createBrowserRouter(
   createRoutesFromElements(

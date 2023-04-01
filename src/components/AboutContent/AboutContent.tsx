@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './AboutContent.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
-import { randomBg } from '../../utils/bgRandomizer';
+import randomBg from '../../utils/bgRandomizer';
 import classNames from 'classnames';
 import githubLogo from '../../assets/icons/github_icon.svg';
 import rsLogo from '../../assets/icons/rs-logo.png';

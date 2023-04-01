@@ -8,4 +8,4 @@ const fetchPlaces = async (): Promise<PlacesInfo[]> => {
   }
 };
 
-export { fetchPlaces };
+export default fetchPlaces;

@@ -3,7 +3,7 @@ import styles from './FormText.module.scss';
 import classNames from 'classnames';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
 import FormError from '../../FormError/FormError';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type FormTextProps = {
   name: Path<FormValues>;
@@ -33,6 +33,7 @@ const FormText = ({
       <label>
         <span className={styles.textInput__title}>{children}</span>
         <InputElement
+          aria-label={name}
           type={!area ? 'text' : undefined}
           {...register(name)}
           className={classNames(styles.textInput, {

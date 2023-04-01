@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import HomeContent from './HomeContent';
 import { fetchPlaces } from '../../thunks';
-import { mockData } from '../../tests/mockData';
+import { mockPlaces } from '../../tests/mockData';
 
 describe('HomeContent', () => {
   beforeEach(() => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
-        json: () => Promise.resolve(mockData),
+        json: () => Promise.resolve(mockPlaces),
       } as Response)
     );
   });
@@ -18,19 +18,18 @@ describe('HomeContent', () => {
   });
 
   it('renders the title', async () => {
-    const { queryAllByTestId, getByText } = render(<HomeContent />);
+    render(<HomeContent />);
     await waitFor(() => {
-      const items = queryAllByTestId('card-item');
-      expect(items).toHaveLength(mockData.length);
+      const items = screen.queryAllByTestId('card-item');
+      expect(items).toHaveLength(mockPlaces.length);
     });
-    const titleElement = getByText(/Find your place/i);
+    const titleElement = screen.getByText(/Find your place/i);
     expect(titleElement).toBeInTheDocument();
   });
 
   it('fetches data successfully from the server', async () => {
     const data = await fetchPlaces();
-
-    expect(data).toEqual(mockData);
+    expect(data).toEqual(mockPlaces);
   });
 
   it('throws an error when the server response is an HTTP error', async () => {

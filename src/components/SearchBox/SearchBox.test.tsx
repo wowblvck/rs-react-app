@@ -16,14 +16,14 @@ describe('Search Box Component', () => {
 
   it('should set background image from session storage if available', () => {
     const { unmount } = render(<SearchBox />);
-    const mockImage = 'test-image.jpg';
-    if (mockImage) {
-      localStorage.setItem('bgImage', mockImage);
+    const mockInput = 'something';
+    if (mockInput) {
+      localStorage.setItem('searchValue', mockInput);
     }
     unmount();
-    const image = localStorage.getItem('bgImage');
-    if (image) {
-      expect(localStorage.getItem('bgImage')).toBe(mockImage);
+    const input = localStorage.getItem('searchValue');
+    if (input) {
+      expect(localStorage.getItem('searchValue')).toBe(mockInput);
     }
   });
 });

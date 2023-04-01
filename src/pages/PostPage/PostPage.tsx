@@ -1,7 +1,7 @@
-import PostForm from '../components/PostForm/PostForm';
-import PostContent from '../components/PostContent/PostContent';
+import PostForm from '../../components/PostForm/PostForm';
+import PostContent from '../../components/PostContent/PostContent';
 import React, { useState } from 'react';
-import { PlacesInfo } from '../interfaces/index';
+import { PlacesInfo } from '../../interfaces';
 
 type PlacesState = PlacesInfo[] | [];
 

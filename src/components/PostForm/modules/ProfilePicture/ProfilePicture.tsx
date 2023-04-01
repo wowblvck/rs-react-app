@@ -3,7 +3,7 @@ import styles from './ProfilePicture.module.scss';
 import effects from '../../../../scss/common/Effects.module.scss';
 import classNames from 'classnames';
 import { FieldError, Path, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type ProfilePictureProps = {
   register: UseFormRegister<FormValues>;
@@ -52,6 +52,7 @@ const ProfilePicture = ({ error, register, name, setValue, reset }: ProfilePictu
         </div>
       </label>
       <input
+        aria-label={name}
         type="file"
         id="profilePicture-upload"
         {...register(name)}

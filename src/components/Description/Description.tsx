@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Description.module.scss';
 import SearchBox from '../SearchBox/SearchBox';
-import { randomBg } from '../../utils/bgRandomizer';
+import randomBg from '../../utils/bgRandomizer';
 
 const Description: React.FC = () => {
   const [image, setImage] = useState<string>('');
@@ -18,7 +18,7 @@ const Description: React.FC = () => {
   }, []);
 
   const bgImage = {
-    '--img': `url(${image}`,
+    '--img': `url(${image})`,
   } as React.CSSProperties;
 
   return (

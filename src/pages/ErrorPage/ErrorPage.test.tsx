@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ErrorPage from './ErrorPage';
+import { ErrorPage } from '../index';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('ErrorPage component', () => {
-  test('renders the error image', () => {
+describe('ErrorPage', () => {
+  it('renders the error image', () => {
     render(
       <MemoryRouter>
         <ErrorPage />
@@ -14,7 +14,7 @@ describe('ErrorPage component', () => {
     expect(errorImage).toBeInTheDocument();
   });
 
-  test('renders the error message', () => {
+  it('renders the error message', () => {
     render(
       <MemoryRouter>
         <ErrorPage />
@@ -24,7 +24,7 @@ describe('ErrorPage component', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  test('renders the return home button', () => {
+  it('renders the return home button', () => {
     render(
       <MemoryRouter>
         <ErrorPage />

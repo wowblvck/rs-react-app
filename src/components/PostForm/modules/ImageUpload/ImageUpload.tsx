@@ -5,7 +5,7 @@ import effects from '../../../../scss/common/Effects.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 import { UseFormRegister, Path, FieldError, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type ImageUploadProps = {
   register: UseFormRegister<FormValues>;
@@ -57,6 +57,7 @@ const ImageUpload = ({ register, name, error, setValue, reset }: ImageUploadProp
         <FontAwesomeIcon icon={faCloudUpload} />
         Choose image
         <input
+          aria-label={name}
           type="file"
           {...register(name)}
           accept="image/png, image/gif, image/jpeg"

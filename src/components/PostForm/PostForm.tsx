@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import moment from 'moment';
+import classNames from 'classnames';
 
 import styles from './PostForm.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
+
 import {
   Dropdown,
   ImageUpload,
@@ -14,30 +17,15 @@ import {
   CheckboxForm,
   ProfilePicture,
 } from './modules';
-import classNames from 'classnames';
+
 import { PlacesInfo, CountriesInfo } from '../../interfaces';
+import { FormValues } from '../../types/';
 import { fetchCountries } from '../../thunks';
+
 import PopupModal from '../PopupModal/PopupModal';
-import moment from 'moment';
 
 type PostFormProps = {
   handleForm: (formData: PlacesInfo | null) => void;
-};
-
-export type FormValues = {
-  location: string;
-  description: string;
-  category: string;
-  country: string;
-  date: string;
-  author: {
-    avatar: File;
-    firstName: string;
-    lastName: string;
-  };
-  image: File;
-  terms: boolean;
-  consent: boolean;
 };
 
 const schema = yup.object().shape({
@@ -49,8 +37,8 @@ const schema = yup.object().shape({
     .required('Field is required'),
   description: yup
     .string()
-    .min(20, 'Length must be at least 5')
-    .max(300, 'The length must be no more than 20')
+    .min(20, 'Length must be at least 20')
+    .max(300, 'The length must be no more than 300')
     .matches(/^[A-Z]/, 'First character must be uppercase')
     .required(),
   category: yup.string().required('Select category'),
@@ -158,7 +146,11 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
     <section className={styles.postForm}>
       <div className={styles.container}>
         <h2 className={styles.postForm__title}>Create a post ✏️</h2>
-        <form className={styles.formContent} onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className={styles.formContent}
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid="post-form"
+        >
           <div className={styles.formContainer}>
             <ImageUpload
               register={register}

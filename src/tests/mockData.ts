@@ -1,6 +1,6 @@
-import { PlacesInfo } from '../interfaces';
+import { CountriesInfo, PlacesInfo } from '../interfaces';
 
-export const mockData: PlacesInfo[] = [
+const mockPlaces: PlacesInfo[] = [
   {
     id: 1,
     country: 'Turkey',
@@ -50,3 +50,36 @@ export const mockData: PlacesInfo[] = [
     },
   },
 ];
+
+const mockCountries: CountriesInfo[] = [
+  {
+    name: 'Ascension Island',
+    code: 'AC',
+    emoji: '🇦🇨',
+    unicode: 'U+1F1E6 U+1F1E8',
+    image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AC.svg',
+  },
+  {
+    name: 'Andorra',
+    code: 'AD',
+    emoji: '🇦🇩',
+    unicode: 'U+1F1E6 U+1F1E9',
+    image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AD.svg',
+  },
+  {
+    name: 'United Arab Emirates',
+    code: 'AE',
+    emoji: '🇦🇪',
+    unicode: 'U+1F1E6 U+1F1EA',
+    image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AE.svg',
+  },
+  {
+    name: 'Turkey',
+    code: 'TR',
+    emoji: '🇹🇷',
+    unicode: 'U+1F1F9 U+1F1F7',
+    image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TR.svg',
+  },
+];
+
+export { mockCountries, mockPlaces };

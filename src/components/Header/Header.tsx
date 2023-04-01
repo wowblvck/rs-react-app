@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
 import SearchBox from '../SearchBox/SearchBox';
 
-import { routes } from '../../App';
+import routes from '../../routes/routes';
 
 const Header: React.FC = () => {
   const location = useLocation();

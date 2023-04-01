@@ -5,7 +5,7 @@ import styles from './DatePicker.module.scss';
 import moment from 'moment';
 import FormError from '../../FormError/FormError';
 import { FieldError, Path, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type DatePickerProps = {
   children?: ReactNode;
@@ -46,6 +46,7 @@ const DatePicker = ({ children, error, register, name, setValue, reset }: DatePi
             style={{ fontSize: '24px' }}
           />
           <input
+            aria-label={name}
             type="date"
             {...register(name)}
             className={styles.datePicker__input}

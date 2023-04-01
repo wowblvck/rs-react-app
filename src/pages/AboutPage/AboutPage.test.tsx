@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import AboutPage from './AboutPage';
+import { AboutPage } from '../index';
 
 describe('AboutPage', () => {
   it('should render the AboutContent component', () => {

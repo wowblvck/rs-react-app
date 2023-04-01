@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './FormRadio.module.scss';
 import FormError from '../../FormError/FormError';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { FormValues } from '../../PostForm';
+import { FormValues } from '../../../../types';
 
 type FormRadioProps = {
   items: Array<string>;
   name: Path<FormValues>;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
   register: UseFormRegister<FormValues>;
 };
 
@@ -18,7 +18,7 @@ const RadioForm = ({ items, name, error, register }: FormRadioProps) => {
         {items.map((item, index) => (
           <li key={`${item}-${index}`} className={styles.formList__item}>
             <label className={styles.formList__label}>
-              <input {...register(name)} type="radio" value={item} />
+              <input aria-label={name} {...register(name)} type="radio" value={item} />
               <span>{item}</span>
             </label>
           </li>
