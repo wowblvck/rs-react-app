@@ -14,18 +14,28 @@ type DatePickerProps = {
   name: Path<FormValues>;
   setValue: UseFormSetValue<FormValues>;
   reset: boolean;
+  onClear: () => void;
 };
 
 const dateFormat = 'DD/MM/YYYY';
 
-const DatePicker = ({ children, error, register, name, setValue, reset }: DatePickerProps) => {
+const DatePicker = ({
+  children,
+  error,
+  register,
+  name,
+  setValue,
+  reset,
+  onClear,
+}: DatePickerProps) => {
   const [date, setDate] = useState('');
 
   useEffect(() => {
     if (reset) {
       setDate('');
+      onClear();
     }
-  }, [reset]);
+  }, [reset, onClear]);
 
   const handleDate = (event: React.ChangeEvent<HTMLDataElement>) => {
     const { value } = event.target;

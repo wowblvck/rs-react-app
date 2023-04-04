@@ -6,6 +6,7 @@ const props = {
   register: vi.fn(),
   setValue: vi.fn(),
   reset: false,
+  onClear: vi.fn(),
 };
 
 describe('ImageUpload', () => {

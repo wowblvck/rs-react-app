@@ -11,6 +11,7 @@ const props = {
     message: 'This field is required',
   },
   reset: false,
+  onClear: vi.fn(),
 };
 
 describe('DatePicker', () => {
