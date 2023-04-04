@@ -1,0 +1,12 @@
+@use '../../scss/mixins' as mix;
+
+.button {
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  text-transform: uppercase;
+}
+
+

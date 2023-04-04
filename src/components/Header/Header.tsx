@@ -8,6 +8,7 @@ import effects from '../../scss/common/Effects.module.scss';
 import SearchBox from '../SearchBox/SearchBox';
 
 import routes from '../../routes/routes';
+import Button from '../Button/Button';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -51,11 +52,11 @@ const Header: React.FC = () => {
           ))}
         </ul>
       </nav>
-      <button className={classNames(styles.postButton, effects.buttonShadow)}>
+      <Button>
         <Link className={styles.postLink} to="/post">
           Create Post
         </Link>
-      </button>
+      </Button>
     </header>
   );
 };

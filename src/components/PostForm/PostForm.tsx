@@ -3,10 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
-import classNames from 'classnames';
 
 import styles from './PostForm.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
 
 import {
   Dropdown,
@@ -23,6 +21,7 @@ import { FormValues } from '../../types/';
 import { fetchCountries } from '../../thunks';
 
 import PopupModal from '../PopupModal/PopupModal';
+import Button from '../Button/Button';
 
 type PostFormProps = {
   handleForm: (formData: PlacesInfo | null) => void;
@@ -231,9 +230,7 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
               </CheckboxForm>
             </div>
           </div>
-          <button type="submit" className={classNames(styles.formButton, effects.buttonShadow)}>
-            Add Post
-          </button>
+          <Button className={styles.formButton}>Add Post</Button>
         </form>
       </div>
       <PopupModal isVisible={showModal} onClose={handleShowModal}>
