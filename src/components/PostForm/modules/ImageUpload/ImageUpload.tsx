@@ -12,17 +12,19 @@ type ImageUploadProps = {
   name: Path<FormValues>;
   error?: FieldError | undefined;
   setValue: UseFormSetValue<FormValues>;
+  onClear: () => void;
   reset: boolean;
 };
 
-const ImageUpload = ({ register, name, error, setValue, reset }: ImageUploadProps) => {
+const ImageUpload = ({ register, name, error, setValue, reset, onClear }: ImageUploadProps) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
     if (reset) {
       setImage('');
+      onClear();
     }
-  }, [reset]);
+  }, [onClear, reset]);
 
   const imageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -42,9 +44,7 @@ const ImageUpload = ({ register, name, error, setValue, reset }: ImageUploadProp
         ) : (
           <p className={styles.imageUploader__title}>
             {error ? (
-              <>
-                <span className={styles.imageUploader__title_error}>{error.message}</span>
-              </>
+              <span className={styles.imageUploader__title_error}>{error.message}</span>
             ) : (
               <>
                 Preview<span>261 x 164</span>

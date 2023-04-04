@@ -11,16 +11,25 @@ type ProfilePictureProps = {
   error?: FieldError | undefined;
   setValue: UseFormSetValue<FormValues>;
   reset: boolean;
+  onClear: () => void;
 };
 
-const ProfilePicture = ({ error, register, name, setValue, reset }: ProfilePictureProps) => {
+const ProfilePicture = ({
+  error,
+  register,
+  name,
+  setValue,
+  reset,
+  onClear,
+}: ProfilePictureProps) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
     if (reset) {
       setImage('');
+      onClear();
     }
-  }, [reset]);
+  }, [reset, onClear]);
 
   const imageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

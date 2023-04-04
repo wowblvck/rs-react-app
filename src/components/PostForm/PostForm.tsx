@@ -51,7 +51,7 @@ const schema = yup.object().shape({
       })
       .test('type', 'Only JPEG, PNG, GIF', (value) => {
         const file = value as File;
-        return !(file.type !== ('image/jpeg' || 'image/png' || 'image/gif'));
+        return file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
       }),
     firstName: yup
       .string()
@@ -74,7 +74,7 @@ const schema = yup.object().shape({
     })
     .test('type', 'Only JPEG, PNG, GIF', (value) => {
       const file = value as File;
-      return !(file.type !== ('image/jpeg' || 'image/png' || 'image/gif'));
+      return file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
     }),
   date: yup
     .string()
@@ -90,8 +90,11 @@ const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 
 const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
   const [countries, setCountries] = useState<Array<CountriesInfo>>([]);
-  const [resetWrapper, clearWrapper] = useState(false);
+  const [clearImage, clearImageWrapper] = useState(false);
+  const [clearAvatar, clearAvatarWrapper] = useState(false);
+  const [clearDate, clearDateWrapper] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -137,8 +140,16 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
     };
     handleForm(formData);
     reset();
-    clearWrapper(true);
+    clearImageWrapper(true);
+    clearAvatarWrapper(true);
+    clearDateWrapper(true);
     setShowModal(true);
+  };
+
+  const onClear = () => {
+    clearImageWrapper(!clearImage);
+    clearAvatarWrapper(!clearAvatar);
+    clearDateWrapper(!clearDate);
   };
 
   return (
@@ -156,7 +167,8 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
               name="image"
               error={errors.image}
               setValue={setValue}
-              reset={resetWrapper}
+              reset={clearImage}
+              onClear={onClear}
             />
             <div className={styles.formWrapper}>
               <FormText
@@ -189,7 +201,8 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
                 name="date"
                 error={errors.date}
                 setValue={setValue}
-                reset={resetWrapper}
+                reset={clearDate}
+                onClear={onClear}
               >
                 Date
               </DatePicker>
@@ -204,7 +217,8 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
                 name="author.avatar"
                 error={errors.author?.avatar}
                 setValue={setValue}
-                reset={resetWrapper}
+                reset={clearAvatar}
+                onClear={onClear}
               />
               <FormText
                 register={register}
