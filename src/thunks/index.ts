@@ -1,2 +1,2 @@
-export { default as fetchPlaces } from './FetchPlaces';
-export { default as fetchCountries } from './FetchCountries';
+export { default as fetchPlaces } from './Places';
+export { default as fetchCountries } from './Countries';

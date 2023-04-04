@@ -1,5 +1,5 @@
 import { PlacesInfo } from '../interfaces';
-const fetchPlaces = async (): Promise<PlacesInfo[]> => {
+const places = async (): Promise<PlacesInfo[]> => {
   try {
     const response = await fetch('/db.json');
     return await response.json();
@@ -8,4 +8,4 @@ const fetchPlaces = async (): Promise<PlacesInfo[]> => {
   }
 };
 
-export default fetchPlaces;
+export default places;

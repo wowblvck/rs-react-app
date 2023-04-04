@@ -1,6 +1,6 @@
 import { CountriesInfo } from '../interfaces';
 
-const fetchCountries = async (): Promise<CountriesInfo[]> => {
+const countries = async (): Promise<CountriesInfo[]> => {
   try {
     const response = await fetch('/countries.json');
     return await response.json();
@@ -9,4 +9,4 @@ const fetchCountries = async (): Promise<CountriesInfo[]> => {
   }
 };
 
-export default fetchCountries;
+export default countries;
