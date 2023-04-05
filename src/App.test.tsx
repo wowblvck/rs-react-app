@@ -4,11 +4,13 @@ import React from 'react';
 import { HomePage, AboutPage, PostPage, ErrorPage } from './pages';
 import { mockPlaces } from './tests/mockData';
 import { act } from 'react-dom/test-utils';
+import { getPlaces } from './thunks';
 
 describe('App', () => {
   beforeEach(() => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
+        ok: true,
         json: () => Promise.resolve(mockPlaces),
       } as Response)
     );
@@ -19,6 +21,7 @@ describe('App', () => {
   });
 
   it('renders homepage', async () => {
+    await getPlaces();
     await act(async () => {
       render(
         <MemoryRouter>

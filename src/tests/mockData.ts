@@ -2,19 +2,19 @@ import { CountriesInfo, PlacesInfo } from '../interfaces';
 
 const mockPlaces: PlacesInfo[] = [
   {
-    id: 1,
-    country: 'Turkey',
+    id: 6,
+    country: 'Thailand',
+    location: 'The Grand Palace',
     category: 'Architecture',
-    location: 'Hagia Sophia',
     image:
-      'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSEGsnBieihtSMKyNpTeFErn1ubvvK75frVo_j0kWmttwu5JBAR6bwd3LyLukPdnVqxaGuhPRSaS1iIo5vgYWhgPA',
-    description: 'Famed Byzantine mosque with a dome',
-    date: '2023-03-13',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-W1e7iyUkteKjzl4yqSdPRmzyqRceWg7QmNKJ3HyXAwR-CnM1fVlr1T5T08Yf5waJDoUNbhZTKjJlvpSad4EsnA',
+    description: 'Opulent former royal residence & museum',
+    date: '2016-05-18',
     author: {
-      id: 13,
-      avatar: 'https://xsgames.co/randomusers/assets/avatars/female/18.jpg',
-      first_name: 'Tracie',
-      last_name: 'Colebrook',
+      id: 58,
+      avatar: 'https://xsgames.co/randomusers/assets/avatars/female/64.jpg',
+      first_name: 'Katelyn',
+      last_name: 'Rodriguez',
     },
   },
   {
