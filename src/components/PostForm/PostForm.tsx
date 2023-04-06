@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
+import { addPlace } from '../../thunks';
 
 import styles from './PostForm.module.scss';
 
@@ -16,9 +17,9 @@ import {
   ProfilePicture,
 } from './modules';
 
-import { PlacesInfo, CountriesInfo } from '../../interfaces';
+import { PlacesInfo, CountriesInfo, PlacesInfoDto } from '../../interfaces';
 import { FormValues } from '../../types/';
-import { fetchCountries } from '../../thunks';
+import { fetchCountries, uploadImage } from '../../thunks';
 
 import PopupModal from '../PopupModal/PopupModal';
 import Button from '../Button/Button';
@@ -121,29 +122,39 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
     setShowModal(!showModal);
   };
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { location, description, category, image, date, author, country } = data;
-    const formData: PlacesInfo = {
-      id: Math.floor(Math.random() * 100000),
-      location,
-      description,
-      country,
-      category,
-      image: URL.createObjectURL(image),
-      date,
-      author: {
-        id: Math.floor(Math.random() * 10000),
-        avatar: URL.createObjectURL(author.avatar),
-        first_name: author.firstName,
-        last_name: author.lastName,
-      },
-    };
-    handleForm(formData);
-    reset();
-    clearImageWrapper(true);
-    clearAvatarWrapper(true);
-    clearDateWrapper(true);
-    setShowModal(true);
+
+    try {
+      const imageLink = await uploadImage(image);
+      const imageProfileLink = await uploadImage(author.avatar);
+
+      const formData: PlacesInfoDto = {
+        location,
+        description,
+        country,
+        category,
+        image: imageLink.image?.url || '',
+        date,
+        author: {
+          avatar: imageProfileLink.image?.url || '',
+          first_name: author.firstName,
+          last_name: author.lastName,
+        },
+      };
+
+      const place = await addPlace(formData);
+      if (place) {
+        setShowModal(true);
+        handleForm(place);
+        reset();
+        clearImageWrapper(true);
+        clearAvatarWrapper(true);
+        clearDateWrapper(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const onClear = () => {

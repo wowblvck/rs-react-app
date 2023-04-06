@@ -31,9 +31,7 @@ const CardPopup: React.FC<CardPopupProps> = ({ isVisible, obj, onClose }) => {
 
   useEffect(() => {
     return () => {
-      if (isVisible) {
-        setZoom(false);
-      }
+      setZoom(false);
     };
   }, [isVisible]);
 
@@ -71,7 +69,13 @@ const CardPopup: React.FC<CardPopupProps> = ({ isVisible, obj, onClose }) => {
             [styles.imageContainer_zoom]: zoom,
           })}
         >
-          <img src={image} alt={`${location} Image`} className={styles.imageContainer__image} />
+          <img
+            src={image}
+            alt={`${location} Image`}
+            className={classNames(styles.imageContainer__image, {
+              [styles.imageContainer__image_zoom]: zoom,
+            })}
+          />
           <div
             className={classNames(styles.imageContainer__overlay, {
               [styles.imageContainer__overlay_zoom]: zoom,

@@ -33,7 +33,7 @@ const CardItem: React.FC<CardItemProps> = ({ obj, isLoading }) => {
           <FontAwesomeIcon icon={faTag} style={{ color: 'white' }} />
           <span>{category}</span>
         </div>
-        <img className={styles.cardItem__image} src={image} alt="Card Image - Istanbul" />
+        <img className={styles.cardItem__image} src={image} alt={`Card image ${location}`} />
       </div>
       <div className={styles.cardItem__content}>
         <div className={styles.cardItem__header}>
