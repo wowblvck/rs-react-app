@@ -25,3 +25,23 @@
   margin: 0 0 50px;
   padding: 0 12px;
 }
+
+.errorContainer {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.errorTitle {
+  text-align: center;
+  margin: 20px 0 0;
+  @include mix.font('Rubik', 32px, 300);
+}
+
+.errorButton {
+  width: 200px;
+  padding: 10px 20px;
+  margin-top: 45px;
+  @include mix.font('Rubik', 20px, 400);
+}

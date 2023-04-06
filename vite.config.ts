@@ -6,7 +6,8 @@ import macrosPlugin from 'vite-plugin-babel-macros';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { DEFAULT_OPTIONS } from './imageOptimization.config';
 import { defineConfig } from 'vite';
-import autoprefixer from 'autoprefixer';
+import autoprefixer = require('autoprefixer');
+import { configDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,5 +21,20 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.ts',
+    coverage: {
+      provider: 'c8',
+      all: true,
+      exclude: [
+        ...configDefaults.exclude,
+        '**/main.tsx',
+        '**/*.d.ts',
+        'src/types/*',
+        'src/interfaces/*',
+        'src/utils/test-utils.tsx',
+        'babel-plugin-macros.config.js',
+        'imageOptimization.config.ts',
+        'postcss.config.js',
+      ],
+    },
   },
 });

@@ -12,7 +12,7 @@ describe('CardItem', () => {
     vi.restoreAllMocks();
   });
   it('renders correctly with provided data', async () => {
-    const { getByText, getByAltText, getAllByText, getAllByAltText } = render(
+    const { getByAltText, getAllByText, getAllByAltText } = render(
       <CardItem obj={mockPlaces[0]} isLoading />
     );
 
