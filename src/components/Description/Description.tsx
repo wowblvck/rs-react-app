@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './Description.module.scss';
 import SearchBox from '../SearchBox/SearchBox';
 import randomBg from '../../utils/bgRandomizer';
+import { useSearch } from '../../hooks/useSearch.hook';
 
 const Description: React.FC = () => {
   const [image, setImage] = useState<string>('');
+  const { state } = useSearch();
 
   useEffect(() => {
     const storedImage = sessionStorage.getItem('bgImage');
@@ -28,7 +30,11 @@ const Description: React.FC = () => {
         <p className={styles.descriptionContent__subtitle}>
           Discover new beautiful places for you.
         </p>
-        <SearchBox className={styles.descriptionContent__searchBar} white />
+        <SearchBox
+          className={styles.descriptionContent__searchBar}
+          value={state.searchValue}
+          white
+        />
       </div>
     </section>
   );

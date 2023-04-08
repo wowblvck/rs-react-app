@@ -16,11 +16,4 @@ describe('Search Box Component', () => {
     unmount();
     expect(localStorage.getItem('searchValue')).toEqual('test');
   });
-
-  it('loads search value from local storage if available', () => {
-    localStorage.setItem('searchValue', 'test');
-    render(<SearchBox />);
-    const searchInput = screen.getByPlaceholderText('Search anything...');
-    expect(searchInput).toHaveValue('test');
-  });
 });

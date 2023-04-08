@@ -18,22 +18,17 @@ const HomeContent: React.FC = () => {
   const [update, setUpdate] = useState(false);
   const { state } = useSearch();
 
-  const searchValue = localStorage.getItem('searchValue')?.length
-    ? localStorage.getItem('searchValue')
-    : '';
-
   const skeletons = [...new Array(ITEMS_PER_PAGE)].map((_, index) => (
     <SkeletonPlaces key={index} />
   ));
   const places = items.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} isLoading />);
 
   useEffect(() => {
-    const searchState = searchValue?.length ? searchValue : state.searchValue;
     const fetchPlaces = async () => {
       setIsLoading(true);
       setError(false);
       try {
-        const response = await getPlaces(searchState);
+        const response = await getPlaces(state.searchValue);
         setItems(response);
       } catch (error) {
         setError(true);
@@ -42,7 +37,7 @@ const HomeContent: React.FC = () => {
       }
     };
     fetchPlaces();
-  }, [state, searchValue, update]);
+  }, [state, update]);
 
   const handleRefresh = () => setUpdate(!update);
 
