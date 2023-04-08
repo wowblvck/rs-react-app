@@ -30,7 +30,11 @@ const CardPopup: React.FC<CardPopupProps> = ({ isVisible, obj, onClose }) => {
   };
 
   useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = 'hidden';
+    }
     return () => {
+      document.body.style.overflow = 'unset';
       setZoom(false);
     };
   }, [isVisible]);
