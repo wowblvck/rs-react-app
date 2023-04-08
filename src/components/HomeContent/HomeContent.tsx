@@ -9,12 +9,18 @@ import { ITEMS_PER_PAGE } from '../../constants/settings.config';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { useSearch } from '../../hooks/useSearch.hook';
 
 const HomeContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [items, setItems] = useState<PlacesInfo[]>([]);
   const [update, setUpdate] = useState(false);
+  const { state } = useSearch();
+
+  const searchValue = localStorage.getItem('searchValue')?.length
+    ? localStorage.getItem('searchValue')
+    : '';
 
   const skeletons = [...new Array(ITEMS_PER_PAGE)].map((_, index) => (
     <SkeletonPlaces key={index} />
@@ -22,19 +28,21 @@ const HomeContent: React.FC = () => {
   const places = items.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} isLoading />);
 
   useEffect(() => {
-    async function fetchPlaces() {
+    const searchState = searchValue?.length ? searchValue : state.searchValue;
+    const fetchPlaces = async () => {
+      setIsLoading(true);
+      setError(false);
       try {
-        const response = await getPlaces();
+        const response = await getPlaces(searchState);
         setItems(response);
-        setError(false);
       } catch (error) {
         setError(true);
       } finally {
         setIsLoading(false);
       }
-    }
+    };
     fetchPlaces();
-  }, [update]);
+  }, [state, searchValue, update]);
 
   const handleRefresh = () => setUpdate(!update);
 
@@ -51,8 +59,21 @@ const HomeContent: React.FC = () => {
           </div>
         ) : (
           <>
-            <h3 className={styles.homeContent__title}>Find your place</h3>
-            <ul className={styles.cardsList}>{isLoading && !error ? skeletons : places}</ul>
+            {!items.length && !isLoading ? (
+              <div className={styles.errorContainer}>
+                <FontAwesomeIcon
+                  icon={faCircleExclamation}
+                  style={{ color: '#ff0000' }}
+                  size="2xl"
+                />
+                <p className={styles.errorTitle}>Places not found. Refine your search!</p>
+              </div>
+            ) : (
+              <>
+                <h3 className={styles.homeContent__title}>Find your place</h3>
+                <ul className={styles.cardsList}>{isLoading && !error ? skeletons : places}</ul>
+              </>
+            )}
           </>
         )}
       </div>

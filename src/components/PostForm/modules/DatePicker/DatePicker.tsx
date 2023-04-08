@@ -37,7 +37,7 @@ const DatePicker = ({
     }
   }, [reset, onClear]);
 
-  const handleDate = (event: React.ChangeEvent<HTMLDataElement>) => {
+  const handleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const formatDate = moment(value).format(dateFormat);
     setDate(formatDate);

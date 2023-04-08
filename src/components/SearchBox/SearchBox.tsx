@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './SearchBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useSearch } from '../../hooks/useSearch.hook';
 
 type SearchBoxProps = {
   white?: boolean;
@@ -11,10 +12,11 @@ type SearchBoxProps = {
 };
 
 const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => {
-  const defValue = localStorage.getItem('searchValue')
-    ? (localStorage.getItem('searchValue') as string)
-    : '';
   const searchRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState(
+    localStorage.getItem('searchValue') ? (localStorage.getItem('searchValue') as string) : ''
+  );
+  const { dispatch } = useSearch();
 
   useEffect(() => {
     const currentRef = searchRef.current;
@@ -24,6 +26,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => 
       }
     };
   }, []);
+
+  const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchText = searchRef.current?.value?.trim() || '';
+    dispatch({ type: 'UPDATE_SEARCH_VALUE', payload: searchText });
+    localStorage.setItem('searchValue', searchText);
+    setValue(searchText);
+  };
 
   return (
     <div
@@ -38,16 +48,25 @@ const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => 
           [styles.searchBar__wrapper_minimize]: minimize,
         })}
       >
-        <input
-          type="text"
-          ref={searchRef}
-          defaultValue={defValue}
-          className={classNames(styles.searchBar__input, {
-            [styles.searchBar__input_white]: white,
-            [styles.searchBar__input_minimize]: minimize,
+        <form
+          aria-label="search-form"
+          className={classNames(styles.searchBar__form, {
+            [styles.searchBar__form_minimize]: minimize,
           })}
-          placeholder="Search anything..."
-        />
+          onSubmit={handleSearch}
+        >
+          <input
+            aria-label="search-input"
+            type="text"
+            ref={searchRef}
+            defaultValue={value}
+            className={classNames(styles.searchBar__input, {
+              [styles.searchBar__input_white]: white,
+              [styles.searchBar__input_minimize]: minimize,
+            })}
+            placeholder="Search anything..."
+          />
+        </form>
         <button
           className={classNames(styles.searchBar__submit, {
             [styles.searchBar__submit_white]: white,

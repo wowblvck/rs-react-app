@@ -31,6 +31,7 @@ export default defineConfig({
         'src/types/*',
         'src/interfaces/*',
         'src/utils/test-utils.tsx',
+        'src/constants/*',
         'babel-plugin-macros.config.js',
         'imageOptimization.config.ts',
         'postcss.config.js',

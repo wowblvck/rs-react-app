@@ -9,7 +9,7 @@ type ShareOptionsProps = {
 
 const ShareOptions: React.FC<ShareOptionsProps> = ({ className, size = 31 }) => {
   return (
-    <div className={classNames(styles.shareOptions, className)}>
+    <div className={classNames(styles.shareOptions, className)} data-testid="share-options">
       <button className={styles.shareOptions__like} onClick={(event) => event.stopPropagation()}>
         <svg
           width={size}

@@ -48,13 +48,25 @@
     }
   }
 
+  &__form {
+    width: 100%;
+    &_minimize {
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      cursor: pointer;
+    }
+  }
+
   &__input {
+    margin-left: 15px;
     box-sizing: border-box;
     color: #000;
     border: 0;
     flex-grow: 1;
     outline: 0;
-    padding-left: 15px;
     background: transparent;
     width: 100%;
 

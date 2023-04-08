@@ -11,7 +11,6 @@ const mockPlaces: PlacesInfo[] = [
     description: 'Opulent former royal residence & museum',
     date: '2016-05-18',
     author: {
-      id: 58,
       avatar: 'https://xsgames.co/randomusers/assets/avatars/female/64.jpg',
       first_name: 'Katelyn',
       last_name: 'Rodriguez',
@@ -27,7 +26,6 @@ const mockPlaces: PlacesInfo[] = [
     description: 'Iconic Blue Mosque with 6 minarets',
     date: '2022-10-11',
     author: {
-      id: 25,
       avatar: 'https://xsgames.co/randomusers/assets/avatars/male/74.jpg',
       first_name: 'Buckminster',
       last_name: 'Leblanc',
@@ -43,7 +41,6 @@ const mockPlaces: PlacesInfo[] = [
     description: 'Art & culture museum founded in 1764',
     date: '2023-03-14',
     author: {
-      id: 17,
       avatar: 'https://xsgames.co/randomusers/assets/avatars/male/29.jpg',
       first_name: 'Phelan',
       last_name: 'Blackburn',

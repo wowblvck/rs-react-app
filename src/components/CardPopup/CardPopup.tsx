@@ -52,7 +52,7 @@ const CardPopup: React.FC<CardPopupProps> = ({ isVisible, obj, onClose }) => {
       onClick={handleOutside}
     >
       <div className={styles.popupContainer}>
-        <button className={styles.xmark} onClick={onClose}>
+        <button className={styles.xmark} onClick={onClose} aria-label="button-close">
           <FontAwesomeIcon
             icon={faXmark}
             className={styles.xmark__icon}
@@ -77,6 +77,7 @@ const CardPopup: React.FC<CardPopupProps> = ({ isVisible, obj, onClose }) => {
             })}
           />
           <div
+            aria-label="zoom-container"
             className={classNames(styles.imageContainer__overlay, {
               [styles.imageContainer__overlay_zoom]: zoom,
             })}
