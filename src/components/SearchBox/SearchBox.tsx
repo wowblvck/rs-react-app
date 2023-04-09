@@ -60,7 +60,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => 
               [styles.searchBar__input_white]: white,
               [styles.searchBar__input_minimize]: minimize,
             })}
-            placeholder="Search anything..."
+            placeholder="Ex: Turkey"
           />
         </form>
         <button

@@ -6,30 +6,32 @@
   font-weight: $font-weight;
 }
 
-@mixin responsive($media) {
-  @if $media == desktop {
-    @media only screen and (min-width: ($desktop)) {
-      @content;
-    }
-  } @else if $media == desktop-m {
-    @media only screen and (min-width: ($desktop-m)) and (max-width: ($desktop - 1px)) {
-      @content;
-    }
-  } @else if $media == desktop-s {
-    @media only screen and (min-width: ($desktop-s)) and (max-width: ($desktop-m - 1px)) {
-      @content;
-    }
-  } @else if $media == tablet-m {
-    @media only screen and (min-width: ($tablet-m)) and (max-width: ($desktop-s - 1px)) {
-      @content;
-    }
-  } @else if $media == tablet-s {
-    @media only screen and (min-width: ($tablet-s)) and (max-width: ($tablet-m - 1px)) {
-      @content;
-    }
-  } @else if $media == mobile {
-    @media only screen and (min-width: ($mobile)) and (max-width: ($tablet-s - 1px)) {
-      @content;
+@mixin responsive($media...) {
+  @each $value in $media {
+    @if $value == desktop {
+      @media only screen and (min-width: ($desktop)) {
+        @content;
+      }
+    } @else if $value == desktop-m {
+      @media only screen and (min-width: ($desktop-m)) and (max-width: ($desktop - 1px)) {
+        @content;
+      }
+    } @else if $value == desktop-s {
+      @media only screen and (min-width: ($desktop-s)) and (max-width: ($desktop-m - 1px)) {
+        @content;
+      }
+    } @else if $value == tablet-m {
+      @media only screen and (min-width: ($tablet-m)) and (max-width: ($desktop-s - 1px)) {
+        @content;
+      }
+    } @else if $value == tablet-s {
+      @media only screen and (min-width: ($tablet-s)) and (max-width: ($tablet-m - 1px)) {
+        @content;
+      }
+    } @else if $value == mobile {
+      @media only screen and (min-width: ($mobile)) and (max-width: ($tablet-s - 1px)) {
+        @content;
+      }
     }
   }
 }
