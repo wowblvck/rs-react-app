@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './PostContent.module.scss';
-import { PlacesInfo } from '../../interfaces/index';
+import { PlacesInfo } from '../../interfaces';
 import CardItem from '../CardItem/CardItem';
+import { useAppSelector } from '../../store/store';
 
-interface PostContentProps {
-  items: PlacesInfo[];
-}
-
-const PostContent: React.FC<PostContentProps> = ({ items }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (items.length) {
-      setIsLoading(true);
-    }
-  }, [items]);
+const PostContent: React.FC = () => {
+  const items = useAppSelector((state) => state.formPlaces.items);
 
   return (
     <section className={styles.postContent} data-testid="post-content">
@@ -24,7 +15,7 @@ const PostContent: React.FC<PostContentProps> = ({ items }) => {
         <div className={styles.container}>
           <ul className={styles.cardsList}>
             {items.map((item: PlacesInfo) => (
-              <CardItem key={item.id} obj={item} isLoading={isLoading} />
+              <CardItem key={item.id} obj={item} isLoading={true} />
             ))}
           </ul>
         </div>

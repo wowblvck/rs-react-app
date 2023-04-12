@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
 import styles from './SearchBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSearch } from '../../hooks/useSearch.hook';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { setSearchValue } from '../../reducers/search.reducer';
 
 type SearchBoxProps = {
   white?: boolean;
@@ -14,21 +15,15 @@ type SearchBoxProps = {
 
 const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => {
   const searchRef = useRef<HTMLInputElement>(null);
-  const { state, dispatch } = useSearch();
-
-  useEffect(() => {
-    const currentRef = searchRef.current;
-    return () => {
-      if (currentRef?.value.length) {
-        localStorage.setItem('searchValue', currentRef.value);
-      }
-    };
-  }, []);
+  const searchValue = useAppSelector((state) => state.search.searchValue);
+  const dispatch = useAppDispatch();
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchText = searchRef.current?.value?.trim() || '';
-    dispatch({ type: 'UPDATE_SEARCH_VALUE', payload: searchText });
+    if (searchRef.current && searchRef.current.value) {
+      const searchText = searchRef.current.value;
+      dispatch(setSearchValue(searchText.trim()));
+    }
   };
 
   return (
@@ -55,7 +50,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => 
             aria-label="search-input"
             type="text"
             ref={searchRef}
-            defaultValue={state.searchValue}
+            defaultValue={searchValue}
             className={classNames(styles.searchBar__input, {
               [styles.searchBar__input_white]: white,
               [styles.searchBar__input_minimize]: minimize,

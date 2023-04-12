@@ -10,7 +10,8 @@ const uploadImage = async (file: File) => {
       method: 'POST',
       body: context,
     });
-    return await response.json();
+    const data = await response.json();
+    return data.image.url;
   } catch (e) {
     throw new Error(`Error upload image: ${(e as Error).message}`);
   }

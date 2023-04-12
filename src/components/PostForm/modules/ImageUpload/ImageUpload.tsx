@@ -12,19 +12,17 @@ type ImageUploadProps = {
   name: Path<FormValues>;
   error?: FieldError | undefined;
   setValue: UseFormSetValue<FormValues>;
-  onClear: () => void;
   reset: boolean;
 };
 
-const ImageUpload = ({ register, name, error, setValue, reset, onClear }: ImageUploadProps) => {
+const ImageUpload = ({ register, name, error, setValue, reset }: ImageUploadProps) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
     if (reset) {
       setImage('');
-      onClear();
     }
-  }, [onClear, reset]);
+  }, [reset]);
 
   const imageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

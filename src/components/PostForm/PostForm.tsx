@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import * as yup from 'yup';
+import styles from './PostForm.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
-import { addPlace } from '../../thunks';
-
-import styles from './PostForm.module.scss';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { countries } from '../../static/countries';
 
 import {
   Dropdown,
@@ -17,16 +16,15 @@ import {
   ProfilePicture,
 } from './modules';
 
-import { PlacesInfo, CountriesInfo, PlacesInfoDto } from '../../interfaces';
+import { PlacesInfoDto } from '../../interfaces';
 import { FormValues } from '../../types/';
-import { fetchCountries, uploadImage } from '../../thunks';
+import { uploadImage } from '../../thunks';
 
 import PopupModal from '../PopupModal/PopupModal';
 import Button from '../Button/Button';
-
-type PostFormProps = {
-  handleForm: (formData: PlacesInfo | null) => void;
-};
+import { useAddPlaceMutation } from '../../thunks/places.thunk';
+import { useAppDispatch } from '../../store/store';
+import { setItems } from '../../reducers/formPlaces.reducer';
 
 const schema = yup.object().shape({
   location: yup
@@ -89,12 +87,10 @@ const schema = yup.object().shape({
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 
-const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
-  const [countries, setCountries] = useState<Array<CountriesInfo>>([]);
-  const [clearImage, clearImageWrapper] = useState(false);
-  const [clearAvatar, clearAvatarWrapper] = useState(false);
-  const [clearDate, clearDateWrapper] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+const PostForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const [addPlace, { isSuccess }] = useAddPlaceMutation();
 
   const {
     register,
@@ -107,60 +103,42 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
     resolver: yupResolver(schema),
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const countries = await fetchCountries();
-      if (countries.length) {
-        setCountries(countries);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
-
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { location, description, category, image, date, author, country } = data;
+  const onSubmit: SubmitHandler<FormValues> = async (obj) => {
+    const { location, description, category, image, date, author, country } = obj;
 
     try {
-      const imageLink = await uploadImage(image);
-      const imageProfileLink = await uploadImage(author.avatar);
+      setIsLoading(true);
+      const [imageLink, imageProfileLink] = await Promise.all([
+        uploadImage(image),
+        uploadImage(author.avatar),
+      ]);
 
       const formData: PlacesInfoDto = {
         location,
         description,
         country,
         category,
-        image: imageLink.image?.url || '',
+        image: imageLink,
         date,
         author: {
-          avatar: imageProfileLink.image?.url || '',
+          avatar: imageProfileLink,
           first_name: author.firstName,
           last_name: author.lastName,
         },
       };
 
-      const place = await addPlace(formData);
-      if (place) {
-        setShowModal(true);
-        handleForm(place);
+      try {
+        const result = await addPlace(formData).unwrap();
         reset();
-        clearImageWrapper(true);
-        clearAvatarWrapper(true);
-        clearDateWrapper(true);
+        dispatch(setItems(result));
+      } catch (e) {
+        console.log(`Failed while add place in database`);
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (e) {
+      console.log(`Failed while load image on host`);
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const onClear = () => {
-    clearImageWrapper(!clearImage);
-    clearAvatarWrapper(!clearAvatar);
-    clearDateWrapper(!clearDate);
   };
 
   return (
@@ -178,8 +156,7 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
               name="image"
               error={errors.image}
               setValue={setValue}
-              reset={clearImage}
-              onClear={onClear}
+              reset={isSuccess}
             />
             <div className={styles.formWrapper}>
               <FormText
@@ -212,8 +189,7 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
                 name="date"
                 error={errors.date}
                 setValue={setValue}
-                reset={clearDate}
-                onClear={onClear}
+                reset={isSuccess}
               >
                 Date
               </DatePicker>
@@ -228,8 +204,7 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
                 name="author.avatar"
                 error={errors.author?.avatar}
                 setValue={setValue}
-                reset={clearAvatar}
-                onClear={onClear}
+                reset={isSuccess}
               />
               <FormText
                 register={register}
@@ -255,12 +230,12 @@ const PostForm: React.FC<PostFormProps> = ({ handleForm }) => {
               </CheckboxForm>
             </div>
           </div>
-          <Button className={styles.formButton}>Add Post</Button>
+          <Button className={styles.formButton} isLoading={isLoading}>
+            Add Post
+          </Button>
         </form>
       </div>
-      <PopupModal isVisible={showModal} onClose={handleShowModal}>
-        Post has successfully created
-      </PopupModal>
+      <PopupModal isVisible={isSuccess}>Post has successfully created</PopupModal>
     </section>
   );
 };
