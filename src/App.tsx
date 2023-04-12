@@ -9,7 +9,10 @@ import './scss/app.scss';
 
 import RootLayout from './layouts/RootLayout';
 
-import { HomePage, ErrorPage, AboutPage, PostPage } from './pages';
+import HomePage from './pages/HomePage/HomePage';
+import AboutPage from './pages/AboutPage/AboutPage';
+import PostPage from './pages/PostPage/PostPage';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 export const bgGallery = Object.values(
   import.meta.glob('./assets/img/backgrounds/*.{png,jpg,jpeg,PNG,JPEG}', {
@@ -18,7 +21,7 @@ export const bgGallery = Object.values(
   })
 );
 
-const router = createBrowserRouter(
+export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />

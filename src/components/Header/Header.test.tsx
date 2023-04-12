@@ -1,20 +1,22 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
-import { withRouter } from '../../utils/withRouter';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 
 describe('Header', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('renders the logo and title', () => {
-    const MockHeader = withRouter(Header);
+  test('renders the logo and title', () => {
     render(
-      <MemoryRouter>
-        <MockHeader />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </Provider>
     );
     const logo = screen.getByAltText('Logo');
     const title = screen.getByText(new RegExp('Beautiful.*places'));
@@ -22,12 +24,13 @@ describe('Header', () => {
     expect(title).toBeInTheDocument();
   });
 
-  it('renders the navigation links', () => {
-    const MockHeader = withRouter(Header);
+  test('renders the navigation links', () => {
     render(
-      <MemoryRouter>
-        <MockHeader />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </Provider>
     );
     const homeLink = screen.getByRole('link', { name: 'Home' });
     const aboutLink = screen.getByRole('link', { name: 'About Us' });
@@ -36,23 +39,25 @@ describe('Header', () => {
     expect(aboutLink).toBeInTheDocument();
   });
 
-  it('renders search box', () => {
-    const MockHeader = withRouter(Header);
+  test('renders search box', () => {
     render(
-      <MemoryRouter>
-        <MockHeader />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </Provider>
     );
     const searchBox = screen.getByLabelText('Search');
     expect(searchBox).toBeInTheDocument();
   });
 
-  it('should set background image from session storage if available', () => {
-    const MockHeader = withRouter(Header);
+  test('should set background image from session storage if available', () => {
     const { unmount } = render(
-      <MemoryRouter>
-        <MockHeader />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </Provider>
     );
     const mockImage = 'test-image.jpg';
     if (mockImage) {

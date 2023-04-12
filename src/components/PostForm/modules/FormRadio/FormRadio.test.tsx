@@ -18,14 +18,14 @@ describe('FormRadio', () => {
     vi.clearAllMocks();
   });
 
-  it('renders radio form with options', () => {
+  test('renders radio form with options', () => {
     render(<RadioForm {...props} name="category" items={categories} />);
 
     const radioButtons = screen.getAllByRole('radio');
     expect(radioButtons).toHaveLength(categories.length);
   });
 
-  it('calls register function when radio button is clicked', () => {
+  test('calls register function when radio button is clicked', () => {
     render(<RadioForm {...props} items={categories} name="category" />);
     const radioButtons = screen.getAllByRole('radio');
     fireEvent.click(radioButtons[0]);

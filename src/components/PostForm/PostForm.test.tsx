@@ -1,45 +1,89 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import PostForm from './PostForm';
-import { mockCountries } from '../../tests/mockData';
-import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
+import { mockData } from '../../mocks/mockData';
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 
 describe('PostForm', () => {
-  const mockHandleForm = vi.fn(() => {});
   window.URL.createObjectURL = vi.fn();
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockCountries),
-      } as Response)
-    );
   });
 
-  it('should render form elements', async () => {
-    await act(() => {
-      render(<PostForm handleForm={mockHandleForm} />);
-    });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-    await waitFor(() => {
-      expect(screen.getByLabelText('location')).toBeInTheDocument();
-      expect(screen.getByLabelText('description')).toBeInTheDocument();
-      expect(screen.getAllByRole('radio')).toHaveLength(categories.length);
-      expect(screen.getByLabelText('country')).toBeInTheDocument();
-      expect(screen.getByLabelText('author.avatar')).toBeInTheDocument();
-      expect(screen.getByLabelText('author.firstName')).toBeInTheDocument();
-      expect(screen.getByLabelText('author.lastName')).toBeInTheDocument();
-      expect(screen.getByLabelText('image')).toBeInTheDocument();
-      expect(screen.getByLabelText('date')).toBeInTheDocument();
-      expect(screen.getByLabelText('terms')).toBeInTheDocument();
-      expect(screen.getByLabelText('consent')).toBeInTheDocument();
-    });
+  test('renders without errors', () => {
+    render(
+      <Provider store={store}>
+        <PostForm />
+      </Provider>
+    );
+
+    const postFormTitle = screen.getByText(/create a post/i);
+    expect(postFormTitle).toBeInTheDocument();
+  });
+
+  test('should render form elements', async () => {
+    render(
+      <Provider store={store}>
+        <PostForm />
+      </Provider>
+    );
+
+    expect(await screen.getByLabelText('location')).toBeInTheDocument();
+    expect(await screen.getByLabelText('description')).toBeInTheDocument();
+    expect(await screen.getAllByRole('radio')).toHaveLength(categories.length);
+    expect(await screen.getByLabelText('country')).toBeInTheDocument();
+    expect(await screen.getByLabelText('author.avatar')).toBeInTheDocument();
+    expect(await screen.getByLabelText('author.firstName')).toBeInTheDocument();
+    expect(await screen.getByLabelText('author.lastName')).toBeInTheDocument();
+    expect(await screen.getByLabelText('image')).toBeInTheDocument();
+    expect(await screen.getByLabelText('date')).toBeInTheDocument();
+    expect(await screen.getByLabelText('terms')).toBeInTheDocument();
+    expect(await screen.getByLabelText('consent')).toBeInTheDocument();
+  });
+
+  test('submits the form when all fields are filled in correctly render form elements', async () => {
+    render(
+      <Provider store={store}>
+        <PostForm />
+      </Provider>
+    );
+
+    const form = screen.getByTestId('post-form');
+    const locationInput = screen.getByLabelText('location');
+    const descriptionInput = screen.getByLabelText('description');
+    const categoryDropdown = screen.getAllByRole('radio');
+    const countryDropdown = screen.getByLabelText('country');
+    const avatar = screen.getByLabelText('author.avatar');
+    const firstNameInput = screen.getByLabelText('author.firstName');
+    const lastNameInput = screen.getByLabelText('author.lastName');
+    const image = screen.getByLabelText('image');
+    const datepicker = screen.getByLabelText('date');
+    const termsCheckbox = screen.getByLabelText('terms');
+    const consentCheckbox = screen.getByLabelText('consent');
+
+    fireEvent.change(locationInput, { target: { value: mockData[0].location } });
+    fireEvent.change(descriptionInput, { target: { value: mockData[0].description } });
+    fireEvent.change(categoryDropdown[2], { target: { value: mockData[0].category } });
+    fireEvent.change(countryDropdown, { target: { value: mockData[0].country } });
+    const imageAvatar = new File(['test image'], 'test.png', { type: 'image/png' });
+    fireEvent.change(avatar, { target: { files: [imageAvatar] } });
+
+    fireEvent.change(firstNameInput, { target: { value: mockData[0].author.first_name } });
+    fireEvent.change(lastNameInput, { target: { value: mockData[0].author.last_name } });
+    fireEvent.change(datepicker, { target: { value: mockData[0].date } });
+    const imageMain = new File(['test image'], 'test.png', { type: 'image/png' });
+    fireEvent.change(image, { target: { files: [imageMain] } });
+
+    fireEvent.click(termsCheckbox);
+    fireEvent.click(consentCheckbox);
+
+    fireEvent.submit(form);
   });
 });

@@ -16,7 +16,7 @@ describe('CheckboxForm', () => {
     vi.clearAllMocks();
   });
 
-  it('renders the checkbox with the correct label and checkbox', () => {
+  test('renders the checkbox with the correct label and checkbox', () => {
     render(
       <CheckboxForm name={termsName} register={register} error={error}>
         {termsContent}

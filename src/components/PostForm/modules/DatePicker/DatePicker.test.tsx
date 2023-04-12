@@ -19,7 +19,7 @@ describe('DatePicker', () => {
     vi.clearAllMocks();
   });
 
-  it('renders the title and date picker inputs', () => {
+  test('renders the title and date picker inputs', () => {
     render(
       <DatePicker {...props} name="date">
         Test Date
@@ -30,7 +30,7 @@ describe('DatePicker', () => {
     expect(screen.getByLabelText('date')).toBeInTheDocument();
   });
 
-  it('displays the selected date in the text input', () => {
+  test('displays the selected date in the text input', () => {
     render(
       <DatePicker {...props} name="date">
         Test Date
@@ -44,7 +44,7 @@ describe('DatePicker', () => {
     expect(dateInput.value).toBe('2023-03-31');
   });
 
-  it('displays an error message if there is an error', () => {
+  test('displays an error message if there is an error', () => {
     render(
       <DatePicker {...props} name="date">
         Test Date
@@ -54,7 +54,7 @@ describe('DatePicker', () => {
     expect(screen.getByText('This field is required')).toBeInTheDocument();
   });
 
-  it('reset date value', () => {
+  test('reset date value', () => {
     render(
       <DatePicker {...props} name="date" reset={true}>
         Test Date

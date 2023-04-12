@@ -1,4 +1,4 @@
-import { CountriesInfo } from '../../../../interfaces/index';
+import { CountriesInfo } from '../../../../interfaces';
 import React from 'react';
 import styles from './Dropdown.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +29,7 @@ const Dropdown = ({ items, error, name, register }: DropdownProps) => {
             Choose country:
           </option>
           {items &&
-            items.map((country: CountriesInfo, index: number) => (
+            items.map((country, index: number) => (
               <option
                 className={styles.dropdownSelect__option}
                 key={`${country.code}-${index}`}

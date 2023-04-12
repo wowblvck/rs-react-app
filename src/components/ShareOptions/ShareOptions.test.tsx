@@ -1,10 +1,10 @@
 import React from 'react';
 import ShareOptions from './ShareOptions';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 describe('ShareOptions', () => {
-  it('should render without errors', () => {
-    const { getByTestId } = render(<ShareOptions />);
-    expect(getByTestId('share-options')).toBeInTheDocument();
+  test('should render without errors', () => {
+    render(<ShareOptions />);
+    expect(screen.getByTestId('share-options')).toBeInTheDocument();
   });
 });

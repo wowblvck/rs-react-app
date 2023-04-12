@@ -16,7 +16,7 @@ describe('FormText', () => {
     vi.clearAllMocks();
   });
 
-  it('renders input element is correctly', () => {
+  test('renders input element is correctly', () => {
     render(<FormText {...props} name="location" placeholder="Test input" />);
 
     const location = screen.getByLabelText('location') as HTMLInputElement;
@@ -29,7 +29,7 @@ describe('FormText', () => {
     expect(location.value).toBe('Input text');
   });
 
-  it('renders text area element is correctly', () => {
+  test('renders text area element is correctly', () => {
     render(<FormText {...props} name="description" placeholder="Test input" area={true} />);
 
     const description = screen.getByLabelText('description') as HTMLInputElement;
@@ -42,7 +42,7 @@ describe('FormText', () => {
     expect(description.value).toBe('Input text');
   });
 
-  it('renders error message correctly', () => {
+  test('renders error message correctly', () => {
     render(<FormText {...props} name="location" />);
 
     const errorElement = screen.getByText('Field is required');

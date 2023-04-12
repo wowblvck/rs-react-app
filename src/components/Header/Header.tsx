@@ -59,6 +59,7 @@ const Header: React.FC = () => {
       </h2>
       <nav className={styles.nav} ref={navRef}>
         <button
+          aria-label="burger-menu"
           className={classNames(styles.hamburger, {
             [styles.hamburger_active]: isOpen,
           })}

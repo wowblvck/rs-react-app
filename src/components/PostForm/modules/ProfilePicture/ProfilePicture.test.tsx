@@ -19,13 +19,12 @@ describe('ProfilePicture', () => {
     vi.clearAllMocks();
   });
 
-  it('renders input', () => {
+  test('renders input', () => {
     render(<ProfilePicture {...props} name="author.avatar" />);
-
     expect(screen.getByLabelText('author.avatar')).toBeInTheDocument();
   });
 
-  it('renders with an error message', () => {
+  test('renders with an error message', () => {
     render(
       <ProfilePicture
         {...props}
@@ -36,7 +35,7 @@ describe('ProfilePicture', () => {
     expect(screen.getByText('Upload an image')).toBeInTheDocument();
   });
 
-  it('reset image', () => {
+  test('reset image', () => {
     render(<ProfilePicture {...props} name="author.avatar" reset={true} />);
     const imageInput = screen.getByLabelText('author.avatar') as HTMLInputElement;
     const imageValue = '';
@@ -45,14 +44,14 @@ describe('ProfilePicture', () => {
     expect(imageInput.value).toBe('');
   });
 
-  it('clicks the choose image button when label is clicked', async () => {
+  test('clicks the choose image button when label is clicked', async () => {
     render(<ProfilePicture {...props} name="author.avatar" />);
     const input = screen.getByLabelText('author.avatar');
     fireEvent.click(input);
     expect(props.register).toHaveBeenCalledTimes(1);
   });
 
-  it('should update the image', async () => {
+  test('should update the image', async () => {
     render(<ProfilePicture {...props} name="author.avatar" setValue={props.setValue} />);
     const input = screen.getByLabelText('author.avatar') as HTMLInputElement;
     const file = new File(['test image'], 'test.png', { type: 'image/png' });

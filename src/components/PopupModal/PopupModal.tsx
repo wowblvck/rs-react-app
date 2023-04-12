@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './PopupModal.module.scss';
 import { faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -7,38 +7,39 @@ import classNames from 'classnames';
 type PopupModalProps = {
   children: string;
   isVisible: boolean;
-  onClose: () => void;
 };
 
-const PopupModal: React.FC<PopupModalProps> = ({ children, isVisible, onClose }) => {
+const PopupModal: React.FC<PopupModalProps> = ({ children, isVisible }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        onClose();
+        setVisible(false);
       }
     };
     if (isVisible) {
+      setVisible(true);
       document.addEventListener('mousedown', handleClickOutside);
       const timeout = setTimeout(() => {
-        onClose();
+        setVisible(false);
       }, 3000);
       return () => {
         clearTimeout(timeout);
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }
-  }, [isVisible, onClose]);
+  }, [isVisible]);
 
   return (
     <div
       ref={containerRef}
       className={classNames(styles.container, {
-        [styles.container_active]: isVisible,
+        [styles.container_active]: visible,
       })}
     >
-      <button className={styles.xmark} onClick={onClose}>
+      <button className={styles.xmark} onClick={() => setVisible(false)}>
         <FontAwesomeIcon
           icon={faXmark}
           className={styles.xmark__icon}

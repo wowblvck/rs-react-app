@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './CardItem.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
-import { PlacesInfo } from '../../interfaces/index';
+import { PlacesInfo } from '../../interfaces';
 import { getDayBetweenDates } from '../../utils/functions';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

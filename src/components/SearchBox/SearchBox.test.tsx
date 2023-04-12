@@ -1,19 +1,31 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
+import searchReducer, { setSearchValue } from '../../reducers/search.reducer';
+import { Provider } from 'react-redux';
 import SearchBox from './SearchBox';
+import store from '../../store/store';
 
-describe('Search Box Component', () => {
-  it('renders a search input and a submit button', () => {
-    render(<SearchBox />);
-    const searchInput = screen.getByPlaceholderText('Ex: Turkey');
-    expect(searchInput).toBeInTheDocument();
-  });
+describe('SearchBox', () => {
+  test('updates the search value when the form is submitted', () => {
+    const initialState = {
+      searchValue: '',
+    };
 
-  it('saves search value to local storage when input value changes', () => {
-    const { unmount } = render(<SearchBox />);
-    const searchInput = screen.getByPlaceholderText('Ex: Turkey');
-    fireEvent.change(searchInput, { target: { value: 'test' } });
-    unmount();
-    expect(localStorage.getItem('searchValue')).toEqual('test');
+    const searchValue = 'Turkey';
+    render(
+      <Provider store={store}>
+        <SearchBox />
+      </Provider>
+    );
+    const input = screen.getByLabelText('search-input');
+    const form = screen.getByLabelText('search-form');
+
+    fireEvent.change(input, { target: { value: searchValue } });
+    fireEvent.submit(form);
+
+    const action = setSearchValue(searchValue);
+    const state = searchReducer(initialState, action);
+    expect(state.searchValue).toEqual(searchValue);
   });
 });

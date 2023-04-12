@@ -1,17 +1,20 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import RootLayout from './RootLayout';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 
 describe('RootLayout', () => {
-  it('renders the Header and Outlet components', () => {
-    const { getByRole, getByTestId } = render(
-      <MemoryRouter>
-        <RootLayout />
-      </MemoryRouter>
+  test('renders the Header and Outlet components', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RootLayout />
+        </MemoryRouter>
+      </Provider>
     );
-    const header = getByRole('banner');
-    expect(header).toBeInTheDocument();
-    expect(getByTestId('outlet')).toBeInTheDocument();
+    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(screen.getByTestId('outlet')).toBeInTheDocument();
   });
 });

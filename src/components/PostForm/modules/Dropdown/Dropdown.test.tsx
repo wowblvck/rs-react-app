@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Dropdown } from '../index';
 import { fireEvent } from '@testing-library/react';
-import { mockCountries } from '../../../../tests/mockData';
+
+import { countries } from '../../../../static/countries';
 
 const props = {
   register: vi.fn(),
@@ -13,19 +14,15 @@ const props = {
 };
 
 describe('Dropdown', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('renders the dropdown input', () => {
-    render(<Dropdown {...props} name="country" items={mockCountries} />);
+  test('renders the dropdown input', () => {
+    render(<Dropdown {...props} name="country" items={countries} />);
 
     const dropdown = screen.getByLabelText('country');
     expect(dropdown).toBeInTheDocument();
   });
 
-  it('displays the correct options in the select element', () => {
-    render(<Dropdown {...props} name="country" items={mockCountries} />);
+  test('displays the correct options in the select element', () => {
+    render(<Dropdown {...props} name="country" items={countries} />);
     const dropdown = screen.getByLabelText('country');
     expect(dropdown).toHaveTextContent('Choose country:');
     expect(dropdown).toHaveTextContent('🇦🇨 Ascension Island');
@@ -33,8 +30,8 @@ describe('Dropdown', () => {
     expect(dropdown).toHaveTextContent('🇦🇪 United Arab Emirates');
   });
 
-  it('calls the register function with the correct arguments', () => {
-    render(<Dropdown {...props} items={mockCountries} name="country" />);
+  test('calls the register function with the correct arguments', () => {
+    render(<Dropdown {...props} items={countries} name="country" />);
     const dropdown = screen.getByLabelText('country');
     fireEvent.change(dropdown, { target: { value: 'Country 1' } });
     expect(props.register).toHaveBeenCalledWith('country');
