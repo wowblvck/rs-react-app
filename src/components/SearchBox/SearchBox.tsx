@@ -20,7 +20,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ white, minimize, className }) => 
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (searchRef.current && searchRef.current.value) {
+    if (searchRef.current) {
       const searchText = searchRef.current.value;
       dispatch(setSearchValue(searchText.trim()));
     }
