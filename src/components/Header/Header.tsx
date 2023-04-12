@@ -20,15 +20,13 @@ const Header: React.FC = () => {
   const links = Object.values(routes).filter((route) => route.inNav);
 
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
   }, [location]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        toggleMenu();
+        setIsOpen(false);
       }
     };
     if (isOpen) {
