@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import CardPopup from './CardPopup';
-import { mockData } from '../../mocks/mockData';
+import { mockData } from '../../tests/mocks/mockData';
 
 describe('CardPopup', () => {
   test('should render the popup when isVisible is true', () => {

@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import PostForm from './PostForm';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
-import { mockData } from '../../mocks/mockData';
+import { mockData } from '../../tests/mocks/mockData';
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 

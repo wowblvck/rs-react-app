@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import matchers from '@testing-library/jest-dom/matchers';
 import nodeFetch, { Request, Response } from 'node-fetch';
 import { setupServer } from 'msw/node';
-import { handlers } from '../mocks/handlers';
+import { handlers } from './mocks/handlers';
 
 //@ts-ignore
 global.fetch = nodeFetch;

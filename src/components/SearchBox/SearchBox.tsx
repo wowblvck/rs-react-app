@@ -4,7 +4,7 @@ import styles from './SearchBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { setSearchValue } from '../../reducers/search.reducer';
+import { setSearchValue } from '../../store/reducers/search.reducer';
 
 type SearchBoxProps = {
   white?: boolean;

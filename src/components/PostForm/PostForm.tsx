@@ -24,7 +24,7 @@ import PopupModal from '../PopupModal/PopupModal';
 import Button from '../Button/Button';
 import { useAddPlaceMutation } from '../../thunks/places.thunk';
 import { useAppDispatch } from '../../store/store';
-import { setItems } from '../../reducers/formPlaces.reducer';
+import { setItems } from '../../store/reducers/formPlaces.reducer';
 
 const schema = yup.object().shape({
   location: yup

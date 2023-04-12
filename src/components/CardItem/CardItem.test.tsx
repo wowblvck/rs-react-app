@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CardItem from './CardItem';
-import { mockData } from '../../mocks/mockData';
+import { mockData } from '../../tests/mocks/mockData';
 
 describe('CardItem', () => {
   test('renders correctly with provided data', async () => {

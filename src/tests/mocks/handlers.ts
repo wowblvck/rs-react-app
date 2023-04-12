@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { mockData } from './mockData';
-import { URL, URLPath } from '../constants/settings.config';
+import { URL, URLPath } from '../../constants/settings.config';
 
 const handlers = [
   rest.get(`${URL}/${URLPath.Places}`, (req, res, ctx) => {

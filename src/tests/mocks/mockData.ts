@@ -1,4 +1,4 @@
-import { PlacesInfo } from '../interfaces';
+import { PlacesInfo } from '../../interfaces';
 
 export const mockData: PlacesInfo[] = [
   {

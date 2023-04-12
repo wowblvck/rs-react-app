@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { placesApi } from '../thunks/places.thunk';
-import search from '../reducers/search.reducer';
-import formPlaces from '../reducers/formPlaces.reducer';
+import search from './reducers/search.reducer';
+import formPlaces from './reducers/formPlaces.reducer';
 
 const store = configureStore({
   reducer: {

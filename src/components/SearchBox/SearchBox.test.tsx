@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
-import searchReducer, { setSearchValue } from '../../reducers/search.reducer';
+import searchReducer, { setSearchValue } from '../../store/reducers/search.reducer';
 import { Provider } from 'react-redux';
 import SearchBox from './SearchBox';
 import store from '../../store/store';
