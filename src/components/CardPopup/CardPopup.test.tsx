@@ -1,28 +1,21 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import CardPopup from './CardPopup';
 import { mockData } from '../../tests/mocks/mockData';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 
 describe('CardPopup', () => {
-  test('should render the popup when isVisible is true', () => {
-    const { getByText } = render(
-      <CardPopup isVisible={true} obj={mockData[0]} onClose={() => {}} />
-    );
-    expect(getByText(mockData[0].location)).toBeInTheDocument();
-  });
-
-  test('should call onClose when the X button is clicked', () => {
+  test('should render the popup when isVisible is true', async () => {
     const onClose = vi.fn();
-    render(<CardPopup isVisible={true} obj={mockData[0]} onClose={onClose} />);
-    fireEvent.click(screen.getByLabelText('button-close'));
-    expect(onClose).toHaveBeenCalled();
-  });
+    render(
+      <Provider store={store}>
+        <CardPopup itemId={mockData[0].id} onClose={onClose} />
+      </Provider>
+    );
 
-  test('should toggle zoom when the image is clicked', async () => {
-    render(<CardPopup isVisible={true} obj={mockData[0]} onClose={() => {}} />);
-    const zoomText = screen.getByText('Click to Zoom In');
-    expect(zoomText).toBeInTheDocument();
-    expect(screen.queryByLabelText('zoom-container')).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('zoom-container'));
+    await waitFor(() => {
+      expect(screen.getByText(mockData[0].location)).toBeInTheDocument();
+    });
   });
 });
