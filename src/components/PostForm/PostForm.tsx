@@ -25,6 +25,7 @@ import Button from '../Button/Button';
 import { useAddPlaceMutation } from '../../thunks/places.thunk';
 import { useAppDispatch } from '../../store/store';
 import { setItems } from '../../store/reducers/formPlaces.reducer';
+import { CSSTransition } from 'react-transition-group';
 
 const schema = yup.object().shape({
   location: yup
@@ -91,6 +92,7 @@ const PostForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const [addPlace, { isSuccess }] = useAddPlaceMutation();
+  const [showPopup, setShowPopup] = useState(false);
 
   const {
     register,
@@ -102,6 +104,10 @@ const PostForm: React.FC = () => {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
+
+  const handlePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (obj) => {
     const { location, description, category, image, date, author, country } = obj;
@@ -131,6 +137,7 @@ const PostForm: React.FC = () => {
         const result = await addPlace(formData).unwrap();
         reset();
         dispatch(setItems(result));
+        setShowPopup(true);
       } catch (e) {
         console.log(`Failed while add place in database`);
       }
@@ -235,7 +242,19 @@ const PostForm: React.FC = () => {
           </Button>
         </form>
       </div>
-      <PopupModal isVisible={isSuccess}>Post has successfully created</PopupModal>
+      <CSSTransition
+        in={showPopup}
+        timeout={300}
+        classNames={{
+          enter: styles.modalEnter,
+          enterActive: styles.modalEnterActive,
+          exit: styles.modalExit,
+          exitActive: styles.modalExitActive,
+        }}
+        unmountOnExit
+      >
+        <PopupModal onClose={handlePopup}>Post has successfully created</PopupModal>
+      </CSSTransition>
     </section>
   );
 };

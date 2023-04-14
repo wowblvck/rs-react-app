@@ -13,6 +13,9 @@ const handlers = [
       return res(ctx.status(200), ctx.json(mockData));
     }
   }),
+  rest.get(`${URL}/${URLPath.Places}/1`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(mockData[0]));
+  }),
 ];
 
 export { handlers };

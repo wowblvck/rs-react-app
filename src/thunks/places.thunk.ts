@@ -17,6 +17,9 @@ export const placesApi = createApi({
             ]
           : [{ type: 'Places', id: 'LIST' }],
     }),
+    getPlace: builder.query<PlacesInfo, number>({
+      query: (id) => `${URLPath.Places}/${id}`,
+    }),
     addPlace: builder.mutation<PlacesInfo, PlacesInfoDto>({
       query: (place) => ({
         url: URLPath.Places,
@@ -31,4 +34,4 @@ export const placesApi = createApi({
   }),
 });
 
-export const { useGetPlacesQuery, useAddPlaceMutation } = placesApi;
+export const { useGetPlacesQuery, useGetPlaceQuery, useAddPlaceMutation } = placesApi;

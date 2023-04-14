@@ -15,7 +15,7 @@ const PostContent: React.FC = () => {
         <div className={styles.container}>
           <ul className={styles.cardsList}>
             {items.map((item: PlacesInfo) => (
-              <CardItem key={item.id} obj={item} isLoading={true} />
+              <CardItem key={item.id} obj={item} />
             ))}
           </ul>
         </div>

@@ -21,7 +21,7 @@ const HomeContent: React.FC = () => {
 
   const places = isFetching
     ? skeletons
-    : data.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} isLoading />);
+    : data.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} />);
 
   const handleRefresh = () => refetch();
 

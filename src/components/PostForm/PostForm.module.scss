@@ -52,3 +52,21 @@
   margin-top: 45px;
   @include mix.font('Rubik', 20px, 300);
 }
+
+.modalEnter {
+  opacity: 0;
+}
+
+.modalEnterActive {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.modalExit {
+  opacity: 1;
+}
+
+.modalExitActive {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
