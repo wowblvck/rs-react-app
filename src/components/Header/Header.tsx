@@ -7,7 +7,8 @@ import styles from './Header.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
 import SearchBox from '../SearchBox/SearchBox';
 
-import routes from '../../routes/routes';
+import { routes } from '../../App';
+
 import Button from '../Button/Button';
 
 const Header: React.FC = () => {
@@ -17,7 +18,7 @@ const Header: React.FC = () => {
 
   const currentRoute = routes.find((route) => matchPath(location.pathname, route.path));
 
-  const links = Object.values(routes).filter((route) => route.inNav);
+  const links = Object.values(routes).filter((route) => route.nav);
 
   useEffect(() => {
     setIsOpen(false);
@@ -55,7 +56,7 @@ const Header: React.FC = () => {
       </Link>
       <SearchBox minimize />
       <h2 className={classNames(styles.pageName, effects.boxShadow)}>
-        {currentRoute ? currentRoute.title : '404'}
+        {currentRoute ? currentRoute.name : '404'}
       </h2>
       <nav className={styles.nav} ref={navRef}>
         <button
@@ -75,7 +76,7 @@ const Header: React.FC = () => {
           })}
         >
           {links.map((link, index) => (
-            <li key={`${link.key}-${index}`}>
+            <li key={`${link.name}-${index}`}>
               <NavLink
                 to={link.path}
                 end
@@ -85,7 +86,7 @@ const Header: React.FC = () => {
                     : `${styles.nav__link} ${effects.linkHover}`
                 }
               >
-                {link.title}
+                {link.name}
               </NavLink>
             </li>
           ))}

@@ -6,8 +6,8 @@ describe('formPlacesSlice', () => {
     const initialState = {
       items: [],
     };
-    const action = setItems(mockData);
+    const action = setItems(mockData[0]);
     const state = formPlacesReducer(initialState, action);
-    expect(state.items).toEqual([mockData]);
+    expect(state.items).toEqual([mockData[0]]);
   });
 });
