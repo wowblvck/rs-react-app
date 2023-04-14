@@ -1,8 +1,11 @@
+import React from 'react';
+
 type RoutesProp = {
-  key: string;
   path: string;
-  title: string;
-  inNav?: boolean;
+  name: string;
+  element: React.ReactNode;
+  nodeRef: React.RefObject<HTMLElement>;
+  nav?: boolean;
 };
 
 export default RoutesProp;
