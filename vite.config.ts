@@ -8,15 +8,8 @@ import { DEFAULT_OPTIONS } from './imageOptimization.config';
 import { defineConfig } from 'vite';
 import { configDefaults } from 'vitest/config';
 
-import autoprefixer = require('autoprefixer');
-
 export default defineConfig({
   plugins: [react(), macrosPlugin(), ViteImageOptimizer(DEFAULT_OPTIONS)],
-  css: {
-    postcss: {
-      plugins: [autoprefixer()],
-    },
-  },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -35,7 +28,6 @@ export default defineConfig({
         'src/tests/*',
         'babel-plugin-macros.config.js',
         'imageOptimization.config.ts',
-        'postcss.config.js',
       ],
     },
   },
