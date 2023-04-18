@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './AboutContent.module.scss';
 import effects from '../../scss/common/Effects.module.scss';
-import randomBg from '../../utils/bgRandomizer';
 import classNames from 'classnames';
 import githubLogo from '../../assets/icons/github_icon.svg';
 import rsLogo from '../../assets/icons/rs-logo.png';
+import background from '../../assets/img/bg.jpg';
 
 const AboutContent: React.FC = () => {
   return (
     <section className={styles.aboutContent} data-testid="about-content">
       <div className={styles.container}>
         <div className={styles.aboutContent__imageWrapper}>
-          <img className={styles.aboutContent__image} src={randomBg()} alt="About image" />
+          <img className={styles.aboutContent__image} src={background} alt="About image" />
         </div>
         <div className={styles.aboutContent__descriptionWrapper}>
           <h3 className={styles.aboutContent__title}>About Us 🫶</h3>

@@ -3,7 +3,9 @@ import { render, screen } from '@testing-library/react';
 import RootLayout from './RootLayout';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../store/store';
+import configureAppStore from '../store/store';
+
+const store = configureAppStore();
 
 describe('RootLayout', () => {
   test('renders the Header and Outlet components', () => {

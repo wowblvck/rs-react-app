@@ -3,7 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import CardPopup from './CardPopup';
 import { mockData } from '../../tests/mocks/mockData';
 import { Provider } from 'react-redux';
-import store from '../../store/store';
+import configureAppStore from '../../store/store';
+
+const store = configureAppStore();
 
 describe('CardPopup', () => {
   test('should render the popup when isVisible is true', async () => {

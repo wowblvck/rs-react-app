@@ -3,7 +3,7 @@ import styles from './RootLayout.module.scss';
 import Header from '../components/Header/Header';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import { routes } from '../App';
+import { routes } from '../routes/routes';
 
 const RootLayout: React.FC = () => {
   const location = useLocation();

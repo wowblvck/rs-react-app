@@ -3,8 +3,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import CardItem from './CardItem';
 import { mockData } from '../../tests/mocks/mockData';
 import { Provider } from 'react-redux';
-import store from '../../store/store';
 import CardPopup from '../CardPopup/CardPopup';
+import configureAppStore from '../../store/store';
+
+const store = configureAppStore();
 
 describe('CardItem', () => {
   test('renders correctly with provided data', async () => {

@@ -2,7 +2,7 @@ name: Tests (React-API)
 
 on:
   push:
-    branches: [ "react-redux" ]
+    branches: [ "react-ssr" ]
 
 jobs:
   build:

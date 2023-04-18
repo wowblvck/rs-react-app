@@ -2,10 +2,12 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import PostForm from './PostForm';
 import { Provider } from 'react-redux';
-import store from '../../store/store';
 import { mockData } from '../../tests/mocks/mockData';
+import configureAppStore from '../../store/store';
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
+
+const store = configureAppStore();
 
 describe('PostForm', () => {
   window.URL.createObjectURL = vi.fn();

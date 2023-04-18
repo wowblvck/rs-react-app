@@ -3,7 +3,9 @@ import { render, screen } from '@testing-library/react';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../../store/store';
+import configureAppStore from '../../store/store';
+
+const store = configureAppStore();
 
 describe('Header', () => {
   beforeEach(() => {

@@ -2,10 +2,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import HomeContent from './HomeContent';
 import { Provider } from 'react-redux';
-import store from '../../store/store';
 import { mswServer } from '../../tests/setupTests';
 import { rest } from 'msw';
 import { URL, URLPath } from '../../constants/settings.config';
+import configureAppStore from '../../store/store';
+
+const store = configureAppStore();
 
 describe('HomeContent', () => {
   test('renders an error message and a "Try again" button if there is an error fetching data', async () => {

@@ -1,45 +1,61 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { resolve } from 'path';
 import express from 'express';
-import { createServer as createViteServer } from 'vite';
-import app from './src/App';
+import { createServer as createViteServer, ViteDevServer } from 'vite';
+import serveStatic from 'serve-static';
+import * as dotenv from 'dotenv';
+import { DIRS } from './appConfig.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config();
 
-async function createServer() {
+const PORT = process.env.PORT || 5173;
+const isProd = process.env.NODE_ENV === 'production';
+
+let vite: ViteDevServer | undefined;
+
+const createServer = async () => {
   const app = express();
 
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: 'custom',
-  });
-
-  app.use(vite.middlewares);
+  if (!isProd) {
+    vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'custom',
+    });
+    app.use(vite.middlewares);
+  } else {
+    app.use(
+      serveStatic(DIRS.OUTPUT_CLIENT, {
+        index: false,
+      })
+    );
+  }
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
-
+    let renderApp;
     try {
-      let template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
+      if (!isProd) {
+        renderApp = (await vite!.ssrLoadModule('./src/entry-server.tsx')).renderApp;
+      } else {
+        renderApp = (await import(resolve(`${DIRS.OUTPUT_SERVER}/entry-server.js`))).renderApp;
+      }
 
-      template = await vite.transformIndexHtml(url, template);
-
-      const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
-
-      const appHtml = await render(url);
-
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      await renderApp(url, res);
     } catch (e) {
-      vite.ssrFixStacktrace(e as Error);
-      next(e);
+      if (!isProd) {
+        vite!.ssrFixStacktrace(e as Error);
+        next(e);
+      } else {
+        console.log((e as Error).stack);
+        res.status(500).end((e as Error).stack);
+      }
     }
   });
 
-  app.listen(5175);
-  console.log('http://localhost:5175');
-}
+  return { app, vite };
+};
 
-createServer();
+createServer().then(({ app }) => {
+  app.listen(PORT, () => {
+    console.log(`Server running in localhost on port ${PORT}\nhttp://localhost:${PORT}`);
+  });
+});

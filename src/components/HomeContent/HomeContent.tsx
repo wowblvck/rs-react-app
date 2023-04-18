@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './HomeContent.module.scss';
-import CardItem from '../CardItem/CardItem';
 import Button from '../Button/Button';
-import SkeletonPlaces from '../SkeletonLoader/SkeletonLoader';
 import { PlacesInfo } from '../../interfaces';
 import { useGetPlacesQuery } from '../../thunks/places.thunk';
-import { ITEMS_PER_PAGE } from '../../constants/settings.config';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '../../store/store';
+import { ITEMS_PER_PAGE } from '../../constants/settings.config';
+import SkeletonPlaces from '../SkeletonLoader/SkeletonLoader';
+import CardItem from '../CardItem/CardItem';
 
 const HomeContent: React.FC = () => {
   const searchValue = useAppSelector((state) => state.search.searchValue);
-  const { data = [], isFetching, isError, refetch } = useGetPlacesQuery(searchValue);
+  const [inputValue, setInputValue] = useState('');
+  const { data = [], isFetching, isError, refetch } = useGetPlacesQuery(inputValue);
+
+  useEffect(() => {
+    setInputValue(searchValue);
+  }, [searchValue]);
 
   const skeletons = [...new Array(ITEMS_PER_PAGE)].map((_, index) => (
     <SkeletonPlaces key={index} />
   ));
 
-  const places = isFetching
-    ? skeletons
-    : data.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} />);
+  const places = data.map((item: PlacesInfo) => <CardItem key={item.id} obj={item} />);
 
   const handleRefresh = () => refetch();
 
@@ -50,7 +53,7 @@ const HomeContent: React.FC = () => {
             ) : (
               <>
                 <h3 className={styles.homeContent__title}>Find your place</h3>
-                <ul className={styles.cardsList}>{places}</ul>
+                <ul className={styles.cardsList}>{isFetching ? skeletons : places}</ul>
               </>
             )}
           </>

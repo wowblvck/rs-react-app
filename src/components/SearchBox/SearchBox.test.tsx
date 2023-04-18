@@ -4,7 +4,9 @@ import { fireEvent } from '@testing-library/react';
 import searchReducer, { setSearchValue } from '../../store/reducers/search.reducer';
 import { Provider } from 'react-redux';
 import SearchBox from './SearchBox';
-import store from '../../store/store';
+import configureAppStore from '../../store/store';
+
+const store = configureAppStore();
 
 describe('SearchBox', () => {
   test('updates the search value when the form is submitted', () => {
