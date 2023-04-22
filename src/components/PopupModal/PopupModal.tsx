@@ -29,8 +29,8 @@ const PopupModal: React.FC<PopupModalProps> = ({ children, onClose }) => {
   }, [onClose]);
 
   return createPortal(
-    <div ref={containerRef} className={styles.container}>
-      <button className={styles.xmark} onClick={onClose}>
+    <div ref={containerRef} className={styles.container} aria-label="form-modal">
+      <button className={styles.xmark} onClick={onClose} aria-label="form-modal-close">
         <FontAwesomeIcon
           icon={faXmark}
           className={styles.xmark__icon}

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 const ErrorPage: React.FC = () => {
   return (
-    <section className={styles.errorPage}>
+    <section className={styles.errorPage} data-testid="error-page">
       <div className={styles.errorPage__content}>
         <img className={styles.errorPage__image} src={errorImage} alt="Error Image" />
         <p className={styles.errorPage__title}>Whoops!</p>

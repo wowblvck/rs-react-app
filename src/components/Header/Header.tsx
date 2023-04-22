@@ -76,7 +76,7 @@ const Header: React.FC = () => {
           })}
         >
           {links.map((link, index) => (
-            <li key={`${link.name}-${index}`}>
+            <li key={`${link.name}-${index}`} aria-label="nav-item">
               <NavLink
                 to={link.path}
                 end

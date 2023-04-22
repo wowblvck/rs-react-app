@@ -18,7 +18,7 @@ import {
 
 import { PlacesInfoDto } from '../../interfaces';
 import { FormValues } from '../../types/';
-import { uploadImage } from '../../thunks';
+import uploadImage from '../../thunks/image.thunk';
 
 import PopupModal from '../PopupModal/PopupModal';
 import Button from '../Button/Button';

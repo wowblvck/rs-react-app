@@ -21,7 +21,7 @@ export const DEFAULT_OPTIONS = {
           convertPathData: false,
         },
       },
-      'sortAttrs',
+      { name: 'sortAttrs' },
       {
         name: 'addAttributesToSVGElement',
         params: {

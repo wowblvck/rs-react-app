@@ -9,6 +9,7 @@ import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import { configDefaults } from 'vitest/config';
 import { resolve } from 'path';
 import { DIRS } from './appConfig';
+import istanbul from 'vite-plugin-istanbul';
 
 export default defineConfig({
   plugins: [
@@ -16,37 +17,37 @@ export default defineConfig({
     macrosPlugin(),
     ViteImageOptimizer(DEFAULT_OPTIONS),
     splitVendorChunkPlugin(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
   ],
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/tests/setupTests.ts',
+    setupFiles: 'src/tests/setupTests.ts',
     coverage: {
-      provider: 'c8',
       all: true,
+      provider: 'c8',
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
+      reportsDirectory: 'coverage/unit',
       exclude: [
         ...configDefaults.exclude,
-        '**/server.ts',
-        '**/entry-client.tsx',
-        '**/entry-server.tsx',
-        '**/*.d.ts',
-        'src/types/*',
-        'src/interfaces/*',
-        'src/constants/*',
-        'src/thunks/*',
+        'src/server.ts',
+        'src/entry-client.tsx',
+        'src/entry-server.tsx',
+        'src/*.d.ts',
+        'src/types/**/*',
+        'src/interfaces/**/*',
+        'src/constants/**/*',
+        'src/thunks/**/*',
         'src/tests/*',
-        'babel-plugin-macros.config.js',
-        'imageOptimization.config.js',
-        '**/vite.server.config.ts',
-        '**/appConfig.ts',
       ],
     },
   },
-  server: {
-    origin: 'http://127.0.0.1:5173',
-  },
   build: {
     outDir: DIRS.OUTPUT_CLIENT,
+    sourcemap: true,
     rollupOptions: {
       input: resolve('./src/entry-client.tsx'),
       output: {

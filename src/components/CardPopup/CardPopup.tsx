@@ -46,7 +46,7 @@ const CardPopup: React.FC<CardPopupProps> = ({ itemId, onClose }) => {
     <div className={styles.popupOverlay} onClick={handleOutside}>
       {isLoading && <span className={styles.loader}></span>}
       {!isFetching && data && (
-        <div className={styles.popupContainer}>
+        <div className={styles.popupContainer} data-testid="card-popup">
           <button className={styles.xmark} onClick={onClose} aria-label="button-close">
             <FontAwesomeIcon
               icon={faXmark}
@@ -60,11 +60,13 @@ const CardPopup: React.FC<CardPopupProps> = ({ itemId, onClose }) => {
           </div>
           <hr className={styles.popupHeader__line} />
           <div
+            data-testid="card-image-container"
             className={classNames(styles.imageContainer, {
               [styles.imageContainer_zoom]: zoom,
             })}
           >
             <img
+              aria-label="card-image"
               src={data.image}
               alt={`${data.location} Image`}
               className={classNames(styles.imageContainer__image, {

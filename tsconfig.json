@@ -16,9 +16,9 @@
     "noEmit": true,
     "baseUrl": "./src",
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "vite/client"],
+    "types": ["vitest/globals", "vite/client", "cypress-real-events", "cypress"]
   },
-  "include": ["./src/**/*", "styled.d.ts", "./server.ts"],
+  "include": ["./src/**/*", "styled.d.ts", "./server.ts", "__TESTS__"],
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node",

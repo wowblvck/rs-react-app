@@ -1,12 +1,11 @@
-name: Tests (React-API)
+name: Tests
 
 on:
   push:
     branches: [ "react-ssr" ]
 
 jobs:
-  build:
-    environment: tests
+  tests-unit:
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,8 +20,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run test
-    - run: npm run coverage
+    - name: Run Unit Tests
+      run: npm run test
+    - name: Unit Test Coverage
+      run: npm run coverage:unit
     
     outputs:
       status: ${{ job.status }}
