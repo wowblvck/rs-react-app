@@ -5,7 +5,7 @@ on:
     branches: [ "react-ssr" ]
 
 jobs:
-  tests-unit:
+  unit:
     runs-on: ubuntu-latest
 
     strategy:
@@ -13,17 +13,44 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - name: Run Unit Tests
-      run: npm run test
-    - name: Unit Test Coverage
-      run: npm run coverage:unit
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install modules
+        run: npm ci
+      - name: Run Unit Tests
+        run: npm run test
+      - name: Unit Test Coverage
+        run: npm run coverage:unit
     
     outputs:
       status: ${{ job.status }}
+
+  cypress:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install modules
+        run: npm ci
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          build: npm run build
+          start: npm run start
+          wait-on: "http://localhost:5173"

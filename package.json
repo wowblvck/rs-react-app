@@ -29,7 +29,8 @@
     "coverage": "npm run test:e2e && vitest run --coverage",
     "coverage:unit": "vitest run --coverage",
     "coverage:e2e": "npm run test:e2e",
-    "cypress": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
