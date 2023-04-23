@@ -2,6 +2,9 @@
 
 describe('Form component', () => {
   beforeEach(() => {
+    cy.intercept('POST', '**places**').as('postRequest');
+    cy.intercept('POST', '**upload**').as('imageRequest');
+    cy.intercept('GET', '**places**').as('placesRequest');
     cy.visit('/post');
     cy.get('[aria-label="image"]').selectFile('cypress/fixtures/oludeniz.jpeg', { force: true });
     cy.get('[aria-label="location"]').type('Oludeniz Beach').should('have.value', 'Oludeniz Beach');
@@ -21,32 +24,27 @@ describe('Form component', () => {
     cy.get('[aria-label="terms"]').check({ force: true });
     cy.get('[aria-label="consent"]').check({ force: true });
     cy.get('[data-testid="post-form"]').contains('Add Post').click();
-    cy.intercept('POST', 'https://enthusiastic-wasp-jacket.cyclic.app/places/', {
-      statusCode: 200,
-      body: { success: true },
-    }).as('postRequest');
-    cy.wait(1000);
+    cy.wait('@imageRequest');
+    cy.wait('@postRequest');
+    cy.get('[aria-label="form-modal"]').should('exist');
   });
 
   it('should popup modal is visible and post are created', () => {
-    cy.get('[aria-label="form-modal"]').should('exist');
+    cy.wait('@placesRequest');
     cy.get('[data-testid="post-content"]').contains('Posts not created!').should('not.exist');
   });
 
   it('popup modal is closed click on button', () => {
-    cy.get('[aria-label="form-modal"]').should('exist');
     cy.get('[aria-label="form-modal-close"]').click();
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });
 
   it('popup modal is closed after 3 seconds', () => {
-    cy.get('[aria-label="form-modal"]').should('exist');
     cy.wait(3000);
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });
 
   it('popup modal is closed click outside a modal', () => {
-    cy.get('[aria-label="form-modal"]').should('exist');
     cy.get('body').click('topLeft');
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });

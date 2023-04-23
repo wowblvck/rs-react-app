@@ -74,9 +74,10 @@ const Header: React.FC = () => {
           className={classNames(styles.nav__list, {
             [styles.nav__list_active]: isOpen,
           })}
+          aria-label="nav-menu"
         >
           {links.map((link, index) => (
-            <li key={`${link.name}-${index}`} aria-label="nav-item">
+            <li key={`${link.name}-${index}`}>
               <NavLink
                 to={link.path}
                 end

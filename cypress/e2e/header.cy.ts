@@ -15,18 +15,20 @@ describe('header component', () => {
   it('opens and closes the mobile menu', () => {
     cy.viewport('iphone-6');
     cy.get('[aria-label="burger-menu"]').click();
-    cy.get('[aria-label="nav-item"]').should('be.visible');
+    cy.wait(1000);
+    cy.get('[aria-label="nav-menu"]').scrollIntoView().should('be.visible');
 
     cy.get('[aria-label="burger-menu"]').click();
-    cy.get('[aria-label="nav-item"]').should('not.be.visible');
+    cy.get('[aria-label="nav-menu"]').should('not.be.visible');
   });
 
   it('should close if clicked outside a menu', () => {
     cy.viewport('iphone-6');
     cy.get('[aria-label="burger-menu"]').click();
-    cy.get('[aria-label="nav-item"]').should('be.visible');
+    cy.wait(1000);
+    cy.get('[aria-label="nav-menu"]').scrollIntoView().should('be.visible');
 
     cy.get('[data-testid="header"]').click('topLeft');
-    cy.get('[aria-label="nav-item"]').should('not.be.visible');
+    cy.get('[aria-label="nav-menu"]').should('not.be.visible');
   });
 });

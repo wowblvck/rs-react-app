@@ -15,7 +15,7 @@
     "build:server": "tsc && vite build --config vite.server.config.ts --ssr ./src/entry-server.tsx",
     "build:server-mode": "tsc -b tsconfig.node.json",
     "start": "cross-env NODE_ENV=production node dist/server.js",
-    "clean": "rimraf dist && rimraf instrumented && rimraf coverage rimraf .nyc_output",
+    "clean": "rimraf dist && rimraf instrumented && rimraf coverage && rimraf .nyc_output",
     "preview": "vite preview",
     "lint": "npx eslint src && npx eslint __TESTS__",
     "lint:fix": "npm run lint -- --fix",
@@ -24,7 +24,7 @@
     "format": "npm run prettier:fix && npm run lint:fix",
     "test": "vitest",
     "test:prep": "npm run test:clean && npx nyc instrument --compact=false src instrumented",
-    "test:e2e": "npm run test:prep && npx cypress run --e2e && npx nyc report && npx nyc report --reporter=text-summary",
+    "test:e2e": "npm run test:prep && npm run cypress:run && npx nyc report --reporter=text-summary",
     "test:clean": "rimraf coverage && rimraf .nyc_output && rimraf instrumented",
     "coverage": "npm run test:e2e && vitest run --coverage",
     "coverage:unit": "vitest run --coverage",
@@ -105,8 +105,5 @@
     "vite-plugin-image-optimizer": "^1.1.2",
     "vite-plugin-istanbul": "^4.0.1",
     "vitest": "^0.30.1"
-  },
-  "nyc": {
-
   }
 }

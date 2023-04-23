@@ -32,4 +32,4 @@ dist-ssr
 /cypress/downloads
 /cypress/screenshots
 /cypress/videos
-.nyc_output
+/.nyc_output
