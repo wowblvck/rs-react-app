@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ShareOptions.module.scss';
+import styles from '@/components/ShareOptions/ShareOptions.module.scss';
 import classNames from 'classnames';
 
 type ShareOptionsProps = {

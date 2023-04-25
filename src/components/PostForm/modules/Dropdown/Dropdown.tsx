@@ -1,11 +1,11 @@
-import { CountriesInfo } from '../../../../interfaces';
 import React from 'react';
-import styles from './Dropdown.module.scss';
+import styles from '@/components/PostForm/modules/Dropdown/Dropdown.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import FormError from '../../FormError/FormError';
+import { CountriesInfo } from '@/interfaces';
+import FormError from '@/components/PostForm/FormError/FormError';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import { FormValues } from '@/types';
 
 type DropdownProps = {
   name: Path<FormValues>;

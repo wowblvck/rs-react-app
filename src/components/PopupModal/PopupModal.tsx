@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from './PopupModal.module.scss';
+import styles from '@/components/PopupModal/PopupModal.module.scss';
 import { faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { createPortal } from 'react-dom';
 

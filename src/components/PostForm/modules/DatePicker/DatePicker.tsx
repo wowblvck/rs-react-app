@@ -1,11 +1,11 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import { FieldError, Path, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import styles from './DatePicker.module.scss';
-import moment from 'moment';
-import FormError from '../../FormError/FormError';
-import { FieldError, Path, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import styles from '@/components/PostForm/modules/DatePicker/DatePicker.module.scss';
+import FormError from '@/components/PostForm/FormError/FormError';
+import { FormValues } from '@/types';
 
 type DatePickerProps = {
   children?: ReactNode;

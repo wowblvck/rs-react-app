@@ -3,9 +3,9 @@ type TypeToolkitRaw = typeof toolkitRaw & { default?: unknown };
 const { configureStore, combineReducers } = ((toolkitRaw as TypeToolkitRaw).default ??
   toolkitRaw) as typeof toolkitRaw;
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import placesApi from '../thunks/places.thunk';
-import search from './reducers/search.reducer';
-import formPlaces from './reducers/formPlaces.reducer';
+import placesApi from '@/thunks/places.thunk';
+import search from '@/store/reducers/search.reducer';
+import formPlaces from '@/store/reducers/formPlaces.reducer';
 
 const rootReducer = combineReducers({
   search,

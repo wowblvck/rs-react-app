@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, matchPath } from 'react-router-dom';
 import classNames from 'classnames';
 
-import logoIcon from '../../assets/icons/logo-icon.png';
-import styles from './Header.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
-import SearchBox from '../SearchBox/SearchBox';
+import logoIcon from '@/assets/icons/logo-icon.png';
+import styles from '@/components/Header/Header.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import Button from '@/components/Button/Button';
 
-import { routes } from '../../routes/routes';
-
-import Button from '../Button/Button';
+import { routes } from '@/routes/routes';
 
 const Header: React.FC = () => {
   const location = useLocation();

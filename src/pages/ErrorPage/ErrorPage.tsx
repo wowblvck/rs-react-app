@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './ErrorPage.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
-import errorImage from '../../assets/img/error-page-image.svg';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import styles from '@/pages/ErrorPage/ErrorPage.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
+import errorImage from '@/assets/img/error-page-image.svg';
 
 const ErrorPage: React.FC = () => {
   return (

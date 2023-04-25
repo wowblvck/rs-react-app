@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './PostContent.module.scss';
-import { PlacesInfo } from '../../interfaces';
-import CardItem from '../CardItem/CardItem';
-import { useAppSelector } from '../../store/store';
+import styles from '@/components/PostContent/PostContent.module.scss';
+import { PlacesInfo } from '@/interfaces';
+import CardItem from '@/components/CardItem/CardItem';
+import { useAppSelector } from '@/store/store';
 
 const PostContent: React.FC = () => {
   const items = useAppSelector((state) => state.formPlaces.items);

@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HomeContent from '../src/components/HomeContent/HomeContent';
+import HomeContent from '@/components/HomeContent/HomeContent';
 import { Provider } from 'react-redux';
-import { mswServer } from '../src/tests/setupTests';
+import { mswServer } from '@/tests/setupTests';
 import { rest } from 'msw';
-import { URL, URLPath } from '../src/constants/settings.config';
-import configureAppStore from '../src/store/store';
+import { URL, URLPath } from '@/constants/settings.config';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

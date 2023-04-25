@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames';
-import styles from './SearchBox.module.scss';
+import styles from '@/components/SearchBox/SearchBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { setSearchValue } from '../../store/reducers/search.reducer';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { setSearchValue } from '@/store/reducers/search.reducer';
 
 type SearchBoxProps = {
   white?: boolean;

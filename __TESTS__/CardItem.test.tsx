@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import CardItem from '../src/components/CardItem/CardItem';
-import { mockData } from '../src/tests/mocks/mockData';
+import CardItem from '@/components/CardItem/CardItem';
+import { mockData } from '@/tests/mocks/mockData';
 import { Provider } from 'react-redux';
-import CardPopup from '../src/components/CardPopup/CardPopup';
-import configureAppStore from '../src/store/store';
+import CardPopup from '@/components/CardPopup/CardPopup';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

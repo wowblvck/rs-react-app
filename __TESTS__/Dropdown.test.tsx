@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Dropdown } from '../src/components/PostForm/modules';
+import { Dropdown } from '@/components/PostForm/modules';
 import { fireEvent } from '@testing-library/react';
 
-import { countries } from '../src/static/countries';
+import { countries } from '@/static/countries';
 
 const props = {
   register: vi.fn(),

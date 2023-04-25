@@ -1,5 +1,5 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
-import styles from './CardPopup.module.scss';
+import styles from '@/components/CardPopup/CardPopup.module.scss';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,10 +8,10 @@ import {
   faTag,
   faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
-import { getDayBetweenDates } from '../../utils/functions';
-import ShareOptions from '../ShareOptions/ShareOptions';
+import { getDayBetweenDates } from '@/utils/functions';
+import ShareOptions from '@/components/ShareOptions/ShareOptions';
 import { createPortal } from 'react-dom';
-import { useGetPlaceQuery } from '../../thunks/places.thunk';
+import { useGetPlaceQuery } from '@/thunks/places.thunk';
 
 type CardPopupProps = {
   itemId: number;

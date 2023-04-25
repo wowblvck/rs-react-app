@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './FormError.module.scss';
+import styles from '@/components/PostForm/FormError/FormError.module.scss';
 
 type FormErrorProps = {
   children: React.ReactNode;

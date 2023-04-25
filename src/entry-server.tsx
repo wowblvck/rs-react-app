@@ -1,10 +1,10 @@
 import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from '@/App';
 import { StaticRouter } from 'react-router-dom/server';
-import configureAppStore, { RootState } from './store/store';
-import placesApi from './thunks/places.thunk';
+import configureAppStore, { RootState } from '@/store/store';
+import placesApi from '@/thunks/places.thunk';
 import { Response } from 'express';
 
 const isProd = process.env.NODE_ENV === 'production';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { DatePicker } from '../src/components/PostForm/modules';
+import { DatePicker } from '@/components/PostForm/modules';
 import { fireEvent } from '@testing-library/react';
 
 const props = {

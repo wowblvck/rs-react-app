@@ -10,11 +10,11 @@ const createApi = buildCreateApi(
   coreModule(),
   reactHooksModule({ unstable__sideEffectsInRender: true })
 );
-import { URL, URLPath } from '../constants/settings.config';
-import { PlacesInfo, PlacesInfoDto } from '../interfaces';
+import { URL, URLPath } from '@/constants/settings.config';
+import { PlacesInfo, PlacesInfoDto } from '@/interfaces';
 import { REHYDRATE } from 'redux-persist';
 import fetch from 'cross-fetch';
-import '../utils/fetch';
+import '@/utils/fetch';
 
 const placesApi = createApi({
   reducerPath: 'placesApi',

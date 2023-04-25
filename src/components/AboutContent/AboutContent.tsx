@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './AboutContent.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
+import styles from '@/components/AboutContent/AboutContent.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
 import classNames from 'classnames';
-import githubLogo from '../../assets/icons/github_icon.svg';
-import rsLogo from '../../assets/icons/rs-logo.png';
-import background from '../../assets/img/bg.jpg';
+import githubLogo from '@/assets/icons/github_icon.svg';
+import rsLogo from '@/assets/icons/rs-logo.png';
+import background from '@/assets/img/bg.jpg';
 
 const AboutContent: React.FC = () => {
   return (

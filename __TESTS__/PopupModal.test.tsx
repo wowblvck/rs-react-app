@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import PopupModal from '../src/components/PopupModal/PopupModal';
+import PopupModal from '@/components/PopupModal/PopupModal';
 
 describe('PopupModal', () => {
   test('renders correctly when visible', async () => {

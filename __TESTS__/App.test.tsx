@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import HomePage from '../src/pages/HomePage/HomePage';
-import AboutPage from '../src/pages/AboutPage/AboutPage';
-import PostPage from '../src/pages/PostPage/PostPage';
-import ErrorPage from '../src/pages/ErrorPage/ErrorPage';
-import configureAppStore from '../src/store/store';
+import HomePage from '@/pages/HomePage/HomePage';
+import AboutPage from '@/pages/AboutPage/AboutPage';
+import PostPage from '@/pages/PostPage/PostPage';
+import ErrorPage from '@/pages/ErrorPage/ErrorPage';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

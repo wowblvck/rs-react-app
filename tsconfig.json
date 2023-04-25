@@ -14,9 +14,14 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noEmit": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "vite/client", "cypress-real-events", "cypress"]
+    "types": ["vitest/globals", "vite/client", "cypress-real-events", "cypress"],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+    }
   },
   "include": ["./src/**/*", "styled.d.ts", "./server.ts", "__TESTS__"],
   "ts-node": {

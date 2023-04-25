@@ -1,4 +1,4 @@
-import { URL_IMAGE, API_KEY } from '../constants/settings.config';
+import { URL_IMAGE, API_KEY } from '@/constants/settings.config';
 
 const uploadImage = async (file: File) => {
   try {

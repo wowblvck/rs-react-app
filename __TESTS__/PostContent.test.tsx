@@ -1,10 +1,10 @@
 import React from 'react';
 import { act, render, screen } from '@testing-library/react';
-import PostContent from '../src/components/PostContent/PostContent';
+import PostContent from '@/components/PostContent/PostContent';
 import { Provider } from 'react-redux';
-import { setItems } from '../src/store/reducers/formPlaces.reducer';
-import { mockData } from '../src/tests/mocks/mockData';
-import configureAppStore from '../src/store/store';
+import { setItems } from '@/store/reducers/formPlaces.reducer';
+import { mockData } from '@/tests/mocks/mockData';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

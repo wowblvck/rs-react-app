@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import styles from './HomeContent.module.scss';
-import Button from '../Button/Button';
-import { PlacesInfo } from '../../interfaces';
-import { useGetPlacesQuery } from '../../thunks/places.thunk';
+import styles from '@/components/HomeContent/HomeContent.module.scss';
+import Button from '@/components/Button/Button';
+import { PlacesInfo } from '@/interfaces';
+import { useGetPlacesQuery } from '@/thunks/places.thunk';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { useAppSelector } from '../../store/store';
-import { ITEMS_PER_PAGE } from '../../constants/settings.config';
-import SkeletonPlaces from '../SkeletonLoader/SkeletonLoader';
-import CardItem from '../CardItem/CardItem';
+import { useAppSelector } from '@/store/store';
+import { ITEMS_PER_PAGE } from '@/constants/settings.config';
+import SkeletonPlaces from '@/components/SkeletonLoader/SkeletonLoader';
+import CardItem from '@/components/CardItem/CardItem';
 
 const HomeContent: React.FC = () => {
   const searchValue = useAppSelector((state) => state.search.searchValue);

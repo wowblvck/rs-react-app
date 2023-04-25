@@ -1,4 +1,4 @@
-import searchReducer, { setSearchValue } from '../src/store/reducers/search.reducer';
+import searchReducer, { setSearchValue } from '@/store/reducers/search.reducer';
 
 describe('Search reducer', () => {
   test('should set the searchValue', () => {

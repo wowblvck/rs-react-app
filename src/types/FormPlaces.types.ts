@@ -1,4 +1,4 @@
-import { PlacesInfo } from '../interfaces';
+import { PlacesInfo } from '@/interfaces';
 
 type FormPlacesState = {
   items: PlacesInfo[];

@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareOptions from '../src/components/ShareOptions/ShareOptions';
+import ShareOptions from '@/components/ShareOptions/ShareOptions';
 import { render, screen } from '@testing-library/react';
 
 describe('ShareOptions', () => {

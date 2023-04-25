@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import styles from './PostForm.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { countries } from '../../static/countries';
+import styles from '@/components/PostForm/PostForm.module.scss';
+import { countries } from '@/static/countries';
 
 import {
   Dropdown,
@@ -16,15 +16,15 @@ import {
   ProfilePicture,
 } from './modules';
 
-import { PlacesInfoDto } from '../../interfaces';
-import { FormValues } from '../../types/';
-import uploadImage from '../../thunks/image.thunk';
+import { PlacesInfoDto } from '@/interfaces';
+import { FormValues } from '@/types/';
+import uploadImage from '@/thunks/image.thunk';
 
-import PopupModal from '../PopupModal/PopupModal';
-import Button from '../Button/Button';
-import { useAddPlaceMutation } from '../../thunks/places.thunk';
-import { useAppDispatch } from '../../store/store';
-import { setItems } from '../../store/reducers/formPlaces.reducer';
+import PopupModal from '@/components/PopupModal/PopupModal';
+import Button from '@/components/Button/Button';
+import { useAddPlaceMutation } from '@/thunks/places.thunk';
+import { useAppDispatch } from '@/store/store';
+import { setItems } from '@/store/reducers/formPlaces.reducer';
 import { CSSTransition } from 'react-transition-group';
 
 const schema = yup.object().shape({

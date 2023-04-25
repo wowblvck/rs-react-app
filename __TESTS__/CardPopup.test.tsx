@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import CardPopup from '../src/components/CardPopup/CardPopup';
-import { mockData } from '../src/tests/mocks/mockData';
+import CardPopup from '@/components/CardPopup/CardPopup';
+import { mockData } from '@/tests/mocks/mockData';
 import { Provider } from 'react-redux';
-import configureAppStore from '../src/store/store';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

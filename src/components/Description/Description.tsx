@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Description.module.scss';
-import SearchBox from '../SearchBox/SearchBox';
+import styles from '@/components/Description/Description.module.scss';
+import SearchBox from '@/components/SearchBox/SearchBox';
 
 const Description: React.FC = () => {
   return (

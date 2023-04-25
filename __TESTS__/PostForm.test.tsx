@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import PostForm from '../src/components/PostForm/PostForm';
+import PostForm from '@/components/PostForm/PostForm';
 import { Provider } from 'react-redux';
-import { mockData } from '../src/tests/mocks/mockData';
-import configureAppStore from '../src/store/store';
+import { mockData } from '@/tests/mocks/mockData';
+import configureAppStore from '@/store/store';
 
 const categories = ['All', 'Architecture', 'Nature', 'City', 'Art'];
 

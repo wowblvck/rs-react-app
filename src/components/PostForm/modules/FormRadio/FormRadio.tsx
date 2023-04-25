@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './FormRadio.module.scss';
-import FormError from '../../FormError/FormError';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import styles from '@/components/PostForm/modules/FormRadio/FormRadio.module.scss';
+import FormError from '@/components/PostForm/FormError/FormError';
+import { FormValues } from '@/types';
 
 type FormRadioProps = {
   items: Array<string>;

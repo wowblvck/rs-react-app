@@ -1,5 +1,5 @@
-import formPlacesReducer, { setItems } from '../src/store/reducers/formPlaces.reducer';
-import { mockData } from '../src/tests/mocks/mockData';
+import formPlacesReducer, { setItems } from '@/store/reducers/formPlaces.reducer';
+import { mockData } from '@/tests/mocks/mockData';
 
 describe('formPlacesSlice', () => {
   test('should add an item to the list', () => {

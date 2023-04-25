@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Description from '../src/components/Description/Description';
+import Description from '@/components/Description/Description';
 import { Provider } from 'react-redux';
-import configureAppStore from '../src/store/store';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

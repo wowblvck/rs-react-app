@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ImageUpload.module.scss';
+import styles from '@/components/PostForm/modules/ImageUpload/ImageUpload.module.scss';
 import classNames from 'classnames';
-import effects from '../../../../scss/common/Effects.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 import { UseFormRegister, Path, FieldError, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import { FormValues } from '@/types';
 
 type ImageUploadProps = {
   register: UseFormRegister<FormValues>;

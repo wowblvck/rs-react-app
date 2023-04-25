@@ -1,4 +1,4 @@
-import { getDayBetweenDates } from '../src/utils/functions';
+import { getDayBetweenDates } from '@/utils/functions';
 import moment from 'moment';
 
 describe('getDayBetweenDates', () => {

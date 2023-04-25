@@ -5,7 +5,10 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { DIRS } from './appConfig';
 
+import baseConfig from './vite.config';
+
 export default defineConfig({
+  ...baseConfig,
   build: {
     outDir: DIRS.OUTPUT_SERVER,
     rollupOptions: {

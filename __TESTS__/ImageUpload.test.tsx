@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { ImageUpload } from '../src/components/PostForm/modules';
+import { ImageUpload } from '@/components/PostForm/modules';
 
 const props = {
   register: vi.fn(),

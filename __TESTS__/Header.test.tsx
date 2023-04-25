@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Header from '../src/components/Header/Header';
+import Header from '@/components/Header/Header';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureAppStore from '../src/store/store';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

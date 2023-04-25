@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { CheckboxForm } from '../src/components/PostForm/modules';
+import { CheckboxForm } from '@/components/PostForm/modules';
 import { FieldError } from 'react-hook-form';
 import React from 'react';
 

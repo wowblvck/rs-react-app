@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import styles from './FormText.module.scss';
-import classNames from 'classnames';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import FormError from '../../FormError/FormError';
-import { FormValues } from '../../../../types';
+import classNames from 'classnames';
+import styles from '@/components/PostForm/modules/FormText/FormText.module.scss';
+import FormError from '@/components/PostForm/FormError/FormError';
+import { FormValues } from '@/types';
 
 type FormTextProps = {
   name: Path<FormValues>;

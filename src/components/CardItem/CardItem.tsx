@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import styles from './CardItem.module.scss';
-import effects from '../../scss/common/Effects.module.scss';
-import { PlacesInfo } from '../../interfaces';
-import { getDayBetweenDates } from '../../utils/functions';
+import styles from '@/components/CardItem/CardItem.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
+import { PlacesInfo } from '@/interfaces';
+import { getDayBetweenDates } from '@/utils/functions';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
-import CardPopup from '../CardPopup/CardPopup';
-import ShareOptions from '../ShareOptions/ShareOptions';
+import CardPopup from '@/components/CardPopup/CardPopup';
+import ShareOptions from '@/components/ShareOptions/ShareOptions';
 
 type CardItemProps = {
   obj: PlacesInfo;

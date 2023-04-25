@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import RootLayout from '../src/layouts/RootLayout';
+import RootLayout from '@/layouts/RootLayout';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureAppStore from '../src/store/store';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

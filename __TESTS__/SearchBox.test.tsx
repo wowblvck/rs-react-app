@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
-import searchReducer, { setSearchValue } from '../src/store/reducers/search.reducer';
+import searchReducer, { setSearchValue } from '@/store/reducers/search.reducer';
 import { Provider } from 'react-redux';
-import SearchBox from '../src/components/SearchBox/SearchBox';
-import configureAppStore from '../src/store/store';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import configureAppStore from '@/store/store';
 
 const store = configureAppStore();
 

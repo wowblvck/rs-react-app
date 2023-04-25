@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './Checkbox.module.scss';
-import FormError from '../../FormError/FormError';
+import styles from '@/components/PostForm/modules/Checkbox/Checkbox.module.scss';
+import FormError from '@/components/PostForm/FormError/FormError';
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import { FormValues } from '@/types';
 
 type CheckboxProps = {
   name: Path<FormValues>;

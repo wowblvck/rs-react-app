@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ProfilePicture.module.scss';
-import effects from '../../../../scss/common/Effects.module.scss';
 import classNames from 'classnames';
 import { FieldError, Path, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { FormValues } from '../../../../types';
+import styles from '@/components/PostForm/modules/ProfilePicture/ProfilePicture.module.scss';
+import effects from '@/scss/common/Effects.module.scss';
+import { FormValues } from '@/types';
 
 type ProfilePictureProps = {
   register: UseFormRegister<FormValues>;

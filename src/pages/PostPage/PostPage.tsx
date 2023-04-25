@@ -1,6 +1,6 @@
-import PostForm from '../../components/PostForm/PostForm';
-import PostContent from '../../components/PostContent/PostContent';
 import React from 'react';
+import PostForm from '@/components/PostForm/PostForm';
+import PostContent from '@/components/PostContent/PostContent';
 
 const PostPage: React.FC = () => {
   return (
