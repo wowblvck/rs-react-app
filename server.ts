@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import express from 'express';
 import { createServer as createViteServer, ViteDevServer } from 'vite';
 import serveStatic from 'serve-static';
@@ -32,11 +31,12 @@ const createServer = async () => {
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let renderApp;
+    const serverPath = `./server/entry-server.js`;
     try {
       if (!isProd) {
         renderApp = (await vite!.ssrLoadModule('./src/entry-server.tsx')).renderApp;
       } else {
-        renderApp = (await import(resolve(`${DIRS.OUTPUT_SERVER}/entry-server.js`))).renderApp;
+        renderApp = (await import(serverPath)).renderApp;
       }
 
       await renderApp(url, res);
