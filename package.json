@@ -78,7 +78,7 @@
     "@vitest/coverage-istanbul": "^0.30.1",
     "babel-plugin-istanbul": "^6.1.1",
     "cross-env": "^7.0.3",
-    "cypress": "^12.10.0",
+    "cypress": "^12.11.0",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",

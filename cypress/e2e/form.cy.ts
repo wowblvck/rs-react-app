@@ -7,7 +7,9 @@ describe('Form component', () => {
     cy.intercept('GET', '**places**').as('placesRequest');
     cy.visit('/post');
     cy.get('[aria-label="image"]').selectFile('cypress/fixtures/oludeniz.jpeg', { force: true });
-    cy.get('[aria-label="location"]').type('Oludeniz Beach').should('have.value', 'Oludeniz Beach');
+    cy.get('[aria-label="location"]')
+      .type('Oludeniz Beach', { force: true })
+      .should('have.value', 'Oludeniz Beach');
     cy.get('[aria-label="description"]')
       .type('The best beach in Fethiye')
       .should('have.value', 'The best beach in Fethiye');
@@ -23,28 +25,39 @@ describe('Form component', () => {
     cy.get('[aria-label="author.lastName"]').type('Basto').should('have.value', 'Basto');
     cy.get('[aria-label="terms"]').check({ force: true });
     cy.get('[aria-label="consent"]').check({ force: true });
-    cy.get('[data-testid="post-form"]').contains('Add Post').click();
-    cy.wait('@imageRequest');
-    cy.wait('@postRequest');
-    cy.get('[aria-label="form-modal"]').should('exist');
   });
 
   it('should popup modal is visible and post are created', () => {
-    cy.wait('@placesRequest');
-    cy.get('[data-testid="post-content"]').contains('Posts not created!').should('not.exist');
+    cy.get('[data-testid="post-form"]').contains('Add Post').click();
+    cy.wait('@imageRequest', { timeout: 10000 });
+    cy.wait('@placesRequest', { timeout: 10000 });
+    cy.wait(1000);
+    cy.get('[data-testid="card-item"]').should('be.visible');
   });
 
   it('popup modal is closed click on button', () => {
-    cy.get('[aria-label="form-modal-close"]').click();
+    cy.get('[data-testid="post-form"]').contains('Add Post').click();
+    cy.wait('@imageRequest', { timeout: 10000 });
+    cy.wait('@placesRequest', { timeout: 10000 });
+    cy.get('[aria-label="form-modal"]', { timeout: 10000 }).should('be.visible');
+    cy.get('[aria-label="form-modal-close"]').should('be.visible').click();
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });
 
   it('popup modal is closed after 3 seconds', () => {
-    cy.wait(3000);
+    cy.get('[data-testid="post-form"]').contains('Add Post').click();
+    cy.wait('@imageRequest', { timeout: 10000 });
+    cy.wait('@placesRequest', { timeout: 10000 });
+    cy.get('[aria-label="form-modal"]', { timeout: 10000 }).should('be.visible');
+    cy.wait(3005);
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });
 
   it('popup modal is closed click outside a modal', () => {
+    cy.get('[data-testid="post-form"]').contains('Add Post').click();
+    cy.wait('@imageRequest', { timeout: 10000 });
+    cy.wait('@placesRequest', { timeout: 10000 });
+    cy.get('[aria-label="form-modal"]', { timeout: 10000 }).should('exist').and('be.visible');
     cy.get('body').click('topLeft');
     cy.get('[aria-label="form-modal"]').should('not.exist');
   });

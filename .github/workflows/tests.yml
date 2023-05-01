@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ "react-ssr" ]
+    branches: ['react-ssr']
 
 jobs:
   unit:
@@ -26,6 +26,34 @@ jobs:
         run: npm run test
       - name: Unit Test Coverage
         run: npm run coverage:unit
-    
+
+    outputs:
+      status: ${{ job.status }}
+
+  e2e:
+    runs-on: ubuntu-latest
+    environment: tests
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install modules
+        run: npm ci
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run dev
+          wait-on: 'http://localhost:5173'
+          browser: chrome
+
     outputs:
       status: ${{ job.status }}
