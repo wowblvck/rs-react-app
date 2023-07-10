@@ -1,4 +1,4 @@
-<h1 align="center">Rolling Scopes School React Course Task</h1>
+<h1 align="center">Beautiful Places</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg?cacheSeconds=2592000" />
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D%2018.16-brightgreen" />
