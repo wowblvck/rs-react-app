@@ -28,7 +28,7 @@ class Description extends React.Component<object, DescriptionState> {
     } as React.CSSProperties;
 
     return (
-      <section className={styles.description} style={bgImage} data-testid="description">
+      <section className={styles.description} style={bgImage}>
         <div className={styles.descriptionContent}>
           <h2 className={styles.descriptionContent__title}>Beautiful Places</h2>
           <p className={styles.descriptionContent__subtitle}>

@@ -32,7 +32,7 @@ class Header extends React.Component<WithRouterProps> {
     const currentPageName = this.getPageName();
 
     return (
-      <header className={styles.header} data-testid="header">
+      <header className={styles.header}>
         <Link to="/">
           <div className={styles.logo}>
             <img className={styles.logo__img} alt="Logo" src={logoIcon} />
