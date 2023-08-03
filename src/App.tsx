@@ -4,7 +4,7 @@ import './scss/app.scss';
 
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
+import ErrorPage from './pages/ErrorPage';
 import AboutPage from './pages/AboutPage';
 
 class App extends React.Component {
