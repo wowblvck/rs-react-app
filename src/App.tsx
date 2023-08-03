@@ -7,13 +7,6 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import AboutPage from './pages/AboutPage';
 import RootLayout from './layouts/RootLayout';
 
-export const bgGallery = Object.values(
-  import.meta.glob('./assets/img/backgrounds/*.{png,jpg,jpeg,PNG,JPEG}', {
-    eager: true,
-    as: 'url',
-  })
-);
-
 export const routesArray = [
   {
     path: '/',
