@@ -98,16 +98,16 @@
   }
 
   &__userImage {
-    width: 35px;
-    height: 35px;
+    width: 28px;
+    height: 28px;
     border-radius: 100%;
     object-fit: cover;
   }
 
   &__userName {
-    margin: 3px 0 0;
+    margin: 0;
     @include mix.font('Overpass', 14px, 800);
-    line-height: 105%;
+    line-height: 0;
   }
 
   &__options {
