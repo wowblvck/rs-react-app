@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './CardItem.module.scss';
 import { PlacesInfo } from '../../interfaces/Places.interface';
 
-type CardItemProps = {
+interface CardItemProps {
   obj: PlacesInfo;
-};
+}
 
 class CardItem extends React.Component<CardItemProps> {
   getDayBetweenDates = (date: string) => {
