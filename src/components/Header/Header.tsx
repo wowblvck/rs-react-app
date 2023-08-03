@@ -4,28 +4,15 @@ import logoIcon from '../../assets/icons/logo-icon.png';
 import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import SearchBox from '../SearchBox/SearchBox';
-import { routesArray } from '../../App';
+import { routes } from '../../App';
 
 import { withRouter, WithRouterProps } from '../../utils/withRouter';
 
 class Header extends React.Component<WithRouterProps> {
   getPageName = () => {
-    const { pathname } = this.props.location;
-
-    const matchingRoute = routesArray
-      .flatMap((route) => route.children)
-      .find((childRoute) => {
-        if (childRoute.path === pathname.substring(1)) {
-          return true;
-        } else if (!childRoute.hasOwnProperty('path') && pathname === '/') {
-          return true;
-        } else if (childRoute.path === '*') {
-          return true;
-        }
-        return false;
-      });
-
-    return matchingRoute?.name;
+    const path = Object.values(routes).find(({ path }) => path === this.props.location.pathname);
+    if (typeof path === 'undefined') return routes.error.name;
+    return path.name;
   };
   render() {
     const currentPageName = this.getPageName();
