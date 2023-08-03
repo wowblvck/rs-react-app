@@ -7,7 +7,7 @@ type DescriptionState = {
   image: string;
 };
 
-class Description extends React.Component<object, DescriptionState> {
+class Description extends React.Component<never, DescriptionState> {
   state = {
     image: '',
   };
