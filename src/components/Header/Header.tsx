@@ -4,19 +4,9 @@ import logoIcon from '../../assets/icons/logo-icon.png';
 import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import SearchBox from '../SearchBox/SearchBox';
-import { routes } from '../../App';
 
-import { withRouter, WithRouterProps } from '../../utils/withRouter';
-
-class Header extends React.Component<WithRouterProps> {
-  getPageName = () => {
-    const path = Object.values(routes).find(({ path }) => path === this.props.location.pathname);
-    if (typeof path === 'undefined') return routes.error.name;
-    return path.name;
-  };
+class Header extends React.Component {
   render() {
-    const currentPageName = this.getPageName();
-
     return (
       <header className={styles.header}>
         <Link to="/">
@@ -30,7 +20,6 @@ class Header extends React.Component<WithRouterProps> {
           </div>
         </Link>
         <SearchBox minimize />
-        <h2 className={styles.pageName}>{currentPageName}</h2>
         <nav className={styles.nav}>
           <ul className={styles.nav__list}>
             <li>
@@ -62,4 +51,4 @@ class Header extends React.Component<WithRouterProps> {
   }
 }
 
-export default withRouter(Header);
+export default Header;
