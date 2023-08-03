@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "npx eslint src",
     "lint:fix": "npm run lint -- --fix",
@@ -15,8 +15,6 @@
     "format": "npm run prettier:fix && npm run lint:fix"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.3.0",
-    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
