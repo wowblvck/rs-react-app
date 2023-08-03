@@ -8,9 +8,12 @@ interface HomeContentState {
 }
 
 class HomeContent extends React.Component<object, HomeContentState> {
-  state = {
-    items: [],
-  };
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
   componentDidMount = async () => {
     const data = await this.fetchPlaces();
     this.setState({ items: data });
