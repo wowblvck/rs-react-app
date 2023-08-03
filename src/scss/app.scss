@@ -1,6 +1,7 @@
 @import 'normalize.css';
 @import 'variables';
 @import 'fonts.scss';
+@import './components';
 
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
@@ -10,6 +11,12 @@ body {
   background-color: $bg-color;
 }
 
-a {
-  text-decoration: none;
+#root {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
 }
