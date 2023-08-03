@@ -1,6 +1,0 @@
-{
-  "*.(ts|tsx)": [
-    "npm run prettier -- --write",
-    "npm run lint -- --fix"
-  ]
-}
