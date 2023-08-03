@@ -43,7 +43,6 @@ class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     const { white, minimize, className } = this.props;
     return (
       <div
-        aria-label="Search"
         className={classNames(styles.searchBar, className, {
           [styles.searchBar_minimize]: minimize,
         })}

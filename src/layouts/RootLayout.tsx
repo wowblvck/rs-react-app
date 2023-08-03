@@ -7,7 +7,7 @@ class RootLayout extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <main data-testid="outlet">
+        <main>
           <Outlet />
         </main>
       </React.Fragment>
