@@ -7,24 +7,6 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import AboutPage from './pages/AboutPage';
 import Header from './components/Header/Header';
 
-export const routes = {
-  home: {
-    path: '/',
-    name: 'Home',
-    element: <HomePage />,
-  },
-  about: {
-    path: '/about',
-    name: 'About',
-    element: <AboutPage />,
-  },
-  error: {
-    path: '*',
-    name: '404',
-    element: <ErrorPage />,
-  },
-};
-
 class App extends React.Component {
   render() {
     return (
@@ -32,9 +14,9 @@ class App extends React.Component {
         <Header />
         <main>
           <Routes>
-            <Route path={routes.home.path} element={routes.home.element} />
-            <Route path={routes.about.path} element={routes.about.element} />
-            <Route path={routes.error.path} element={routes.error.element} />
+            <Route path="" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
       </React.Fragment>
