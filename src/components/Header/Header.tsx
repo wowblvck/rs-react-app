@@ -2,9 +2,8 @@ import React from 'react';
 import logoIcon from '../../assets/icons/logo-icon.png';
 
 import styles from './Header.module.scss';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SearchBox from '../SearchBox/SearchBox';
-
 class Header extends React.Component {
   render() {
     return (
@@ -23,26 +22,14 @@ class Header extends React.Component {
         <nav className={styles.nav}>
           <ul className={styles.nav__list}>
             <li>
-              <NavLink
-                to="/"
-                end
-                className={({ isActive }) =>
-                  isActive ? `${styles.nav__link} ${styles.nav__link_active}` : styles.nav__link
-                }
-              >
+              <Link to="/" className={styles.nav__link}>
                 Home
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/about"
-                end
-                className={({ isActive }) =>
-                  isActive ? `${styles.nav__link} ${styles.nav__link_active}` : styles.nav__link
-                }
-              >
+              <Link to="/about" className={styles.nav__link}>
                 About Us
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </nav>
