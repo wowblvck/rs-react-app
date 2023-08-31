@@ -1,7 +1,7 @@
 import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import matchers from '@testing-library/jest-dom/matchers';
+import * as matchers from '@testing-library/jest-dom/matchers';
 import nodeFetch, { Request, Response } from 'node-fetch';
 import { setupServer } from 'msw/node';
 import { handlers } from './mocks/handlers';

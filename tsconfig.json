@@ -16,11 +16,9 @@
     "noEmit": true,
     "baseUrl": "./",
     "resolveJsonModule": true,
-    "types": ["vitest/globals", "vite/client", "cypress-real-events", "cypress"],
+    "types": ["vitest/globals", "vite/client"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
+      "@/*": ["src/*"]
     }
   },
   "include": ["./src/**/*", "styled.d.ts", "./server.ts", "__TESTS__"],

@@ -1,4 +1,5 @@
 import express from 'express';
+import cors, { CorsOptions } from 'cors';
 import { createServer as createViteServer, ViteDevServer } from 'vite';
 import serveStatic from 'serve-static';
 import * as dotenv from 'dotenv';
@@ -9,10 +10,17 @@ dotenv.config();
 const PORT = process.env.PORT || 5173;
 const isProd = process.env.NODE_ENV === 'production';
 
+const corsOptions: CorsOptions = {
+  origin: '*',
+  credentials: true,
+};
+
 let vite: ViteDevServer | undefined;
 
 const createServer = async () => {
   const app = express();
+
+  app.use(cors(corsOptions));
 
   if (!isProd) {
     vite = await createViteServer({

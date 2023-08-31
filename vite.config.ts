@@ -15,6 +15,7 @@ export default defineConfig({
   plugins: [
     react({ fastRefresh: false }),
     macrosPlugin(),
+    // @ts-ignore
     ViteImageOptimizer(DEFAULT_OPTIONS),
     splitVendorChunkPlugin(),
     istanbul({
@@ -28,7 +29,7 @@ export default defineConfig({
     setupFiles: 'src/tests/setupTests.ts',
     coverage: {
       all: true,
-      provider: 'c8',
+      provider: 'v8',
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       reportsDirectory: 'coverage/unit',
       exclude: [

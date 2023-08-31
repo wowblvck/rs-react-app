@@ -1,8 +1,8 @@
 const URL = 'https://enthusiastic-wasp-jacket.cyclic.app';
 
-const PROXY = 'https://important-crab-cardigan.cyclic.app';
-const URL_IMAGE = `${PROXY}/https://freeimage.host/api/1/upload`;
-const API_KEY = import.meta.env.VITE_API_KEY || '6d207e02198a847aa98d0a2a901485a5';
+// const PROXY = 'https://important-crab-cardigan.cyclic.app';
+const URL_IMAGE = `https://api.imgbb.com/1/upload`;
+const API_KEY = import.meta.env.VITE_API_KEY || '0e41799ffb314b994f5584527cdedf5c';
 
 enum URLPath {
   Places = 'places',

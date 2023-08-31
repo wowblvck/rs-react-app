@@ -4,6 +4,7 @@ export const DEFAULT_OPTIONS = {
   include: undefined,
   includePublic: true,
   logStats: true,
+  ansiColors: true,
   svg: {
     multipass: true,
     plugins: [
@@ -21,7 +22,7 @@ export const DEFAULT_OPTIONS = {
           convertPathData: false,
         },
       },
-      { name: 'sortAttrs' },
+      'sortAttrs',
       {
         name: 'addAttributesToSVGElement',
         params: {
@@ -32,19 +33,19 @@ export const DEFAULT_OPTIONS = {
   },
   png: {
     // https://sharp.pixelplumbing.com/api-output#png
-    quality: 60,
+    quality: 80,
   },
   jpeg: {
     // https://sharp.pixelplumbing.com/api-output#jpeg
-    quality: 60,
+    quality: 80,
   },
   jpg: {
     // https://sharp.pixelplumbing.com/api-output#jpeg
-    quality: 60,
+    quality: 80,
   },
   tiff: {
     // https://sharp.pixelplumbing.com/api-output#tiff
-    quality: 60,
+    quality: 80,
   },
   // gif does not support lossless compression
   // https://sharp.pixelplumbing.com/api-output#gif
@@ -57,4 +58,6 @@ export const DEFAULT_OPTIONS = {
     // https://sharp.pixelplumbing.com/api-output#avif
     lossless: true,
   },
+  cache: false,
+  cacheLocation: undefined,
 };

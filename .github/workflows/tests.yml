@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: ['react-ssr']
+    branches: ['main']
 
 jobs:
   unit:

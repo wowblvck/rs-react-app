@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+//@ts-ignore
 import coverage from '@cypress/code-coverage/task';
 
 export default defineConfig({

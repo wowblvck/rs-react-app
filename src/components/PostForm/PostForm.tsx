@@ -102,6 +102,7 @@ const PostForm: React.FC = () => {
     reset,
   } = useForm<FormValues>({
     mode: 'onChange',
+    //@ts-ignore
     resolver: yupResolver(schema),
   });
 
